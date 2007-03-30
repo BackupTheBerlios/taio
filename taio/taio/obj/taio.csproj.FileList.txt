@@ -1,0 +1,8 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\taio.MainFrm.resources
+obj\Debug\taio.Properties.Resources.resources
+obj\Debug\taio.csproj.GenerateResource.Cache
+bin\Debug\taio.exe
+bin\Debug\taio.pdb
+obj\Debug\taio.exe
+obj\Debug\taio.pdb
