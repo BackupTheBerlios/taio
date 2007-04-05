@@ -55,5 +55,45 @@ namespace taio
                 this.statusStrip1.Refresh();
             }
         }
+
+
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+        
+        }
+
+        private void BrutalAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Algorithms.Algorithm algorithm = new Algorithms.BrutalAlgorithm();
+            if (engine.Rectangles == null)
+            {
+                MessageBox.Show("Brak prostok¹tów wejsciowych");
+                return;
+            }
+        }
+
+        private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
+            if (engine.Rectangles == null)
+            {
+                MessageBox.Show("Brak prostok¹tów wejsciowych");
+                return;
+            }
+            algorithm.Rectangle = engine.Rectangles;
+            algorithm.StartAlgorithm();
+
+        }
+
+        private void FirstAppAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
+            if (engine.Rectangles == null)
+            {
+                MessageBox.Show("Brak prostok¹tów wejsciowych");
+                return;
+            }
+        }
     }
 }

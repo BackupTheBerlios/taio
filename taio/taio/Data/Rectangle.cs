@@ -10,6 +10,12 @@ namespace taio.Data
         /**width and height of rectange*/
         int width, height;
 
+        public Rectangle(int width, int height)
+        {
+            this.width = width;
+            this.height = height;
+        }
+
         public int Width
         {
             get { return width; }

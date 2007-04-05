@@ -10,6 +10,6 @@ namespace taio.Algorithms
         /**finds the solution*/
 
         public override void StartAlgorithm() { }
-
+        
     }
 }

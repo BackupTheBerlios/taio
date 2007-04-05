@@ -17,6 +17,13 @@ namespace taio.Data
         private String[] input;  // tablica z prostokatami wejœciowymi, stringi w formacie „int,int”
         private String[] result; // tablica z gotowymi rozwiazaniami, stringi w formacie „tagm \r\n int,int,int,int \r\n … int,int,int,int \r\n”
 
+        private main engine;
+
+        public DataLoader(main engine)
+        {
+            this.engine = engine; //do listy rectangle z engine wczytane zostana prostokaty
+         }
+       
 
 // wczytuje dane
         public void loadData(String path)
@@ -53,6 +60,8 @@ namespace taio.Data
                     this.result = new string[tab.Count];
                     this.captureToStringTab(this.result, tab);
                     
+                    
+                    this.createRectangles();                   
                 }
                 else
                 {
@@ -71,6 +80,30 @@ namespace taio.Data
                 dest[i] = capt.Value;
                 i++;
             }
+        }
+
+        //tworzy liste prostok¹tow na podstawie tablicy input
+        private void createRectangles()
+        {
+            List<Rectangle> rectangles = new List<Rectangle>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                int w,h;                
+                try
+                {
+                    String[] s = input[i].Split(',');
+                    w = int.Parse(s[0]);
+                    h = int.Parse(s[1]);
+                }
+                catch (Exception e)
+                {
+                    Console.Out.WriteLine("Nieprawidlowy format danych wejsciowych "+e.ToString());
+                    break;
+                }
+                Rectangle rect = new Data.Rectangle(w,h);               
+                rectangles.Add(rect);              
+            }
+            engine.Rectangles = rectangles;
         }
     
     }

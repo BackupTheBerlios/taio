@@ -29,10 +29,14 @@ namespace taio
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wczytajDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algorytmyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BrutalAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FirstAppAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SecondAppAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -40,28 +44,13 @@ namespace taio
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.plikToolStripMenuItem});
+            this.plikToolStripMenuItem,
+            this.algorytmyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(472, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 334);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(472, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
-            this.toolStripStatusLabel1.Text = "Bezczynny";
             // 
             // plikToolStripMenuItem
             // 
@@ -74,9 +63,57 @@ namespace taio
             // wczytajDaneToolStripMenuItem
             // 
             this.wczytajDaneToolStripMenuItem.Name = "wczytajDaneToolStripMenuItem";
-            this.wczytajDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wczytajDaneToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.wczytajDaneToolStripMenuItem.Text = "Wczytaj dane";
             this.wczytajDaneToolStripMenuItem.Click += new System.EventHandler(this.wczytajDaneToolStripMenuItem_Click);
+            // 
+            // algorytmyToolStripMenuItem
+            // 
+            this.algorytmyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BrutalAlgorithmToolStripMenuItem,
+            this.FirstAppAlgorithmToolStripMenuItem,
+            this.SecondAppAlgorithmToolStripMenuItem});
+            this.algorytmyToolStripMenuItem.Name = "algorytmyToolStripMenuItem";
+            this.algorytmyToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.algorytmyToolStripMenuItem.Text = "Algorytmy";
+            // 
+            // BrutalAlgorithmToolStripMenuItem
+            // 
+            this.BrutalAlgorithmToolStripMenuItem.Name = "BrutalAlgorithmToolStripMenuItem";
+            this.BrutalAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.BrutalAlgorithmToolStripMenuItem.Text = "Algorytm brutalny";
+            this.BrutalAlgorithmToolStripMenuItem.Click += new System.EventHandler(this.BrutalAlgorithmToolStripMenuItem_Click);
+            // 
+            // FirstAppAlgorithmToolStripMenuItem
+            // 
+            this.FirstAppAlgorithmToolStripMenuItem.Name = "FirstAppAlgorithmToolStripMenuItem";
+            this.FirstAppAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.FirstAppAlgorithmToolStripMenuItem.Text = "Pierwszy";
+            this.FirstAppAlgorithmToolStripMenuItem.Click += new System.EventHandler(this.FirstAppAlgorithmToolStripMenuItem_Click);
+            // 
+            // SecondAppAlgorithmToolStripMenuItem
+            // 
+            this.SecondAppAlgorithmToolStripMenuItem.Name = "SecondAppAlgorithmToolStripMenuItem";
+            this.SecondAppAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.SecondAppAlgorithmToolStripMenuItem.Text = "Drugi";
+            this.SecondAppAlgorithmToolStripMenuItem.Click += new System.EventHandler(this.SecondAppAlgorithmToolStripMenuItem_Click_1);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 334);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(472, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
+            this.toolStripStatusLabel1.Text = "Bezczynny";
             // 
             // MainFrm
             // 
@@ -108,6 +145,10 @@ namespace taio
         private System.Windows.Forms.ToolStripMenuItem wczytajDaneToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem algorytmyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BrutalAlgorithmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FirstAppAlgorithmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SecondAppAlgorithmToolStripMenuItem;
     }
 }
 
