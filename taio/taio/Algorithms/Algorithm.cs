@@ -33,7 +33,7 @@ namespace taio.Algorithms
         {
             get { return solution; }
         }
-        
+
 
     }
 }
