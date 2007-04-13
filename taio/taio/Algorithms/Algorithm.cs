@@ -7,10 +7,16 @@ namespace taio.Algorithms
     abstract class Algorithm
     {
         
-        /**founded solution*/
+        /**found solution*/
         Data.Solution solution;
 
         List<Data.Rectangle> rectangles;
+
+        public List<Data.Rectangle> Rectangles
+        {
+            get { return rectangles; }
+            set { rectangles = value; }
+        }
 
         public Algorithm()
         {
@@ -27,10 +33,7 @@ namespace taio.Algorithms
         {
             get { return solution; }
         }
-        public List<Data.Rectangle> Rectangle
-        {
-            set { rectangles = value; }
-        }
+        
 
     }
 }

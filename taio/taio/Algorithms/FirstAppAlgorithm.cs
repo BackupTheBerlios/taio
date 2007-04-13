@@ -14,7 +14,7 @@ namespace taio.Algorithms
         
         public override void StartAlgorithm() {   
             setFirst();
-            while (this.Rectangle.Count > 0)
+            while (this.Rectangles.Count > 0)
             {
 
             }
@@ -23,17 +23,17 @@ namespace taio.Algorithms
         private Data.Rectangle findTheBiggest()
         {
             int area=0, nr = 0;
-            for (int i = 0; i < this.Rectangle.Count; ++i)
+            for (int i = 0; i < this.Rectangles.Count; ++i)
             {
-                int area1 = this.Rectangle[i].Width * this.Rectangle[i].Height;
+                int area1 = this.Rectangles[i].Width * this.Rectangles[i].Height;
                 if (area1 > area)
                 {
                     area = area1;
                     nr = i;
                 }
             }
-            Data.Rectangle rectangle = this.Rectangle[nr];
-            this.Rectangle.RemoveAt(nr);
+            Data.Rectangle rectangle = this.Rectangles[nr];
+            this.Rectangles.RemoveAt(nr);
             return rectangle;
         }
         private void setFirst()

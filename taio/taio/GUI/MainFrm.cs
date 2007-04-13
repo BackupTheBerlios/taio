@@ -81,7 +81,7 @@ namespace taio
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
                 return;
             }
-            algorithm.Rectangle = engine.Rectangles;
+            algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
 
         }

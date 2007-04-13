@@ -8,7 +8,41 @@ namespace taio.Algorithms
     class SecondAppAlgorithm : Algorithm
     {
         /**finds the solution*/
+        private int areaSolution;
+        private List<Data.Rectangle> listOfPossibleSolutions;
+        
+        public override void StartAlgorithm()
+        {
+            this.areaSolution = this.sumOfAreas();
 
-        public override void StartAlgorithm() { }
+            while (this.areaSolution > 0)
+            {
+                this.fillListOfPossibleSolutions();
+                for (int i = 0; i < this.listOfPossibleSolutions.Count; i++)
+                {
+                    if (this.coverSolution()) return;            
+                }
+                this.areaSolution--;
+            }
+        }
+
+        private int sumOfAreas()
+        {
+            int sum=0;
+            for (int i = 0; i < this.Rectangles.Count; i++)
+            {
+                sum += this.Rectangles[i].Height * this.Rectangles[i].Width;
+            }
+            return sum;
+        }
+        private void fillListOfPossibleSolutions()
+        {
+               
+        }
+        private bool coverSolution()
+        {
+
+        }
+
     }
 }

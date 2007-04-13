@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace taio.Algorithms.FirstAppAlgorithm1
+namespace taio.Algorithms.FirstAppAlgorithm
 {
     class Construction
     {
