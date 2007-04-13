@@ -41,7 +41,7 @@ namespace taio.Algorithms
         }
         private bool coverSolution()
         {
-
+            return false;
         }
 
     }

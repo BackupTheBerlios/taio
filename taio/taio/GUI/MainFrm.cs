@@ -88,12 +88,15 @@ namespace taio
 
         private void FirstAppAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
+            
             if (engine.Rectangles == null)
             {
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
                 return;
             }
+            Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm(engine.Rectangles);
+            algorithm.Rectangles = engine.Rectangles;
+            algorithm.StartAlgorithm();
         }
     }
 }
