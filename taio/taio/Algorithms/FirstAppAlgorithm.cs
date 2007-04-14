@@ -160,6 +160,7 @@ namespace taio.Algorithms
         {
 
             Console.Out.WriteLine("Startowy prostokat: " + this.startRectangle.Width + " : " + this.startRectangle.Height);
+            Console.Out.WriteLine("Part[]: (0,0)  (" + this.startRectangle.Width + "," + this.startRectangle.Height + ")");
             for (int i = 0; i < this.listLayer.Count; ++i)
             {
                 Console.Out.WriteLine("WArstwa nr: "+i+"  INFO: start "+this.listLayer[i].Start
