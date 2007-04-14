@@ -27,7 +27,7 @@ namespace taio
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             String filePath = null;
-
+           
             try
             {
                 // pobiera nazwe pliku z danymi     
@@ -42,7 +42,7 @@ namespace taio
                 Cursor.Current = Cursors.WaitCursor;
                 
                 this.engine.loadData(filePath);
-
+                Console.Out.WriteLine("PATH: "+filePath);
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";
                 this.statusStrip1.Refresh();
@@ -88,13 +88,13 @@ namespace taio
 
         private void FirstAppAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            //this.engine.loadData("daneTaio.data");//("C:\\Documents and Settings\\ula\\Pulpit\\TAIO\\taio\\taio\\bin\\Debug\\daneTaio.txt");
             if (engine.Rectangles == null)
             {
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
                 return;
             }
-            Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm(engine.Rectangles);
+            Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
         }

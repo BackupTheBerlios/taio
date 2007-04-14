@@ -21,7 +21,7 @@ namespace taio.Algorithms
             algorithms = new Algorithm[SECOND_APP_ALGORITHM + 1];
 
             algorithms[BRUTAL_ALGORTIHM] = new BrutalAlgorithm();
-            //algorithms[FIRST_APP_ALGORITHM] = new FirstAppAlgorithm();
+            algorithms[FIRST_APP_ALGORITHM] = new FirstAppAlgorithm();
             algorithms[SECOND_APP_ALGORITHM] = new SecondAppAlgorithm();
         }
 
