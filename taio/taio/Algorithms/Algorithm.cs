@@ -27,7 +27,7 @@ namespace taio.Algorithms
 
         public abstract void StartAlgorithm();
 
-        /**returns Solution which algorithm has founded*/
+        /**returns Solution which algorithm has found*/
 
         public Data.Solution Solution
         {
