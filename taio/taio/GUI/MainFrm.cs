@@ -98,5 +98,21 @@ namespace taio
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
         }
+
+        private void poka¿Rozwi¹zaniaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // TESTY
+            try
+            {
+                List<Data.Solution> solutions = this.engine.Solutions;
+                List<Data.Rectangle> rectangles = this.engine.Rectangles;
+                MessageBox.Show(solutions.Count.ToString()+ " " + rectangles.Count.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // End TESTY
+        }
     }
 }

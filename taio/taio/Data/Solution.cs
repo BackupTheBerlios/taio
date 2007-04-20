@@ -8,6 +8,13 @@ namespace taio.Data
     {
         /**the list of parts of solution*/
         List<PartOfSolution> partsOfSolution;
+        private String tag; // tag identyfikujacy dane rozw.
+
+        public String Tag
+        {
+            get { return tag; }
+            set { tag = value; }
+        }
 
         internal List<PartOfSolution> PartsOfSolution
         {

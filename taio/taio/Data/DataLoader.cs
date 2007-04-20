@@ -14,8 +14,8 @@ namespace taio.Data
     class DataLoader
     {
         private String[] info;
-        private String[] input;  // tablica z prostokatami wejœciowymi, stringi w formacie „int,int”
-        private String[] result; // tablica z gotowymi rozwiazaniami, stringi w formacie „tagm \r\n int,int,int,int \r\n … int,int,int,int \r\n”
+        private String[] input;  // tablica z prostokatami wejœciowymi, stringi w formacie "int,int" + ostatni wiersz pusty string "" 
+        private String[] result; // tablica z gotowymi rozwiazaniami, stringi w formacie - "tag/r/n (int,int,int,int/r/n)*" + pierwszy wiersz pusty string ""
 
         private main engine;
 
@@ -32,7 +32,7 @@ namespace taio.Data
             String content;  // cala zawartosc tekstowa pliku
             Regex patern;
             Match m;
-            CaptureCollection tab; // kolekcja wierszy wczytanych z danej grupy: <info> lub <input> lub <result> 
+            Capture cap; // wiersze wczytane z danej grupy: <info> lub <input> lub <result> 
 
             if (path != null)
             {
@@ -40,45 +40,31 @@ namespace taio.Data
                 content = reader.ReadToEnd();
                 reader.Close();
 
-                patern = new Regex("##\r\n(?<info>(.|\r|\n)*?)\r\n##\r\n(?<input>([0-9]*,[0-9]*)\r\n)*##\r\n(#(?<result>(.){0,4}\r\n([0-9]*,[0-9]*,[0-9]*,[0-9]*(\r\n)?)*))*");
+                patern = new Regex("##\r\n(?<info>(.|\r|\n)*?)\r\n##\r\n(?<input>(([0-9]*,[0-9]*)\r\n)*)##\r\n(?<result>(#((.){0,4}\r\n([0-9]*,[0-9]*,[0-9]*,[0-9]*(\r\n)?)*))*)");
                 m = patern.Match(content);
 
                 if (m.Success)
                 {
                     // wczytuje dane do tablicy info
-                    tab = m.Groups["info"].Captures;
-                    this.info = new string[tab.Count];
-                    this.captureToStringTab(this.info, tab);
+                    cap = m.Groups["info"].Captures[0];
+                    this.info = cap.Value.Split('\n');
 
                     // wczytuje dane do tablicy input
-                    tab = m.Groups["input"].Captures;
-                    this.input = new string[tab.Count];
-                    this.captureToStringTab(this.input, tab);
+                    cap = m.Groups["input"].Captures[0];
+                    this.input = cap.Value.Split('\n');
 
                     // wczytuje dane do tablicy result
-                    tab = m.Groups["result"].Captures;
-                    this.result = new string[tab.Count];
-                    this.captureToStringTab(this.result, tab);
+                    cap = m.Groups["result"].Captures[0];
+                    this.result = cap.Value.Split('#');
                     
-                    
-                    this.createRectangles();                   
+                    this.createRectangles();
+                    this.createSolution();
                 }
                 else
                 {
                     throw new Exception("Nieprawid³owy format pliku");
                 }
           
-            }
-        }
-    // wczytuje wiersze z odpowiedniej grupy(tab) do odpowiedniej tablicy info(dest),input(dest) lub result(dest)
-        private void captureToStringTab(String[] dest, CaptureCollection tab)
-        {
-            int i = 0;
-
-            foreach (Capture capt in tab)
-            {
-                dest[i] = capt.Value;
-                i++;
             }
         }
 
@@ -105,6 +91,54 @@ namespace taio.Data
             }
             engine.Rectangles = rectangles;
         }
-    
+    // tworzy gotowe rozwiazania z tablicy result i umieszcza w liscie solutions w enginie;
+        private void createSolution()
+        {
+            String[] resRows,coordinates;
+            Data.Solution solution;
+            Data.PartOfSolution partOfSolution;
+            bool flag = true;  // flaga jest ustawiana na true zawsze przed czytaniem nastepnego rozw., a na false po przeczytaniu pierwszego wiersza w rozw. ktory jest tagiem
+            
+            // dla kazdego rozwiazania
+            foreach (String res in this.result)
+                if (res != "")
+                {
+                    solution = new Solution();
+                    resRows = res.Split('\n');
+
+                    // dla kazdego wiersza w danym rozwiazaniu
+                    foreach (String row in resRows)
+                        if (row != "")
+                        {
+                            // jezeli w wierszu jest tag
+                            if (flag)
+                            {
+                                solution.Tag = row;
+                                flag = false;
+                            }
+                            // jezeli w wierszu sa wspolrzedne
+                            else
+                            {
+                                partOfSolution = new PartOfSolution();
+
+                                // wpisanie odpowienich wspolrzednych do partOfSolution i dodanie do do solution
+                                coordinates = row.Split(',');
+                                // x1
+                                partOfSolution.Xlu = int.Parse(coordinates[0]);
+                                // y1
+                                partOfSolution.Ylu = int.Parse(coordinates[1]);
+                                // x2
+                                partOfSolution.Xrd = int.Parse(coordinates[2]);
+                                // y2
+                                partOfSolution.Yrd = int.Parse(coordinates[3]);
+
+                                solution.PartsOfSolution.Add(partOfSolution);
+                            }
+                          }   
+                  this.engine.Solutions.Add(solution);
+                  flag = true;
+               }
+       }
+
     }
 }

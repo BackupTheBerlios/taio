@@ -9,7 +9,13 @@ namespace taio
     {
         private Data.DataLoader dataLoader; // obiekt wczytujacy i trzymajacy dane z pliku
         private List<Data.Rectangle> rectangles; //prostokaty na ktorych dzialaja algorytmy, moze to byc inny zbior niz wczytany z pliku np zedytowany
+        private List<Data.Solution> solutions; // litsta z gotowymi rozwiazaniami 
 
+        public List<Data.Solution> Solutions
+        {
+            get { return solutions; }
+            set { solutions = value; }
+        }
 
         public List<Data.Rectangle> Rectangles
         {
@@ -20,6 +26,7 @@ namespace taio
         public main(taio.MainFrm mainFrm)
         {
             this.dataLoader = new taio.Data.DataLoader(this);
+            this.solutions = new List<Data.Solution>();
         }
     
     

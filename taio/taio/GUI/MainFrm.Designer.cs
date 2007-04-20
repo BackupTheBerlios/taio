@@ -37,6 +37,8 @@ namespace taio
             this.SecondAppAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +47,8 @@ namespace taio
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plikToolStripMenuItem,
-            this.algorytmyToolStripMenuItem});
+            this.algorytmyToolStripMenuItem,
+            this.¹zaniaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(472, 24);
@@ -115,6 +118,21 @@ namespace taio
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
             this.toolStripStatusLabel1.Text = "Bezczynny";
             // 
+            // ¹zaniaToolStripMenuItem
+            // 
+            this.¹zaniaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.poka¿Rozwi¹zaniaToolStripMenuItem});
+            this.¹zaniaToolStripMenuItem.Name = "¹zaniaToolStripMenuItem";
+            this.¹zaniaToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.¹zaniaToolStripMenuItem.Text = "Rozwi¹zania";
+            // 
+            // poka¿Rozwi¹zaniaToolStripMenuItem
+            // 
+            this.poka¿Rozwi¹zaniaToolStripMenuItem.Name = "poka¿Rozwi¹zaniaToolStripMenuItem";
+            this.poka¿Rozwi¹zaniaToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.poka¿Rozwi¹zaniaToolStripMenuItem.Text = "Poka¿ rozwi¹zania";
+            this.poka¿Rozwi¹zaniaToolStripMenuItem.Click += new System.EventHandler(this.poka¿Rozwi¹zaniaToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,6 +167,8 @@ namespace taio
         private System.Windows.Forms.ToolStripMenuItem BrutalAlgorithmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem FirstAppAlgorithmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SecondAppAlgorithmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ¹zaniaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem poka¿Rozwi¹zaniaToolStripMenuItem;
     }
 }
 
