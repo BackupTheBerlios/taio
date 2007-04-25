@@ -11,6 +11,11 @@ namespace taio
         private List<Data.Rectangle> rectangles; //prostokaty na ktorych dzialaja algorytmy, moze to byc inny zbior niz wczytany z pliku np zedytowany
         private List<Data.Solution> solutions; // litsta z gotowymi rozwiazaniami 
 
+        public Data.Solution getSolution(int index)
+        {
+            return this.solutions[index];
+        }
+        
         public List<Data.Solution> Solutions
         {
             get { return solutions; }

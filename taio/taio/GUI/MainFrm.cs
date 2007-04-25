@@ -12,10 +12,20 @@ namespace taio
     {
         private main engine; // glowan klasa programu
 
+        internal main Engine
+        {
+            get { return engine; }
+            set { engine = value; }
+        }
+
+    
+        private GUI.SolutionsFrm solutionsFrm;
+
         public MainFrm()
         {
             InitializeComponent();
             this.engine = new main(this);
+            
         }
 
         private void MainFrm_FormClosed(object sender, FormClosedEventArgs e)
@@ -101,18 +111,29 @@ namespace taio
 
         private void poka¿Rozwi¹zaniaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TESTY
+            
             try
             {
-                List<Data.Solution> solutions = this.engine.Solutions;
-                List<Data.Rectangle> rectangles = this.engine.Rectangles;
-                MessageBox.Show(solutions.Count.ToString()+ " " + rectangles.Count.ToString());
+                // jezeli s¹ rozwiazania
+                if(this.engine.Solutions.Count>0)
+                {
+                   // jezeli okno rozwiazan nie jest uz otwarte
+                   if (GUI.SolutionsFrm.counter == 0)
+                   {
+
+                    this.solutionsFrm = new taio.GUI.SolutionsFrm(this);
+                    this.solutionsFrm.MdiParent = this;
+                    this.solutionsFrm.Show();
+                   }
+                }
+                else
+                MessageBox.Show("Brak rozwi¹zañ","Informacja",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // End TESTY
+            
         }
     }
 }
