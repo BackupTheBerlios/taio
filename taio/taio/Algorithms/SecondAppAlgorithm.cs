@@ -25,7 +25,7 @@ namespace taio.Algorithms
             //end of tests
             //this.printListOfRectangles();
             this.Rectangles.Sort(compare);
-            this.Rectangles.Sort(
+            
             //this.printListOfRectangles();
             this.areaSolution = this.sumOfAreas();
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
@@ -90,7 +90,6 @@ namespace taio.Algorithms
             else if (x.Height * x.Width > y.Height * y.Width) return -1;
             else if (x.Height * x.Width < y.Height * y.Width) return 1;
             else throw new Exception("Comparing failed");
-            
         }
         /*private void addToSolution(Data.Rectangle r)
         {
