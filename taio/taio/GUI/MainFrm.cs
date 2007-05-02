@@ -10,7 +10,7 @@ namespace taio
 {
     public partial class MainFrm : Form
     {
-        private main engine; // glowan klasa programu
+        private main engine; // glowna klasa programu
 
         internal main Engine
         {
@@ -75,6 +75,7 @@ namespace taio
 
         private void BrutalAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             Algorithms.Algorithm algorithm = new Algorithms.BrutalAlgorithm();
             if (engine.Rectangles == null)
             {
@@ -86,8 +87,13 @@ namespace taio
         private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
+            /*begin of tests*/
+            algorithm.StartAlgorithm();
+            return;
+            /*end of tests*/
             if (engine.Rectangles == null)
             {
+                
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
                 return;
             }

@@ -12,20 +12,26 @@ namespace taio.Algorithms
         private List<Data.Rectangle> listOfPossibleSolutions;
         
         public override void StartAlgorithm()
-        {   
-            
-            //begin of tests
+        {
             //this.areaSolution = 256;
-            this.Rectangles.Clear();
-            this.Rectangles.Add(new taio.Data.Rectangle(2,5));
-            this.Rectangles.Add(new taio.Data.Rectangle(3,6));
+            //begin of tests
+            this.Rectangles = new List<Data.Rectangle>();
+            //this.Rectangles.Clear();
+            //this.Rectangles.Add(new taio.Data.Rectangle(2,5));
+            //this.Rectangles.Add(new taio.Data.Rectangle(3,6));
             this.Rectangles.Add(new taio.Data.Rectangle(9, 9));
             this.Rectangles.Add(new taio.Data.Rectangle(1,7));
             this.Rectangles.Add(new taio.Data.Rectangle(3, 6));
             //end of tests
             //this.printListOfRectangles();
-            this.Rectangles.Sort(compare);
-            
+            try
+            {
+                this.Rectangles.Sort(sortBySquare);
+            }
+            catch (Exception ex)
+            {
+                Console.Out.WriteLine(ex.ToString());
+            }
             //this.printListOfRectangles();
             this.areaSolution = this.sumOfAreas();
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
@@ -33,9 +39,10 @@ namespace taio.Algorithms
             {
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
-                for (int i = 0; i < this.listOfPossibleSolutions.Count; i++)
+                IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
+                while (e.MoveNext())
                 {
-                    if (this.coverSolution(this.listOfPossibleSolutions[i])) return;            
+                    if (this.coverSolution(e.Current)) return;            
                 }
                 this.areaSolution--;
             }
@@ -45,9 +52,10 @@ namespace taio.Algorithms
         private int sumOfAreas()
         {
             int sum=0;
-            for (int i = 0; i < this.Rectangles.Count; i++)
+            IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
+            while (e.MoveNext())
             {
-                sum += this.Rectangles[i].Height * this.Rectangles[i].Width;
+                sum += e.Current.Height * e.Current.Width;
             }
             return sum;
         }
@@ -65,13 +73,23 @@ namespace taio.Algorithms
                     this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(m, n));
                 }
                 n++;
-            } 
+            }
 
         }
         private bool coverSolution(Data.Rectangle r) //r-pokrywany prostokat
         {
             bool[,] usage = new bool [r.Width, r.Height];  // tablica zajetosci
-                        
+            Data.PartOfSolution part;
+            IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
+            while (e.MoveNext())
+            {
+                /*find the coordinates*/
+                part=this.insertRectangle(e.Current, r, usage);
+                this.Solution.PartsOfSolution.Add(part); 
+            }
+            
+            //Console.Out.WriteLine(r.Width + "\t" + r.Height);
+
             return false;
         }
         public void printListOfPossibleSolutions ()
@@ -79,28 +97,49 @@ namespace taio.Algorithms
             IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
             while(e.MoveNext())
             {
-                Console.Out.WriteLine(e.Current.Height + " " + e.Current.Width);
+                Console.Out.WriteLine(e.Current.Width + "\t" + e.Current.Height);
             }
         }
         
-        //metoda implementujaca sortowanie
-        private int compare(Data.Rectangle x ,Data.Rectangle y)
+        //metoda implementujaca sortowanie dla komparatora
+        private int sortBySquare(Data.Rectangle x ,Data.Rectangle y)
         {
             if (x.Height * x.Width == y.Height * y.Width) return 0;
             else if (x.Height * x.Width > y.Height * y.Width) return -1;
             else if (x.Height * x.Width < y.Height * y.Width) return 1;
             else throw new Exception("Comparing failed");
         }
-        /*private void addToSolution(Data.Rectangle r)
-        {
 
-        }*/
+        private Data.PartOfSolution insertRectangle(Data.Rectangle x, Data.Rectangle r, bool[,] t)
+        {
+            Data.PartOfSolution part = new Data.PartOfSolution();
+            int m = t.GetLength(0);  //liczba wierszy
+            int n = t.GetLength(1);  //liczba kolumn
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                                        
+                }
+            }
+            return part;
+        }
+        
         private void printListOfRectangles()
         {
             IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
             while (e.MoveNext())
             {
-                Console.Out.WriteLine(e.Current.Height + "\t" + e.Current.Width);
+                Console.Out.WriteLine(e.Current.Width + "\t" + e.Current.Height);
+            }
+        }
+        private void printPartsOfSolution()
+        {
+            IEnumerator<Data.PartOfSolution> en = this.Solution.PartsOfSolution.GetEnumerator();
+            while (en.MoveNext())
+            {
+                Console.Out.WriteLine(en.Current.Xlu + " " + en.Current.Ylu + " " + en.Current.Xrd + " " + en.Current.Yrd);
             }
         }
 
