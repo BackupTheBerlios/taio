@@ -120,12 +120,29 @@ namespace taio.Algorithms
             {
                 for (int j = 0; j < n; j++)
                 {
-                                        
+                    if (t[i, j] == false)
+                    {
+                                               //czy mozna wstawic prostokat
+                    }
                 }
             }
             return part;
         }
-        
+        private bool canBeInserted (int a, int b, int width, int height, bool [,]t)
+        {
+            int m = t.GetLength(0);
+            int n = t.GetLength(1);
+            if ((a+width > m) || (b+height > n)) return false;
+            for (int i = 0; i < m && i < width; i++)
+            {
+                for (int j = 0; j < n && j < height; j++)
+                {
+                    if (t[i+a,j+b] == true) return false;
+                }
+            }
+            return true;
+
+        }
         private void printListOfRectangles()
         {
             IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
