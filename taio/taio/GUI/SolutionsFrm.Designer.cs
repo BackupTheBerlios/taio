@@ -44,7 +44,6 @@ namespace taio.GUI
             this.tabSolutons.TabIndex = 0;
             this.tabSolutons.Selected += new System.Windows.Forms.TabControlEventHandler(this.Tab_Changed);
             this.tabSolutons.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.Tab_Added);
-
             // 
             // SolutionsFrm
             // 
@@ -53,6 +52,7 @@ namespace taio.GUI
             this.ClientSize = new System.Drawing.Size(946, 327);
             this.Controls.Add(this.tabSolutons);
             this.Name = "SolutionsFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Rozwi¹zania";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SolutionsFrm_FormClosed);
             this.Load += new System.EventHandler(this.SolutionsFrm_Load);

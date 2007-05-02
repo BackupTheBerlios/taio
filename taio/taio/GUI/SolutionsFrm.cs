@@ -37,9 +37,11 @@ namespace taio.GUI
                 GUI.tab tab = new tab(this, this.mainFrm.Engine.Solutions.IndexOf(sol));
                 TabPage tabPage = new TabPage(sol.Tag);
                 tab.Dock = DockStyle.Fill;
+                //tab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom));
                 tabPage.Controls.Add(tab);
                 this.tabSolutons.TabPages.Add(tabPage);
             }
+            
         }
 
         private void SolutionsFrm_FormClosed(object sender, FormClosedEventArgs e)

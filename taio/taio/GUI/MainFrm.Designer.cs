@@ -162,6 +162,12 @@ namespace taio
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wczytajDaneToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
+
+        public System.Windows.Forms.StatusStrip StatusStrip1
+        {
+            get { return statusStrip1; }
+            set { statusStrip1 = value; }
+        }
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem algorytmyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem BrutalAlgorithmToolStripMenuItem;
