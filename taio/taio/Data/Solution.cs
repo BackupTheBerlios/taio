@@ -10,6 +10,9 @@ namespace taio.Data
         List<PartOfSolution> partsOfSolution;
         private String tag; // tag identyfikujacy dane rozw.
 
+        private bool fromFile;
+
+        #region getters and setters
         public String Tag
         {
             get { return tag; }
@@ -22,9 +25,21 @@ namespace taio.Data
             set { partsOfSolution = value; }
         }
 
+        public bool IsFromFile
+        {
+            get { return fromFile; }
+        }
+        #endregion
+
         public Solution()
         {
             partsOfSolution = new List<PartOfSolution>();
+            fromFile = false;
+        }
+        public Solution( bool isFromFile)
+        {
+            partsOfSolution = new List<PartOfSolution>();
+            fromFile = isFromFile;
         }
     }
 }
