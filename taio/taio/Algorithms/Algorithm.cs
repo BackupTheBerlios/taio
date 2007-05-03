@@ -32,6 +32,7 @@ namespace taio.Algorithms
         public Data.Solution Solution
         {
             get { return solution; }
+            set { solution = value; }
         }
 
 

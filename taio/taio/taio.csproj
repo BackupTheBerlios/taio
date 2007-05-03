@@ -42,6 +42,7 @@
     <Compile Include="Algorithms\FirstAppAlgorithm.cs" />
     <Compile Include="Algorithms\FirstAppAlgorithm\Construction.cs" />
     <Compile Include="Algorithms\FirstAppAlgorithm\Layer.cs" />
+    <Compile Include="Algorithms\FirstAppAlgorithm\PermuteUtils.cs" />
     <Compile Include="Algorithms\SecondAppAlgorithm.cs" />
     <Compile Include="Data\DataLoader.cs" />
     <Compile Include="Data\PartOfSolution.cs" />

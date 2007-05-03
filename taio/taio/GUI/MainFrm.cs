@@ -82,6 +82,13 @@ namespace taio
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
                 return;
             }
+            algorithm.Rectangles = engine.Rectangles;
+            algorithm.StartAlgorithm();
+            //Data.Solution sol  = new taio.Data.Solution();
+            //sol.PartsOfSolution = algorithm.
+            engine.Solutions = new List<taio.Data.Solution>();
+            engine.Solutions.Add(algorithm.Solution);
+
         }
 
         private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
