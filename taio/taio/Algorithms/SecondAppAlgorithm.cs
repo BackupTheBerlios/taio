@@ -8,22 +8,30 @@ namespace taio.Algorithms
     class SecondAppAlgorithm : Algorithm
     {
         /**finds the solution*/
+        private int LU = 0,
+                    LD = 2,
+                    RU = 1,
+                    RD = 3;
         private int areaSolution;
         private List<Data.Rectangle> listOfPossibleSolutions;
         
         public override void StartAlgorithm()
         {
-            //this.areaSolution = 256;
             //begin of tests
+            
             this.Rectangles = new List<Data.Rectangle>();
             //this.Rectangles.Clear();
-            //this.Rectangles.Add(new taio.Data.Rectangle(2,5));
-            //this.Rectangles.Add(new taio.Data.Rectangle(3,6));
-            this.Rectangles.Add(new taio.Data.Rectangle(9, 9));
-            this.Rectangles.Add(new taio.Data.Rectangle(1,7));
-            this.Rectangles.Add(new taio.Data.Rectangle(3, 6));
+            this.Rectangles.Add(new taio.Data.Rectangle(3,6));
+            this.Rectangles.Add(new taio.Data.Rectangle(2, 3));
+            this.Rectangles.Add(new taio.Data.Rectangle(1, 2));
+            this.Rectangles.Add(new taio.Data.Rectangle(2, 2));
+            this.Rectangles.Add(new taio.Data.Rectangle(3, 3));
+            //this.Rectangles.Add(new taio.Data.Rectangle(2, 1));
+            this.Rectangles.Add(new taio.Data.Rectangle(2, 4));
+            this.Rectangles.Add(new taio.Data.Rectangle(5, 1));
+            
             //end of tests
-            //this.printListOfRectangles();
+            
             try
             {
                 this.Rectangles.Sort(sortBySquare);
@@ -32,21 +40,25 @@ namespace taio.Algorithms
             {
                 Console.Out.WriteLine(ex.ToString());
             }
-            //this.printListOfRectangles();
             this.areaSolution = this.sumOfAreas();
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
             while (this.areaSolution > 0)
             {
+                this.Solution.PartsOfSolution.Clear();
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
+                //this.printListOfPossibleSolutions();
                 IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
                 while (e.MoveNext())
                 {
-                    if (this.coverSolution(e.Current)) return;            
+                    if (this.coverSolution(e.Current))
+                    {
+                        //this.printPartsOfSolution();
+                        return;
+                    }
                 }
                 this.areaSolution--;
             }
-            //this.printListOfPossibleSolutions();
         }
 
         private int sumOfAreas()
@@ -74,22 +86,55 @@ namespace taio.Algorithms
                 }
                 n++;
             }
-
         }
         private bool coverSolution(Data.Rectangle r) //r-pokrywany prostokat
         {
-            bool[,] usage = new bool [r.Width, r.Height];  // tablica zajetosci
+            bool[,] usage = new bool [r.Height, r.Width];// tablica zajetosci
             Data.PartOfSolution part;
-            IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
+            List<Data.Rectangle> rect = new List<Data.Rectangle>(this.Rectangles);
+            //pierwsze 4 prostokaty do rogow
+            for (int k = 0; k < rect.Count && k < 4; k++)
+            {
+                part=this.fillCorners(rect[k], r, k);
+                if (part != null)
+                {
+                    this.Solution.PartsOfSolution.Add(part);
+                    //this.printPartsOfSolution();
+                    for (int i = part.Ylu; i <= part.Yrd; i++)
+                    {
+                        for (int j = part.Xlu; j <= part.Xrd; j++)
+                        {
+                            usage[i, j] = true;
+                        }
+                    }
+                }
+            }
+            rect.RemoveRange(0, 4);
+            //this.printUsage(usage);
+            IEnumerator<Data.Rectangle> e = rect.GetEnumerator();
             while (e.MoveNext())
             {
+                
                 /*find the coordinates*/
                 part=this.insertRectangle(e.Current, r, usage);
-                this.Solution.PartsOfSolution.Add(part); 
-            }
-            
-            //Console.Out.WriteLine(r.Width + "\t" + r.Height);
-
+                if (part != null)
+                {
+                    this.Solution.PartsOfSolution.Add(part);
+                    //updates usage
+                    for (int i = part.Ylu; i <= part.Yrd; i++)
+                    {
+                        for (int j = part.Xlu; j <= part.Xrd; j++)
+                        {
+                            usage[i, j] = true;
+                        }
+                    }
+                    if (this.isCovered(usage)) //checks usage
+                    {
+                        this.printUsage(usage);
+                        return true;
+                    } 
+                }
+            }    
             return false;
         }
         public void printListOfPossibleSolutions ()
@@ -115,33 +160,125 @@ namespace taio.Algorithms
             Data.PartOfSolution part = new Data.PartOfSolution();
             int m = t.GetLength(0);  //liczba wierszy
             int n = t.GetLength(1);  //liczba kolumn
-
+            
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
                     if (t[i, j] == false)
                     {
-                                               //czy mozna wstawic prostokat
+                        //czy mozna wstawic prostokat
+                        if (this.canBeInserted(i, j, x.Height, x.Width, t))
+                        {
+                            part.Ylu = i;
+                            part.Xlu = j;
+                            part.Yrd = i + x.Height - 1;
+                            part.Xrd = j + x.Width - 1;
+                            return part;
+                        }
+                        //a moze obrocony?
+                        if (this.canBeInserted(i, j, x.Width, x.Height, t))
+                        {
+                            part.Ylu = i;
+                            part.Xlu = j;
+                            part.Yrd = i + x.Width - 1;
+                            part.Xrd = j + x.Height - 1;
+                            return part;
+                        }
                     }
                 }
             }
-            return part;
+            return this.findBestPlacement(x, r, t);
+            //return null;
         }
         private bool canBeInserted (int a, int b, int width, int height, bool [,]t)
         {
             int m = t.GetLength(0);
             int n = t.GetLength(1);
             if ((a+width > m) || (b+height > n)) return false;
-            for (int i = 0; i < m && i < width; i++)
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < n && j < height; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    if (t[i+a,j+b] == true) return false;
+                    if (t[a+i,b+j] == true) return false;
                 }
             }
             return true;
 
+        }
+        private Data.PartOfSolution findBestPlacement(Data.Rectangle x, Data.Rectangle r, bool[,] t)
+        {
+            Data.PartOfSolution part = new Data.PartOfSolution();
+            int m = t.GetLength(0);  //liczba wierszy
+            int n = t.GetLength(1);  //liczba kolumn
+
+            return part;
+        }
+        private Data.PartOfSolution fillCorners(Data.Rectangle x, Data.Rectangle r, int c)
+        {
+            if ((x.Width > r.Width) || (x.Height > r.Height)) return null;
+            Data.PartOfSolution part = new Data.PartOfSolution();
+            if (c==this.LU)  //lewy gorny
+            {
+                part.Xlu = 0;
+                part.Ylu = 0;
+                part.Xrd = x.Width - 1;
+                part.Yrd = x.Height - 1;
+                return part;
+            }
+            if (c==this.RU) //prawy gorny
+            {
+                part.Xlu = r.Width - x.Width;
+                part.Ylu = 0;
+                part.Xrd = r.Width - 1;
+                part.Yrd = x.Height - 1;
+                return part;
+            }
+            if (c==this.LD) //lewy dolny
+            {
+                part.Xlu = 0;
+                part.Ylu = r.Height - x.Height;
+                part.Xrd = x.Width - 1;
+                part.Yrd = r.Height - 1;
+                return part;
+            }
+            if (c == this.RD) //prawy dolny
+            {
+                part.Xlu = r.Width - x.Width;
+                part.Ylu = r.Height - x.Height;
+                part.Xrd = r.Width - 1;
+                part.Yrd = r.Height - 1;
+                return part;
+            }
+            return null;
+        }
+        private void printUsage(bool[,] t)
+        {
+            int m = t.GetLength(0);
+            int n = t.GetLength(1);
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (t[i,j]==true) Console.Out.Write("1" + "\t");
+                    else Console.Out.Write("0" + "\t");
+                }
+                Console.Out.WriteLine();
+            }
+        }
+        private bool isCovered(bool[,] t)
+        {
+            int m = t.GetLength(0);
+            int n = t.GetLength(1);
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (t[i, j] == false) return false;
+                }
+            }
+            return true;
         }
         private void printListOfRectangles()
         {
@@ -159,6 +296,5 @@ namespace taio.Algorithms
                 Console.Out.WriteLine(en.Current.Xlu + " " + en.Current.Ylu + " " + en.Current.Xrd + " " + en.Current.Yrd);
             }
         }
-
     }
 }

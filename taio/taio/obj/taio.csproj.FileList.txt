@@ -4,7 +4,7 @@ obj\Debug\taio.GUI.SolutionsFrm.resources
 obj\Debug\taio.GUI.tab.resources
 obj\Debug\taio.Properties.Resources.resources
 obj\Debug\taio.csproj.GenerateResource.Cache
-obj\Debug\taio.exe
-obj\Debug\taio.pdb
 bin\Debug\taio.exe
 bin\Debug\taio.pdb
+obj\Debug\taio.exe
+obj\Debug\taio.pdb
