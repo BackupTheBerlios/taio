@@ -94,8 +94,8 @@ namespace taio
         {
             Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
             /*begin of tests*/
-            algorithm.StartAlgorithm();
-            return;
+            //algorithm.StartAlgorithm();
+            //return;
             /*end of tests*/
             if (engine.Rectangles == null)
             {

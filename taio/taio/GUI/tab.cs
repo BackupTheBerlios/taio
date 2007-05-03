@@ -14,7 +14,7 @@ namespace taio.GUI
         private int longestSide;
         private Data.Solution solution;
         private GUI.SolutionsFrm solutionFrm;
-        private int index,clikedIndex=-1,maxX,maxY;
+        private int index,clikedIndex=-1,maxX,maxY,maxCoordinate;
         private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
 
         public tab(GUI.SolutionsFrm solutionFrm, int index)
@@ -27,14 +27,15 @@ namespace taio.GUI
         private void tab_Load(object sender, EventArgs e)
         {
             this.solution = this.solutionFrm.MainFrm.Engine.getSolution(this.index);
-            this.getLongestSide();
-            maxX = getMaxX(this.solution);
-            maxY = getMaxY(this.solution);
-            double hRatio = (double)SQR_SIZE / (double)this.longestSide;
-            double vRatio = (double)SQR_SIZE / (double)this.longestSide;
+            this.maxX = getMaxX(this.solution);
+            this.maxY= getMaxY(this.solution);
+            this.getMaxCoordinate();
 
-            int uly = 20;
-            int index2 = 0;
+            double hRatio = (double)SQR_SIZE / (double)maxCoordinate;
+            double vRatio = (double)SQR_SIZE / (double)maxCoordinate;
+            double coverage = 0.0;
+
+            int uly = 20, square = 0, index2 = 0;
 
             Panel p;
             Label lab;
@@ -43,8 +44,8 @@ namespace taio.GUI
             {
          
                     double width = (double)(part.Xrd - part.Xlu);
-                    double height = (double)(part.Yrd - part.Ylu);
-                    
+                    double height = (double)(part.Yrd - part.Ylu);    
+
                     p = new Panel();
                     p.Width = Convert.ToInt32(width * hRatio);
                     p.Height = Convert.ToInt32(height * vRatio);
@@ -56,7 +57,7 @@ namespace taio.GUI
 
                     lab = new Label();
                     lab.Location = new System.Drawing.Point(p.Width+20, uly);
-                    lab.Text = "Nr. "+ ((index2)+1) +"\nSzerokoœæ: "+ width.ToString() +"\nWysokoœæ: "+ height.ToString();
+                    lab.Text = "Nr. "+ ((index2)+1) +"\nSzerokoœæ: "+ width.ToString() +"\nWysokoœæ: "+ height.ToString()+ "\nPole: " + Convert.ToString(width*height);
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 60;
                     lab.Width = 100; 
@@ -69,6 +70,7 @@ namespace taio.GUI
                     this.splitContainer1.Panel1.Controls.Add(lab);
                     
             }
+            
             lab = new Label();
             lab.Location = new System.Drawing.Point(5, uly);
             lab.Text = "Prostok¹t wype³niany:";
@@ -88,7 +90,7 @@ namespace taio.GUI
 
             lab = new Label();
             lab.Location = new System.Drawing.Point(p.Width + 20, uly+30);
-            lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString();
+            lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString()+ "\nPole: "+Convert.ToString( maxX*maxY)+ "\nPokrycie:";
             lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
             lab.Height = 60;
             lab.Width = 100;
@@ -100,7 +102,7 @@ namespace taio.GUI
             Graphics g = e.Graphics;
             Data.PartOfSolution part;
             Rectangle r,selected;
-            int maxCoordinate,minWidthOrHeight;
+            int minWidthOrHeight;
 
             if (maxX > maxY)
                 maxCoordinate = maxX;
@@ -143,22 +145,17 @@ namespace taio.GUI
             if (clikedIndex > -1)
             {
                 g.FillRectangle(Brushes.Red, selected);
-                g.DrawRectangle(Pens.Yellow, selected);
+                g.DrawRectangle(Pens.Red, selected);
             }
 
         }
 
-        private void getLongestSide()
+        private void getMaxCoordinate()
         {
-            this.longestSide = 0;
-            foreach (Data.PartOfSolution part in this.solution.PartsOfSolution)
-            {           
-                if ((part.Xrd - part.Xlu) > this.longestSide)
-                    this.longestSide = (part.Xrd - part.Xlu);
-
-                if ((part.Yrd - part.Ylu) > this.longestSide)
-                    this.longestSide = (part.Yrd - part.Ylu);
-            }
+            if (this.maxX > this.maxY)
+                this.maxCoordinate = this.maxX;
+            else
+                this.maxCoordinate = maxY;
         }
         private int getMaxX(Data.Solution sol)
         {
