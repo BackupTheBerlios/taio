@@ -30,18 +30,15 @@ namespace taio.GUI
             this.getLongestSide();
             maxX = getMaxX(this.solution);
             maxY = getMaxY(this.solution);
-            //MessageBox.Show(this.solutionFrm.MainFrm.Engine.Solutions.Count.ToString());
             double hRatio = (double)SQR_SIZE / (double)this.longestSide;
             double vRatio = (double)SQR_SIZE / (double)this.longestSide;
 
             int uly = 20;
-            int index = 0;
+            int index2 = 0;
 
             Panel p;
             Label lab;
-            //TESTY
-            Console.WriteLine("LongestSide: "+ this.longestSide.ToString());
-            //End TESTY
+
             foreach (Data.PartOfSolution part in this.solution.PartsOfSolution)
             {
          
@@ -52,33 +49,24 @@ namespace taio.GUI
                     p.Width = Convert.ToInt32(width * hRatio);
                     p.Height = Convert.ToInt32(height * vRatio);
                     p.BackColor = Color.Green;
-                    p.Name = Convert.ToString(index);
+                    p.Name = Convert.ToString(index2);
                     p.Location = new System.Drawing.Point(20, uly);
                     p.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     p.Cursor = Cursors.Hand;    
 
                     lab = new Label();
                     lab.Location = new System.Drawing.Point(p.Width+20, uly);
-                    lab.Text = "Nr. "+ (index+1) +"\nSzerokoœæ: "+ width.ToString() +"\nWysokoœæ: "+ height.ToString();
+                    lab.Text = "Nr. "+ ((index2)+1) +"\nSzerokoœæ: "+ width.ToString() +"\nWysokoœæ: "+ height.ToString();
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 60;
                     lab.Width = 100; 
 
                     uly += SQR_SIZE + 5;
-                    index++;
+                    index2++;
                    
                     p.Click +=new EventHandler(panel_Click);
                     this.splitContainer1.Panel1.Controls.Add(p);
                     this.splitContainer1.Panel1.Controls.Add(lab);
-
-                //TESTY
-                    Console.WriteLine("Index: " + index.ToString());
-                Console.WriteLine("Xlu: " + part.Xlu.ToString());
-                Console.WriteLine("Ylu: " + part.Ylu.ToString());
-                Console.WriteLine("Xrd: " + part.Xrd.ToString());
-                Console.WriteLine("Yrd: " + part.Yrd.ToString());
-                Console.WriteLine("\n");
-                //End TESTY
                     
             }
             lab = new Label();
@@ -111,10 +99,7 @@ namespace taio.GUI
         {
             Graphics g = e.Graphics;
             Data.PartOfSolution part;
-           
             Rectangle r,selected;
-
-            //double hRatio = 100.0, vRatio = 100.0;
             int maxCoordinate,minWidthOrHeight;
 
             if (maxX > maxY)
@@ -127,8 +112,8 @@ namespace taio.GUI
             else
                 minWidthOrHeight = e.ClipRectangle.Width;
 
-            double vRatio = (0.75 * minWidthOrHeight) / maxCoordinate;
-            double hRatio = (0.75 * minWidthOrHeight) / maxCoordinate;
+            double vRatio = (0.99 * minWidthOrHeight) / maxCoordinate;
+            double hRatio = (0.99 * minWidthOrHeight) / maxCoordinate;
 
             r = new Rectangle(0,0,Convert.ToInt32(maxX*hRatio),Convert.ToInt32(maxY*vRatio));
             g.FillRectangle(Brushes.Yellow, r);
@@ -146,7 +131,6 @@ namespace taio.GUI
                
                if (i == this.clikedIndex)
                {
-                   //g.FillRectangle(Brushes.Red, r);
                    selected = r = new Rectangle(Convert.ToInt32(part.Xlu * vRatio), Convert.ToInt32(part.Ylu * vRatio), Convert.ToInt32(width * hRatio), Convert.ToInt32(height * vRatio));
                }
                else
@@ -161,13 +145,9 @@ namespace taio.GUI
                 g.FillRectangle(Brushes.Red, selected);
                 g.DrawRectangle(Pens.Yellow, selected);
             }
-        //TESTY
-            this.solutionFrm.MainFrm.StatusStrip1.Items[0].Text = "Width: " + e.ClipRectangle.Width.ToString() + "  Height: " + e.ClipRectangle.Height.ToString()+" " + this.solutionFrm.Width.ToString()+ " " + this.solutionFrm.Height.ToString();
-        //End TESTY
+
         }
-        /// <summary>
-        /// //
-        /// </summary>
+
         private void getLongestSide()
         {
             this.longestSide = 0;
