@@ -86,7 +86,6 @@ namespace taio
             algorithm.StartAlgorithm();
             //Data.Solution sol  = new taio.Data.Solution();
             //sol.PartsOfSolution = algorithm.
-            engine.Solutions = new List<taio.Data.Solution>();
             engine.Solutions.Add(algorithm.Solution);
 
         }
