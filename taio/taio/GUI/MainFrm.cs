@@ -105,6 +105,7 @@ namespace taio
             }
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
+            engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
 
