@@ -87,7 +87,7 @@ namespace taio
             //Data.Solution sol  = new taio.Data.Solution();
             //sol.PartsOfSolution = algorithm.
             engine.Solutions.Add(algorithm.Solution);
-
+            this.showSolutions();
         }
 
         private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace taio
             }
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
-
+            this.showSolutions();
         }
 
         private void FirstAppAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,6 +119,7 @@ namespace taio
             Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
+            this.showSolutions();
         }
 
         private void poka¿Rozwi¹zaniaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -126,26 +127,30 @@ namespace taio
             
             try
             {
-                // jezeli s¹ rozwiazania
-                if(this.engine.Solutions.Count>0)
-                {
-                   // jezeli okno rozwiazan nie jest uz otwarte
-                   if (GUI.SolutionsFrm.counter == 0)
-                   {
-
-                    this.solutionsFrm = new taio.GUI.SolutionsFrm(this);
-                    this.solutionsFrm.MdiParent = this;
-                    this.solutionsFrm.Show();
-                   }
-                }
-                else
-                MessageBox.Show("Brak rozwi¹zañ","Informacja",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                this.showSolutions();   
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
+        }
+        private void showSolutions()
+        {
+            // jezeli s¹ rozwiazania
+            if (this.engine.Solutions.Count > 0)
+            {
+                // jezeli okno rozwiazan nie jest uz otwarte
+                if (GUI.SolutionsFrm.counter == 0)
+                {
+
+                    this.solutionsFrm = new taio.GUI.SolutionsFrm(this);
+                    this.solutionsFrm.MdiParent = this;
+                    this.solutionsFrm.Show();
+                }
+            }
+            else
+                MessageBox.Show("Brak rozwi¹zañ", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
