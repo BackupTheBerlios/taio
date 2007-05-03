@@ -112,8 +112,8 @@ namespace taio.GUI
             else
                 minWidthOrHeight = e.ClipRectangle.Width;
 
-            double vRatio = (0.99 * minWidthOrHeight) / maxCoordinate;
-            double hRatio = (0.99 * minWidthOrHeight) / maxCoordinate;
+            double vRatio = (0.9 * minWidthOrHeight) / maxCoordinate;
+            double hRatio = (0.9 * minWidthOrHeight) / maxCoordinate;
 
             r = new Rectangle(0,0,Convert.ToInt32(maxX*hRatio),Convert.ToInt32(maxY*vRatio));
             g.FillRectangle(Brushes.Yellow, r);
