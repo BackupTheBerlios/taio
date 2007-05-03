@@ -39,9 +39,11 @@ namespace taio.Algorithms
             }
             Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION przed cofaniem warstw:");
             this.printSolutution();
+            for (int i = 0; i < this.listLayer.Count; ++i)
+                this.listLayer[i].moveBack(w, h);
+            //if (lastHorizontal!=null) lastHorizontal.moveBackLastLayer(h);
+            //if (lastVertical != null) lastVertical.moveBackLastLayer(w);
 
-            if (lastHorizontal!=null) lastHorizontal.moveBack();
-            if (lastVertical != null) lastVertical.moveBack();
             this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
 
             Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION po cofaniu warstw:");
@@ -158,13 +160,13 @@ namespace taio.Algorithms
         }
         private void printSolutution()
         {
-
             Console.Out.WriteLine("Startowy prostokat: " + this.startRectangle.Width + " : " + this.startRectangle.Height);
             Console.Out.WriteLine("Part[]: (0,0)  (" + this.startRectangle.Width + "," + this.startRectangle.Height + ")");
             for (int i = 0; i < this.listLayer.Count; ++i)
             {
                 Console.Out.WriteLine("WArstwa nr: "+i+"  INFO: start "+this.listLayer[i].Start
-                    +" end: "+this.listLayer[i].End);             
+                    +" end: "+this.listLayer[i].End+" lastEnd: "+ this.listLayer[i].LastPartEnd
+                    + " end2: " + this.listLayer[i].End2);             
                 for (int j = 0; j < this.listLayer[i].ListPartOfSolution.Count; ++j)
                 {
                     Data.PartOfSolution part = this.listLayer[i].ListPartOfSolution[j];
