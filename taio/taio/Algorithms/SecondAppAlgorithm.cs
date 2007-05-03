@@ -18,18 +18,17 @@ namespace taio.Algorithms
         public override void StartAlgorithm()
         {
             //begin of tests
-            
-            this.Rectangles = new List<Data.Rectangle>();
+            //this.Rectangles = new List<Data.Rectangle>();
             //this.Rectangles.Clear();
-            this.Rectangles.Add(new taio.Data.Rectangle(3,6));
-            this.Rectangles.Add(new taio.Data.Rectangle(2, 3));
-            this.Rectangles.Add(new taio.Data.Rectangle(1, 2));
-            this.Rectangles.Add(new taio.Data.Rectangle(2, 2));
-            this.Rectangles.Add(new taio.Data.Rectangle(3, 3));
+            //this.Rectangles.Add(new taio.Data.Rectangle(3,6));
+            //this.Rectangles.Add(new taio.Data.Rectangle(2, 3));
+            //this.Rectangles.Add(new taio.Data.Rectangle(1, 2));
+            //this.Rectangles.Add(new taio.Data.Rectangle(2, 2));
+            //this.Rectangles.Add(new taio.Data.Rectangle(3, 3));
             //this.Rectangles.Add(new taio.Data.Rectangle(2, 1));
-            this.Rectangles.Add(new taio.Data.Rectangle(2, 4));
-            this.Rectangles.Add(new taio.Data.Rectangle(5, 1));
-            
+            //this.Rectangles.Add(new taio.Data.Rectangle(2, 4));
+            //this.Rectangles.Add(new taio.Data.Rectangle(5, 1));
+            //this.Rectangles.Add(new taio.Data.Rectangle(15, 11));
             //end of tests
             
             try
@@ -41,19 +40,18 @@ namespace taio.Algorithms
                 Console.Out.WriteLine(ex.ToString());
             }
             this.areaSolution = this.sumOfAreas();
+            Console.Out.WriteLine("Max area: " + areaSolution);
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
             while (this.areaSolution > 0)
             {
                 this.Solution.PartsOfSolution.Clear();
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
-                //this.printListOfPossibleSolutions();
                 IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
                 while (e.MoveNext())
                 {
                     if (this.coverSolution(e.Current))
                     {
-                        //this.printPartsOfSolution();
                         return;
                     }
                 }
@@ -91,7 +89,10 @@ namespace taio.Algorithms
         {
             bool[,] usage = new bool [r.Height, r.Width];// tablica zajetosci
             Data.PartOfSolution part;
+            /*nowa lista aby moc 4 pierwsze prostokaty umiescic w rogach,
+             * pozniej je usunac i probowac ukladac kolejne*/
             List<Data.Rectangle> rect = new List<Data.Rectangle>(this.Rectangles);
+
             //pierwsze 4 prostokaty do rogow
             for (int k = 0; k < rect.Count && k < 4; k++)
             {
@@ -99,7 +100,7 @@ namespace taio.Algorithms
                 if (part != null)
                 {
                     this.Solution.PartsOfSolution.Add(part);
-                    //this.printPartsOfSolution();
+                    //uaktualnij usage
                     for (int i = part.Ylu; i <= part.Yrd; i++)
                     {
                         for (int j = part.Xlu; j <= part.Xrd; j++)
@@ -109,9 +110,8 @@ namespace taio.Algorithms
                     }
                 }
             }
-            rect.RemoveRange(0, 4);
-            //this.printUsage(usage);
-            IEnumerator<Data.Rectangle> e = rect.GetEnumerator();
+            rect.RemoveRange(0, 4); 
+            IEnumerator<Data.Rectangle> e = rect.GetEnumerator(); //po nowej liscie
             while (e.MoveNext())
             {
                 
@@ -128,9 +128,10 @@ namespace taio.Algorithms
                             usage[i, j] = true;
                         }
                     }
-                    if (this.isCovered(usage)) //checks usage
+                    if (this.isCovered(usage))
                     {
-                        this.printUsage(usage);
+                        this.printPartsOfSolution();
+                        Console.Out.WriteLine("Found area:" + this.areaSolution);
                         return true;
                     } 
                 }
@@ -185,11 +186,12 @@ namespace taio.Algorithms
                             part.Xrd = j + x.Height - 1;
                             return part;
                         }
+                        
                     }
                 }
             }
             return this.findBestPlacement(x, r, t);
-            //return null;
+            
         }
         private bool canBeInserted (int a, int b, int width, int height, bool [,]t)
         {
@@ -204,14 +206,31 @@ namespace taio.Algorithms
                 }
             }
             return true;
-
         }
         private Data.PartOfSolution findBestPlacement(Data.Rectangle x, Data.Rectangle r, bool[,] t)
         {
             Data.PartOfSolution part = new Data.PartOfSolution();
             int m = t.GetLength(0);  //liczba wierszy
             int n = t.GetLength(1);  //liczba kolumn
-
+            int max = 0, tmp;
+            int a=0, b=0;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    tmp = this.countFreeSquares(x.Width, x.Height, i, j, t);
+                    if (max < tmp)
+                    { 
+                        max = tmp;
+                        a = i;
+                        b = j;
+                    }
+                }
+            }
+            part.Ylu = a;
+            part.Xlu = b;
+            part.Yrd = a + x.Width - 1;
+            part.Xrd = b + x.Height - 1;
             return part;
         }
         private Data.PartOfSolution fillCorners(Data.Rectangle x, Data.Rectangle r, int c)
@@ -251,6 +270,19 @@ namespace taio.Algorithms
                 return part;
             }
             return null;
+        }
+        private int countFreeSquares(int w, int h, int x, int y, bool [,]t)
+        {
+            int counter = -1;
+            if ((x + w > t.GetLength(0)) || y + h > t.GetLength(1)) return counter; 
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    if (t[x + i, y + j] == false) counter++;
+                }
+            }
+            return counter;
         }
         private void printUsage(bool[,] t)
         {
