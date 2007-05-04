@@ -14,18 +14,20 @@ namespace taio.Algorithms
                     RD = 3;
         private int areaSolution;
         private List<Data.Rectangle> listOfPossibleSolutions;
-        
+        private List<Data.Rectangle> myRectangles; //robocza lista prostokatow
         public override void StartAlgorithm()
         {
             
+            this.copyRectangles(this.Rectangles);
             try
             {
-                this.Rectangles.Sort(sortBySquare);
+                this.myRectangles.Sort(sortBySquare);
             }
             catch (Exception ex)
             {
                 Console.Out.WriteLine(ex.ToString());
             }
+            this.printListOfRectangles(this.myRectangles);
             this.areaSolution = this.sumOfAreas();
             Console.Out.WriteLine("Max possible area: " + areaSolution);
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
@@ -57,7 +59,7 @@ namespace taio.Algorithms
         private int sumOfAreas()
         {
             int sum=0;
-            IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
+            IEnumerator<Data.Rectangle> e = this.myRectangles.GetEnumerator();
             while (e.MoveNext())
             {
                 sum += e.Current.Height * e.Current.Width;
@@ -86,8 +88,7 @@ namespace taio.Algorithms
             Data.PartOfSolution part;
             /*nowa lista aby moc 4 pierwsze prostokaty umiescic w rogach,
              * pozniej je usunac i probowac ukladac kolejne*/
-            List<Data.Rectangle> rect = new List<Data.Rectangle>(this.Rectangles);
-
+            List<Data.Rectangle> rect = new List<Data.Rectangle>(this.myRectangles);
             //pierwsze 4 prostokaty do rogow
             for (int k = 0; k < rect.Count && k < 4; k++)
             {
@@ -109,7 +110,7 @@ namespace taio.Algorithms
                     } 
                 }
             }
-            rect.RemoveRange(0, 4); 
+            rect.RemoveRange(0, 4);
             IEnumerator<Data.Rectangle> e = rect.GetEnumerator(); //po nowej liscie
             while (e.MoveNext())
             {
@@ -282,6 +283,16 @@ namespace taio.Algorithms
             }
             return counter;
         }
+        private void copyRectangles(List<Data.Rectangle> l)
+        {
+            this.myRectangles = new List<Data.Rectangle>();
+            IEnumerator<Data.Rectangle> e = l.GetEnumerator();
+            while (e.MoveNext())
+            {
+                Data.Rectangle rect = new Data.Rectangle(e.Current.Width, e.Current.Height);
+                this.myRectangles.Add(rect);
+            }
+        }
         private void printUsage(bool[,] t)
         {
             int m = t.GetLength(0);
@@ -310,9 +321,9 @@ namespace taio.Algorithms
             }
             return true;
         }
-        private void printListOfRectangles()
+        private void printListOfRectangles(List<Data.Rectangle> l)
         {
-            IEnumerator<Data.Rectangle> e = this.Rectangles.GetEnumerator();
+            IEnumerator<Data.Rectangle> e = l.GetEnumerator();
             while (e.MoveNext())
             {
                 Console.Out.WriteLine(e.Current.Width + "\t" + e.Current.Height);
