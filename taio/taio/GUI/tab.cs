@@ -11,11 +11,10 @@ namespace taio.GUI
     public partial class tab : UserControl
     {
 
-        private int longestSide;
         private Data.Solution solution;
         private GUI.SolutionsFrm solutionFrm;
         private int index,clikedIndex=-1,maxX,maxY,maxCoordinate;
-        private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
+        private const int SQR_SIZE = 70; // rozmiar boku podloza dla rysowanych prost. wejsciowych
 
         public tab(GUI.SolutionsFrm solutionFrm, int index)
         {
@@ -31,11 +30,11 @@ namespace taio.GUI
             this.maxY= getMaxY(this.solution);
             this.getMaxCoordinate();
 
-            double hRatio = (double)SQR_SIZE / (double)maxCoordinate;
-            double vRatio = (double)SQR_SIZE / (double)maxCoordinate;
-            double coverage = 0.0;
+            double hRatio = ((double)SQR_SIZE *0.9)/ (double)maxCoordinate;
+            double vRatio = ((double)SQR_SIZE *0.9)/ (double)maxCoordinate;
+ 
 
-            int uly = 20, square = 0, index2 = 0;
+            int uly = 15, index2 = 0;
 
             Panel p;
             Label lab;
@@ -51,18 +50,18 @@ namespace taio.GUI
                     p.Height = Convert.ToInt32(height * vRatio);
                     p.BackColor = Color.Green;
                     p.Name = Convert.ToString(index2);
-                    p.Location = new System.Drawing.Point(20, uly);
+                    p.Location = new System.Drawing.Point(10, uly);
                     p.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     p.Cursor = Cursors.Hand;    
 
                     lab = new Label();
-                    lab.Location = new System.Drawing.Point(p.Width+20, uly);
+                    lab.Location = new System.Drawing.Point(p.Width+15, uly);
                     lab.Text = "Nr. "+ ((index2)+1) +"\nSzerokoœæ: "+ width.ToString() +"\nWysokoœæ: "+ height.ToString()+ "\nPole: " + Convert.ToString(width*height);
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 60;
                     lab.Width = 100; 
 
-                    uly += SQR_SIZE + 5;
+                    uly += SQR_SIZE;
                     index2++;
                    
                     p.Click +=new EventHandler(panel_Click);

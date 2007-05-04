@@ -153,5 +153,15 @@ namespace taio
             else
                 MessageBox.Show("Brak rozwi¹zañ", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void zapiszDaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void losujDaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
