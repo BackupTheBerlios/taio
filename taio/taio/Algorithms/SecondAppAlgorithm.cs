@@ -17,19 +17,6 @@ namespace taio.Algorithms
         
         public override void StartAlgorithm()
         {
-            //begin of tests
-            //this.Rectangles = new List<Data.Rectangle>();
-            //this.Rectangles.Clear();
-            //this.Rectangles.Add(new taio.Data.Rectangle(3,6));
-            //this.Rectangles.Add(new taio.Data.Rectangle(2, 3));
-            //this.Rectangles.Add(new taio.Data.Rectangle(1, 2));
-            //this.Rectangles.Add(new taio.Data.Rectangle(2, 2));
-            //this.Rectangles.Add(new taio.Data.Rectangle(3, 3));
-            //this.Rectangles.Add(new taio.Data.Rectangle(2, 1));
-            //this.Rectangles.Add(new taio.Data.Rectangle(2, 4));
-            //this.Rectangles.Add(new taio.Data.Rectangle(5, 1));
-            //this.Rectangles.Add(new taio.Data.Rectangle(15, 11));
-            //end of tests
             
             try
             {
@@ -40,18 +27,26 @@ namespace taio.Algorithms
                 Console.Out.WriteLine(ex.ToString());
             }
             this.areaSolution = this.sumOfAreas();
-            Console.Out.WriteLine("Max area: " + areaSolution);
+            Console.Out.WriteLine("Max possible area: " + areaSolution);
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
             while (this.areaSolution > 0)
             {
                 this.Solution.PartsOfSolution.Clear();
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
+                /*if (this.listOfPossibleSolutions.Count == 0)
+                {
+                    Console.Out.WriteLine("Failure");
+                    return;
+                }*/
                 IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
                 while (e.MoveNext())
                 {
                     if (this.coverSolution(e.Current))
                     {
+                        Console.Out.WriteLine("Success!");
+                        Console.Out.WriteLine("Found area:" + this.areaSolution);
+                        Console.Out.WriteLine("Wymiary: " + e.Current.Width + "\t" + e.Current.Height);
                         return;
                     }
                 }
@@ -108,6 +103,10 @@ namespace taio.Algorithms
                             usage[i, j] = true;
                         }
                     }
+                    if (this.isCovered(usage))
+                    {
+                        return true;
+                    } 
                 }
             }
             rect.RemoveRange(0, 4); 
@@ -130,8 +129,7 @@ namespace taio.Algorithms
                     }
                     if (this.isCovered(usage))
                     {
-                        this.printPartsOfSolution();
-                        Console.Out.WriteLine("Found area:" + this.areaSolution);
+                        //this.printPartsOfSolution();
                         return true;
                     } 
                 }
