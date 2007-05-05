@@ -48,6 +48,7 @@ namespace taio.Data
                     // wczytuje dane do tablicy info
                     cap = m.Groups["info"].Captures[0];
                     this.info = cap.Value.Split('\n');
+                    engine.DataInfo = cap.Value;
 
                     // wczytuje dane do tablicy input
                     cap = m.Groups["input"].Captures[0];
@@ -103,7 +104,7 @@ namespace taio.Data
             foreach (String res in this.result)
                 if (res != "")
                 {
-                    solution = new Solution();
+                    solution = new Solution( true );
                     resRows = res.Split('\n');
 
                     // dla kazdego wiersza w danym rozwiazaniu
@@ -139,6 +140,48 @@ namespace taio.Data
                   flag = true;
                }
        }
+
+        public void WriteData(main data)
+        {
+            String line = "";
+            int width, height;
+            StreamWriter wr = new StreamWriter(File.Open(data.FileName, FileMode.Append));
+            if (!data.IsFromFile)
+            //zapisz dane wejœciowe
+            {
+                wr.WriteLine("##");
+                wr.WriteLine(engine.DataInfo);
+                wr.WriteLine("##");
+                foreach (Rectangle rect in engine.Rectangles)
+                {
+                    line = rect.Width + "," + rect.Height;
+                    wr.WriteLine(line);
+                }
+                wr.WriteLine("##");
+            }
+            //zapisz rowi¹zania, które nie sa z pliku
+            foreach (Solution solution in data.Solutions)
+            {
+                if (solution.IsFromFile) continue;
+
+                line = "#" + solution.Tag; wr.WriteLine(line);
+
+                foreach (PartOfSolution part in solution.PartsOfSolution)
+                {
+                    line = "";
+                    width = part.Xrd - part.Xlu;
+                    height = part.Yrd - part.Ylu;
+                    line += part.Xlu + "," + part.Ylu + ",";
+                    //wersja 1
+                    line += part.Xrd + "," + part.Yrd;
+                    //wersja 2
+                    //line += width + "," + height;
+                    wr.WriteLine(line);
+                }
+            }
+
+            wr.Close();
+        }
 
     }
 }
