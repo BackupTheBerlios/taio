@@ -19,6 +19,7 @@ namespace taio.Algorithms
         {
             
             this.copyRectangles(this.Rectangles);
+            DateTime t1 = DateTime.Now;
             try
             {
                 this.myRectangles.Sort(sortBySquare);
@@ -35,16 +36,17 @@ namespace taio.Algorithms
             {
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
-                
                 IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
                 while (e.MoveNext())
                 {
                     this.Solution.PartsOfSolution.Clear();
+                    //Console.Out.WriteLine("Aktualnie probuje pokryc: " + e.Current.Width + "x" + e.Current.Height);
                     if (this.coverSolution(e.Current))
                     {
+                        DateTime t2 = DateTime.Now;
+                        TimeSpan t = t2 - t1;
+                        Console.Out.WriteLine("Czas dzialania:" + t);
                         this.convertSolution();
-                        this.printListOfPossibleSolutions();
-                        this.printPartsOfSolution();
                         Console.Out.WriteLine("Success!");
                         Console.Out.WriteLine("Found area:" + this.areaSolution);
                         Console.Out.WriteLine("Wymiary: " + e.Current.Width + "\t" + e.Current.Height);
