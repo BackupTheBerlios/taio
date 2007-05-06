@@ -123,11 +123,12 @@ namespace taio.Algorithms.FirstAppAlgorithm1
         //poza konstruowany prostokat z drugiej strony
         public bool moveBackLastLayer(int pos)
         {
+            //Console.Out.WriteLine("MBLL !!!!!! end2: "+end2+" pos "+pos );
             if (this.end2 <= pos)
                 return true;
             if (this.directionOfLayer == direction.Horizontal)
             {
-                Console.Out.WriteLine("COFNIJ WARSTWE HORIZ");
+                //Console.Out.WriteLine("COFNIJ WARSTWE HORIZ");
                 for (int i = 0; i < this.listPartOfSolution.Count; ++i)
                 {
                     Data.PartOfSolution part = this.listPartOfSolution[i];
@@ -143,14 +144,14 @@ namespace taio.Algorithms.FirstAppAlgorithm1
             }
             else //vertical
             {
-                Console.Out.WriteLine("COFNIJ WARSTWE VERT end: "+pos);
+                //Console.Out.WriteLine("COFNIJ WARSTWE VERT end: "+pos);
                 for (int i = 0; i < this.listPartOfSolution.Count; ++i)
                 {                   
                     Data.PartOfSolution part = this.listPartOfSolution[i];
                     if (part.Xrd > pos)
                     {
                         int p = part.Xrd - pos;// this.end;
-                        Console.Out.WriteLine("i: " + i + " p " + p);
+                        //Console.Out.WriteLine("i: " + i + " p " + p);
                         part.Xlu = part.Xlu - p;
                         part.Xrd = part.Xrd - p;
 
@@ -158,11 +159,12 @@ namespace taio.Algorithms.FirstAppAlgorithm1
                     }
                 }
             }
-            Console.Out.WriteLine("COFNIJ WARSTWE OK");
+            //Console.Out.WriteLine("COFNIJ WARSTWE OK");
             return true;             
         }
         public bool moveBackVertical(int w,int h)
-        {
+        {           
+            moveBackLastLayer(w);
             if (this.lastPartEnd <= h)
                 return true;            
             Data.PartOfSolution part = this.listPartOfSolution[this.listPartOfSolution.Count - 1];
@@ -170,13 +172,13 @@ namespace taio.Algorithms.FirstAppAlgorithm1
             part.Yrd -= (this.lastPartEnd - h);
             if (part.Ylu < 0)
                 return false;
-            Console.WriteLine("COFback VER OK!!  o "+(this.lastPartEnd - h));
+            //Console.WriteLine("COFback VER OK!!  o "+(this.lastPartEnd - h));          
 
-            moveBackLastLayer(w);
             return true;
         }
         public bool moveBackHorizontal(int w,int h)
         {
+            moveBackLastLayer(h);
             if (this.lastPartEnd <= w)
                 return true;
             Data.PartOfSolution part = this.listPartOfSolution[this.listPartOfSolution.Count - 1];
@@ -184,8 +186,8 @@ namespace taio.Algorithms.FirstAppAlgorithm1
             part.Xrd -= (this.lastPartEnd - w);
             if (part.Xlu < 0)
                 return false;
-            Console.WriteLine("COFback HOR OK!!  o " + (this.lastPartEnd - w));
-            moveBackLastLayer(h);
+            //Console.WriteLine("COFback HOR OK!!  o " + (this.lastPartEnd - w));
+           
             return true;
         }
         public void moveBack(int w, int h)
@@ -197,6 +199,9 @@ namespace taio.Algorithms.FirstAppAlgorithm1
                 if (!this.moveBackVertical(w,h))
                     Console.WriteLine("!!!!!!!!!!!!!!!!!!!!NIE DALO SIE COFNAC");
         }
-
+        public bool isHorizontal()
+        {
+            return (this.directionOfLayer == direction.Horizontal);
+        }
     }
 }

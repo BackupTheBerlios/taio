@@ -26,40 +26,46 @@ namespace taio.Algorithms
         public override void StartAlgorithm() {
 
             this.rectangles1 = this.Rectangles ;
-            this.rectangles = new List<taio.Data.Rectangle>(rectangles1);
-            //kopiuje bo bede ja niszczyla
-
-
+            this.rectangles = new List<taio.Data.Rectangle>(rectangles1);  //kopiuje bo bede ja niszczyla
             setStartRectangle();
             this.sortRectangle();
-            while (this.buildNextLayer())
-            {                
-                //Console.Out.WriteLine("warstwa ");
-                //break;
+            while (this.buildNextLayer())        {           
             }
-            Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION przed cofaniem warstw:");
-            this.printSolutution();
+            //Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION przed cofaniem warstw:");
+            //this.saveSolution();
+            //this.test();
+            //this.printSolutution();
             for (int i = 0; i < this.listLayer.Count; ++i)
-                this.listLayer[i].moveBack(w, h);
-            //if (lastHorizontal!=null) lastHorizontal.moveBackLastLayer(h);
-            //if (lastVertical != null) lastVertical.moveBackLastLayer(w);
+               this.listLayer[i].moveBack(w, h);
 
             this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
 
             Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION po cofaniu warstw:");
             this.printSolutution();
+            this.test();
+            Console.Out.WriteLine("ROZW :"+w+" na "+h);
         }
 
-
+        private void test()
+        {
+            Console.WriteLine();
+            for (int i = 0; i < this.Solution.PartsOfSolution.Count; ++i)
+            {
+                Data.PartOfSolution p = this.Solution.PartsOfSolution[i];
+                Console.WriteLine("new Rectangle("+
+                    p.Xlu + "," + p.Ylu + "," + (p.Xrd - p.Xlu) + "," + (p.Yrd - p.Ylu) +
+                    "),");
+            }
+        }
         //////////////////////////////////////////////////////////////////////
         private bool buildNextLayer()
         {
-            Console.Out.WriteLine("przed budowaniem wartwy: "+rectangles.Count+" prostokatow");
+            //Console.Out.WriteLine("przed budowaniem wartwy: "+rectangles.Count+" prostokatow");
             FirstAppAlgorithm1.Layer newLayer = new FirstAppAlgorithm1.Layer();
             bool res;
             if (this.w <= this.h) //decyzja czy pozioma czy pionowa warstwa
             {
-                Console.Out.WriteLine("Wartwa vertical");
+                //Console.Out.WriteLine("Wartwa vertical");
                 newLayer.Start = w;
                 if (res = newLayer.constructVerticalLayer(this.rectangles, w, h))
                 {
@@ -69,7 +75,7 @@ namespace taio.Algorithms
             }
             else
             {
-                Console.Out.WriteLine("Warstwa horizontal");
+                //Console.Out.WriteLine("Warstwa horizontal");
                 newLayer.Start = h;
                 if (res = newLayer.constructHorizontalLayer(this.rectangles, w, h))
                 {
@@ -80,7 +86,7 @@ namespace taio.Algorithms
 
             if (res)
                 this.listLayer.Add(newLayer);
-            Console.Out.WriteLine("po budowaniu wartwy: " + rectangles.Count + " prostokatow");
+            //Console.Out.WriteLine("po budowaniu wartwy: " + rectangles.Count + " prostokatow");
             return res;
         }
         private void setStartRectangle()
@@ -135,20 +141,22 @@ namespace taio.Algorithms
                     listSorted.Add(rect);
             }
             rectangles = listSorted;
-            Console.Out.WriteLine("Sorted:");
+            /*Console.Out.WriteLine("Sorted:");
             for (int j = 0; j < listSorted.Count; ++j)
             {
                 Console.Out.WriteLine(listSorted[j].Width + " " + listSorted[j].Height);
-            }
+            }*/
         }
         private void saveSolution()
         {
+            this.Solution.PartsOfSolution = new List<taio.Data.PartOfSolution>();
             Data.PartOfSolution part = new taio.Data.PartOfSolution();
             part.Xlu = 0;
             part.Ylu = 0;
             part.Xrd = this.startRectangle.Width;
             part.Yrd = this.startRectangle.Height;
             this.Solution.PartsOfSolution.Add(part);
+
             for (int i = 0; i < this.listLayer.Count; ++i)
             {
                 for (int j = 0; j < this.listLayer[i].ListPartOfSolution.Count; ++j)
@@ -162,9 +170,13 @@ namespace taio.Algorithms
         {
             Console.Out.WriteLine("Startowy prostokat: " + this.startRectangle.Width + " : " + this.startRectangle.Height);
             Console.Out.WriteLine("Part[]: (0,0)  (" + this.startRectangle.Width + "," + this.startRectangle.Height + ")");
+           
+
             for (int i = 0; i < this.listLayer.Count; ++i)
-            {
-                Console.Out.WriteLine("WArstwa nr: "+i+"  INFO: start "+this.listLayer[i].Start
+            { 
+                String dir = " Vert ";
+                if (this.listLayer[i].isHorizontal()) dir = " Hor ";
+                Console.Out.WriteLine("WArstwa nr: "+i+dir+"  INFO: start "+this.listLayer[i].Start
                     +" end: "+this.listLayer[i].End+" lastEnd: "+ this.listLayer[i].LastPartEnd
                     + " end2: " + this.listLayer[i].End2);             
                 for (int j = 0; j < this.listLayer[i].ListPartOfSolution.Count; ++j)
