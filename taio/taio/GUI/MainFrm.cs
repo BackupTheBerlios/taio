@@ -20,6 +20,7 @@ namespace taio
 
     
         private GUI.SolutionsFrm solutionsFrm;
+        private GUI.RandomDataFrm randomDataFrm;
 
         public MainFrm()
         {
@@ -40,6 +41,7 @@ namespace taio
            
             try
             {
+                
                 // pobiera nazwe pliku z danymi     
                 openFileDialog.Filter = "data files (*.data)|*.data|All files (*.*)|*.*";
                 openFileDialog.Title = "Wybierz plik z danymi.";
@@ -50,9 +52,10 @@ namespace taio
                 this.statusStrip1.Items[0].Text = "Wczytuje dane...";
                 this.statusStrip1.Refresh();
                 Cursor.Current = Cursors.WaitCursor;
-                
+                if (this.engine.Rectangles != null)
+                this.engine.Rectangles.Clear();
+                this.engine.Solutions.Clear();
                 this.engine.loadData(filePath);
-                Console.Out.WriteLine("PATH: "+filePath);
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";
                 this.statusStrip1.Refresh();
@@ -156,10 +159,49 @@ namespace taio
 
         private void zapiszDaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (this.engine.Rectangles != null && this.engine.Rectangles.Count > 0)
+                {
+                    if (engine.IsFromFile)
+                    {
+                        this.engine.WriteData();
+                        MessageBox.Show("Dane zapisano w pliku:\n" + engine.FileName, "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    if (!engine.IsFromFile)
+                    {
+                        SaveFileDialog save = new SaveFileDialog();
+                        save.Filter = "data files (*.data)|*.data|All files (*.*)|*.*";
+                        save.Title = "Wybierz nazwe pliku.";
+                        if (save.ShowDialog() == DialogResult.OK)
+                        {
+                            this.engine.FileName = save.FileName;
+                            this.engine.WriteData();
+                            MessageBox.Show("Dane zapisano w pliku:\n" + engine.FileName, "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                    MessageBox.Show("Brak danych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void losujDaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GUI.RandomDataFrm.counter == 0)
+            {
+
+                this.randomDataFrm = new taio.GUI.RandomDataFrm(this);
+                this.randomDataFrm.MdiParent = this;
+                this.randomDataFrm.Show();
+            }
+        }
+
+        private void edytujDaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

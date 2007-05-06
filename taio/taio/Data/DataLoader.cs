@@ -143,7 +143,7 @@ namespace taio.Data
 
         public void WriteData(main data)
         {
-            String line = "";
+            String line = null;
             int width, height;
             StreamWriter wr = new StreamWriter(File.Open(data.FileName, FileMode.Append));
             if (!data.IsFromFile)

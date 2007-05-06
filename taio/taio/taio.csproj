@@ -54,6 +54,12 @@
     <Compile Include="GUI\MainFrm.Designer.cs">
       <DependentUpon>MainFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\RandomDataFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\RandomDataFrm.Designer.cs">
+      <DependentUpon>RandomDataFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\SolutionsFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,10 @@
     <EmbeddedResource Include="GUI\MainFrm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\RandomDataFrm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RandomDataFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SolutionsFrm.resx">
       <SubType>Designer</SubType>

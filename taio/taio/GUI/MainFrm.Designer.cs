@@ -31,6 +31,8 @@ namespace taio
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wczytajDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapiszDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.losujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.algorytmyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BrutalAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FirstAppAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,8 +41,7 @@ namespace taio
             this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.zapiszDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.losujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.edytujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +63,7 @@ namespace taio
             this.plikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wczytajDaneToolStripMenuItem,
             this.zapiszDaneToolStripMenuItem,
+            this.edytujDaneToolStripMenuItem,
             this.losujDaneToolStripMenuItem});
             this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -73,6 +75,20 @@ namespace taio
             this.wczytajDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.wczytajDaneToolStripMenuItem.Text = "Wczytaj dane";
             this.wczytajDaneToolStripMenuItem.Click += new System.EventHandler(this.wczytajDaneToolStripMenuItem_Click);
+            // 
+            // zapiszDaneToolStripMenuItem
+            // 
+            this.zapiszDaneToolStripMenuItem.Name = "zapiszDaneToolStripMenuItem";
+            this.zapiszDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zapiszDaneToolStripMenuItem.Text = "Zapisz dane";
+            this.zapiszDaneToolStripMenuItem.Click += new System.EventHandler(this.zapiszDaneToolStripMenuItem_Click);
+            // 
+            // losujDaneToolStripMenuItem
+            // 
+            this.losujDaneToolStripMenuItem.Name = "losujDaneToolStripMenuItem";
+            this.losujDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.losujDaneToolStripMenuItem.Text = "Losuj dane";
+            this.losujDaneToolStripMenuItem.Click += new System.EventHandler(this.losujDaneToolStripMenuItem_Click);
             // 
             // algorytmyToolStripMenuItem
             // 
@@ -137,19 +153,12 @@ namespace taio
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
             this.toolStripStatusLabel1.Text = "Bezczynny";
             // 
-            // zapiszDaneToolStripMenuItem
+            // edytujDaneToolStripMenuItem
             // 
-            this.zapiszDaneToolStripMenuItem.Name = "zapiszDaneToolStripMenuItem";
-            this.zapiszDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.zapiszDaneToolStripMenuItem.Text = "Zapisz dane";
-            this.zapiszDaneToolStripMenuItem.Click += new System.EventHandler(this.zapiszDaneToolStripMenuItem_Click);
-            // 
-            // losujDaneToolStripMenuItem
-            // 
-            this.losujDaneToolStripMenuItem.Name = "losujDaneToolStripMenuItem";
-            this.losujDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.losujDaneToolStripMenuItem.Text = "Losuj dane";
-            this.losujDaneToolStripMenuItem.Click += new System.EventHandler(this.losujDaneToolStripMenuItem_Click);
+            this.edytujDaneToolStripMenuItem.Name = "edytujDaneToolStripMenuItem";
+            this.edytujDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.edytujDaneToolStripMenuItem.Text = "Edytuj dane";
+            this.edytujDaneToolStripMenuItem.Click += new System.EventHandler(this.edytujDaneToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
@@ -195,6 +204,7 @@ namespace taio
         private System.Windows.Forms.ToolStripMenuItem poka¿Rozwi¹zaniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapiszDaneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem losujDaneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem edytujDaneToolStripMenuItem;
     }
 }
 
