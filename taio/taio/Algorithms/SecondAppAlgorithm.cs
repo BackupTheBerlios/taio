@@ -27,25 +27,24 @@ namespace taio.Algorithms
             {
                 Console.Out.WriteLine(ex.ToString());
             }
-            this.printListOfRectangles(this.myRectangles);
+            //this.printListOfRectangles(this.myRectangles);
             this.areaSolution = this.sumOfAreas();
             Console.Out.WriteLine("Max possible area: " + areaSolution);
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
             while (this.areaSolution > 0)
             {
-                this.Solution.PartsOfSolution.Clear();
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
-                /*if (this.listOfPossibleSolutions.Count == 0)
-                {
-                    Console.Out.WriteLine("Failure");
-                    return;
-                }*/
+                
                 IEnumerator<Data.Rectangle> e = this.listOfPossibleSolutions.GetEnumerator();
                 while (e.MoveNext())
                 {
+                    this.Solution.PartsOfSolution.Clear();
                     if (this.coverSolution(e.Current))
                     {
+                        this.convertSolution();
+                        this.printListOfPossibleSolutions();
+                        this.printPartsOfSolution();
                         Console.Out.WriteLine("Success!");
                         Console.Out.WriteLine("Found area:" + this.areaSolution);
                         Console.Out.WriteLine("Wymiary: " + e.Current.Width + "\t" + e.Current.Height);
@@ -89,8 +88,9 @@ namespace taio.Algorithms
             /*nowa lista aby moc 4 pierwsze prostokaty umiescic w rogach,
              * pozniej je usunac i probowac ukladac kolejne*/
             List<Data.Rectangle> rect = new List<Data.Rectangle>(this.myRectangles);
+            int k = 0;
             //pierwsze 4 prostokaty do rogow
-            for (int k = 0; k < rect.Count && k < 4; k++)
+            for (k = 0; k < rect.Count && k < 4; k++)
             {
                 part=this.fillCorners(rect[k], r, k);
                 if (part != null)
@@ -110,7 +110,7 @@ namespace taio.Algorithms
                     } 
                 }
             }
-            rect.RemoveRange(0, 4);
+            rect.RemoveRange(0, k);
             IEnumerator<Data.Rectangle> e = rect.GetEnumerator(); //po nowej liscie
             while (e.MoveNext())
             {
@@ -289,8 +289,17 @@ namespace taio.Algorithms
             IEnumerator<Data.Rectangle> e = l.GetEnumerator();
             while (e.MoveNext())
             {
-                Data.Rectangle rect = new Data.Rectangle(e.Current.Width, e.Current.Height);
-                this.myRectangles.Add(rect);
+                this.myRectangles.Add(new Data.Rectangle(e.Current.Width, e.Current.Height));
+            }
+        }
+        private void convertSolution()
+        {
+            IEnumerator<Data.PartOfSolution> e = this.Solution.PartsOfSolution.GetEnumerator();
+            while (e.MoveNext())
+            {
+                
+                e.Current.Xrd++;
+                e.Current.Yrd++;
             }
         }
         private void printUsage(bool[,] t)
