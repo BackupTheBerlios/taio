@@ -123,6 +123,7 @@ namespace taio
             Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
+            engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
 
