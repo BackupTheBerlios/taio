@@ -8,3 +8,5 @@ obj\Debug\taio.Properties.Resources.resources
 obj\Debug\taio.csproj.GenerateResource.Cache
 obj\Debug\taio.exe
 obj\Debug\taio.pdb
+obj\Debug\taio.GUI.RandomDataFrm.resources
+obj\Debug\taio.GUI.EditDataFrm.resources

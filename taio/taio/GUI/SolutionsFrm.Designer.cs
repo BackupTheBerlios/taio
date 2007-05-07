@@ -39,7 +39,7 @@ namespace taio.GUI
             this.tabSolutons.Location = new System.Drawing.Point(12, 12);
             this.tabSolutons.Name = "tabSolutons";
             this.tabSolutons.SelectedIndex = 0;
-            this.tabSolutons.Size = new System.Drawing.Size(913, 626);
+            this.tabSolutons.Size = new System.Drawing.Size(568, 542);
             this.tabSolutons.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabSolutons.TabIndex = 0;
             this.tabSolutons.Selected += new System.Windows.Forms.TabControlEventHandler(this.Tab_Changed);
@@ -49,10 +49,9 @@ namespace taio.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 650);
+            this.ClientSize = new System.Drawing.Size(592, 566);
             this.Controls.Add(this.tabSolutons);
             this.Name = "SolutionsFrm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Rozwi¹zania";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SolutionsFrm_FormClosed);
             this.Load += new System.EventHandler(this.SolutionsFrm_Load);

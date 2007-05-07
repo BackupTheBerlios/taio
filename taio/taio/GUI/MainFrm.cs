@@ -21,6 +21,7 @@ namespace taio
     
         private GUI.SolutionsFrm solutionsFrm;
         private GUI.RandomDataFrm randomDataFrm;
+        private GUI.EditDataFrm editDataFrm;
 
         public MainFrm()
         {
@@ -46,8 +47,12 @@ namespace taio
                 openFileDialog.Filter = "data files (*.data)|*.data|All files (*.*)|*.*";
                 openFileDialog.Title = "Wybierz plik z danymi.";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
                     filePath = openFileDialog.FileName;
-                
+                    MessageBox.Show("Dane wczytano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    return;
                 // wywolanie odp. funk. z enginu
                 this.statusStrip1.Items[0].Text = "Wczytuje dane...";
                 this.statusStrip1.Refresh();
@@ -56,6 +61,7 @@ namespace taio
                 this.engine.Rectangles.Clear();
                 this.engine.Solutions.Clear();
                 this.engine.loadData(filePath);
+                editRectangles();
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";
                 this.statusStrip1.Refresh();
@@ -69,13 +75,6 @@ namespace taio
             }
         }
 
-
-
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-        
-        }
-
         private void BrutalAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
@@ -87,8 +86,7 @@ namespace taio
             }
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
-            //Data.Solution sol  = new taio.Data.Solution();
-            //sol.PartsOfSolution = algorithm.
+            algorithm.Solution.Tag = "Algorytm brutalny";
             engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
@@ -96,10 +94,7 @@ namespace taio
         private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
-            /*begin of tests*/
-            //algorithm.StartAlgorithm();
-            //return;
-            /*end of tests*/
+
             if (engine.Rectangles == null)
             {
                 
@@ -108,6 +103,7 @@ namespace taio
             }
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
+            algorithm.Solution.Tag = "Algorytm drugi";
             engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
@@ -123,6 +119,7 @@ namespace taio
             Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
+            algorithm.Solution.Tag = "Algorytm pierwszy";
             engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
@@ -143,7 +140,8 @@ namespace taio
         private void showSolutions()
         {
             // jezeli s¹ rozwiazania
-            if (this.engine.Solutions.Count > 0)
+            //MessageBox.Show(engine.Solutions[0].PartsOfSolution.Count.ToString());
+            if (this.engine.Solutions.Count > 0 && engine.Solutions[0].PartsOfSolution != null)
             {
                 // jezeli okno rozwiazan nie jest uz otwarte
                 if (GUI.SolutionsFrm.counter == 0)
@@ -152,6 +150,12 @@ namespace taio
                     this.solutionsFrm = new taio.GUI.SolutionsFrm(this);
                     this.solutionsFrm.MdiParent = this;
                     this.solutionsFrm.Show();
+                }
+                else
+                {
+                    solutionsFrm.CreateTabs();
+                    solutionsFrm.Invalidate();
+                    solutionsFrm.Update();
                 }
             }
             else
@@ -204,7 +208,24 @@ namespace taio
 
         private void edytujDaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
+          editRectangles();
+        }
+        private void editRectangles()
+        {
+          if ((this.engine.Rectangles != null) && (this.engine.Rectangles.Count > 0))
+            {
+              
+                if (GUI.EditDataFrm.counter == 0)
+                {
 
+                    this.editDataFrm = new taio.GUI.EditDataFrm(this);
+                    this.editDataFrm.MdiParent = this;
+                    this.editDataFrm.Show();
+                }
+            }
+            else
+                MessageBox.Show("Brak prostok¹tów wejœciowych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        
         }
     }
 }

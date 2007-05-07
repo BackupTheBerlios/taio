@@ -143,8 +143,6 @@ namespace taio.GUI
             this.datRectangles.Name = "datRectangles";
             this.datRectangles.Size = new System.Drawing.Size(216, 281);
             this.datRectangles.TabIndex = 9;
-            this.datRectangles.MouseMove += new System.Windows.Forms.MouseEventHandler(this.datRectangles_MouseMove);
-            this.datRectangles.MouseLeave += new System.EventHandler(this.datRectangles_MouseLeave);
             this.datRectangles.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.datRectangles_CellValueChanged);
             // 
             // colNr

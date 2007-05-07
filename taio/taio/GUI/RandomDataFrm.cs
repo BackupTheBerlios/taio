@@ -48,7 +48,7 @@ namespace taio.GUI
                         w = rand.Next(1, width + 1);
                         h = rand.Next(1, height + 1);
 
-                        row[0] = i.ToString();
+                        row[0] = Convert.ToString(i + 1);
                         row[1] = w.ToString();
                         row[2] = h.ToString();
                         datRectangles.Rows.Add(row);
@@ -126,30 +126,28 @@ namespace taio.GUI
            return true;        
         }
 
-        private void datRectangles_MouseMove(object sender, MouseEventArgs e)
-        {
-            Cursor.Current = Cursors.Hand;
-        }
-
-        private void datRectangles_MouseLeave(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.Default;
-        }
 
         private void datRectangles_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (datRectangles.RowCount >0)
+            try
             {
-                int temp;
-                if(!Int32.TryParse(datRectangles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(),out temp))
+                if (datRectangles.RowCount > 0)
                 {
-                    MessageBox.Show("B³êdnie podana wartoœæ komórki", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
+                    int temp;
+                    if (!Int32.TryParse(datRectangles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out temp))
+                    {
+                        MessageBox.Show("B³êdnie podana wartoœæ komórki", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                    if (temp <= 0)
+                        MessageBox.Show("Wartoœæ komórki musi byæ > 0", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                 }
-                if (temp <= 0)
-                    MessageBox.Show("Wartoœæ komórki musi byæ > 0", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                   
-            } 
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
        }
 
 

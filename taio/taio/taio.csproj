@@ -48,6 +48,12 @@
     <Compile Include="Data\PartOfSolution.cs" />
     <Compile Include="Data\Rectangle.cs" />
     <Compile Include="Data\Solution.cs" />
+    <Compile Include="GUI\EditDataFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\EditDataFrm.Designer.cs">
+      <DependentUpon>EditDataFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MainFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,10 @@
     <Compile Include="main.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\EditDataFrm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditDataFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainFrm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainFrm.cs</DependentUpon>
