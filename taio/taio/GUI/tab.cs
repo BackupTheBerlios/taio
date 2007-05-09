@@ -13,8 +13,11 @@ namespace taio.GUI
 
         private Data.Solution solution;
         private GUI.SolutionsFrm solutionFrm;
-        private int index,clikedIndex=-1,maxX,maxY,maxCoordinate;
-        private const int SQR_SIZE = 70; // rozmiar boku podloza dla rysowanych prost. wejsciowych
+        private int index, clikedIndex = -1;
+        private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
+        private static int maxX=0, maxY=0, maxCoordinate=0, minWidthOrHeight=0;
+        internal static double ratio,factor=0.0;
+        internal static bool flag = true;
 
         public tab(GUI.SolutionsFrm solutionFrm, int index)
         {
@@ -26,13 +29,19 @@ namespace taio.GUI
         private void tab_Load(object sender, EventArgs e)
         {
             this.solution = this.solutionFrm.MainFrm.Engine.getSolution(this.index);
-            this.maxX = getMaxX(this.solution);
-            this.maxY= getMaxY(this.solution);
-            this.getMaxCoordinate();
+            double square = 0.0;
+            splitContainer1.SplitterDistance = 40;
 
-            double hRatio = ((double)SQR_SIZE *0.9)/ (double)maxCoordinate;
-            double vRatio = ((double)SQR_SIZE *0.9)/ (double)maxCoordinate;
- 
+            if (flag)
+            {
+                maxX = getMaxX(this.solution);
+                maxY = getMaxY(this.solution);
+                maxCoordinate = getMaxCoordinate();
+            }
+            flag = false;
+
+            double hRatio = ((double)SQR_SIZE *1.0)/ (double)maxCoordinate;
+            double vRatio = ((double)SQR_SIZE *1.0)/ (double)maxCoordinate;
 
             int uly = 15, index2 = 0;
 
@@ -43,7 +52,8 @@ namespace taio.GUI
             {
          
                     double width = (double)(part.Xrd - part.Xlu);
-                    double height = (double)(part.Yrd - part.Ylu);    
+                    double height = (double)(part.Yrd - part.Ylu);
+                    square += width * height;
 
                     p = new Panel();
                     p.Width = Convert.ToInt32(width * hRatio);
@@ -55,23 +65,26 @@ namespace taio.GUI
                     p.Cursor = Cursors.Hand;    
 
                     lab = new Label();
+                    lab.Cursor = Cursors.Hand;   
+                    lab.Name = Convert.ToString(index2);
                     lab.Location = new System.Drawing.Point(p.Width+15, uly);
                     lab.Text = "Nr. "+ ((index2)+1) +"\nSzerokoœæ: "+ width.ToString() +"\nWysokoœæ: "+ height.ToString()+ "\nPole: " + Convert.ToString(width*height);
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 60;
                     lab.Width = 100; 
 
-                    uly += SQR_SIZE;
+                    uly += SQR_SIZE-15;
                     index2++;
                    
                     p.Click +=new EventHandler(panel_Click);
+                    lab.Click += new EventHandler(label_Click);
                     this.splitContainer1.Panel1.Controls.Add(p);
                     this.splitContainer1.Panel1.Controls.Add(lab);
                     
             }
             
             lab = new Label();
-            lab.Location = new System.Drawing.Point(5, uly);
+            lab.Location = new System.Drawing.Point(0, uly);
             lab.Text = "Prostok¹t wype³niany:";
             lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
             lab.Height = 15;
@@ -83,14 +96,22 @@ namespace taio.GUI
             p.Height = Convert.ToInt32(maxY * vRatio);
             p.BackColor = Color.Yellow;
             p.Name = Convert.ToString(index);
-            p.Location = new System.Drawing.Point(20, uly+30);
+            p.Location = new System.Drawing.Point(10, uly+20);
             p.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
             this.splitContainer1.Panel1.Controls.Add(p);
 
             lab = new Label();
             lab.Location = new System.Drawing.Point(p.Width + 20, uly+30);
-            lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString()+ "\nPole: "+Convert.ToString( maxX*maxY)+ "\nPokrycie:";
+            lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nUtylizacja:" + Convert.ToString(Math.Round(((double)(maxX*maxY)/square)*100.0)) + "%";
             lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+            lab.Height = 60;
+            lab.Width = 100;
+            this.splitContainer1.Panel1.Controls.Add(lab);
+
+            lab = new Label();
+            lab.Location = new System.Drawing.Point(p.Width + 20, uly + 30);
+            lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+            lab.Text = "  ";
             lab.Height = 60;
             lab.Width = 100;
             this.splitContainer1.Panel1.Controls.Add(lab);
@@ -100,23 +121,12 @@ namespace taio.GUI
         {
             Graphics g = e.Graphics;
             Data.PartOfSolution part;
-            Rectangle r,selected;
-            int minWidthOrHeight;
+            Rectangle r, selected;
 
-            if (maxX > maxY)
-                maxCoordinate = maxX;
-            else
-                maxCoordinate = maxY;
+            minWidthOrHeight = calculateMinWidthOrHeight(e.ClipRectangle);
+            ratio = calculateRatio(factor);
 
-            if (e.ClipRectangle.Width > e.ClipRectangle.Height)
-                minWidthOrHeight = e.ClipRectangle.Height;
-            else
-                minWidthOrHeight = e.ClipRectangle.Width;
-
-            double vRatio = (0.9 * minWidthOrHeight) / maxCoordinate;
-            double hRatio = (0.9 * minWidthOrHeight) / maxCoordinate;
-
-            r = new Rectangle(0,0,Convert.ToInt32(maxX*hRatio),Convert.ToInt32(maxY*vRatio));
+            r = new Rectangle(0,0,Convert.ToInt32(maxX*ratio),Convert.ToInt32(maxY*ratio));
             g.FillRectangle(Brushes.Yellow, r);
             g.DrawRectangle(Pens.Yellow, r);
 
@@ -128,15 +138,15 @@ namespace taio.GUI
                 double width = (double)(part.Xrd - part.Xlu);
                 double height = (double)(part.Yrd - part.Ylu);
 
-               r = new Rectangle(Convert.ToInt32(part.Xlu * vRatio),Convert.ToInt32(part.Ylu*vRatio),Convert.ToInt32(width*hRatio),Convert.ToInt32(height*vRatio));
+               r = new Rectangle(Convert.ToInt32(part.Xlu * ratio),Convert.ToInt32(part.Ylu*ratio),Convert.ToInt32(width*ratio),Convert.ToInt32(height*ratio));
                
                if (i == this.clikedIndex)
                {
-                   selected = r = new Rectangle(Convert.ToInt32(part.Xlu * vRatio), Convert.ToInt32(part.Ylu * vRatio), Convert.ToInt32(width * hRatio), Convert.ToInt32(height * vRatio));
+                   selected = r = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
                }
                else
                {
-                   r = new Rectangle(Convert.ToInt32(part.Xlu * vRatio), Convert.ToInt32(part.Ylu * vRatio), Convert.ToInt32(width * hRatio), Convert.ToInt32(height * vRatio));
+                   r = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
                    g.FillRectangle(Brushes.Green, r);
                    g.DrawRectangle(Pens.Yellow, r);
                }
@@ -149,12 +159,12 @@ namespace taio.GUI
 
         }
 
-        private void getMaxCoordinate()
+        private int getMaxCoordinate()
         {
-            if (this.maxX > this.maxY)
-                this.maxCoordinate = this.maxX;
+            if (maxX > maxY)
+                return maxX;
             else
-                this.maxCoordinate = maxY;
+                return maxY;
         }
         private int getMaxX(Data.Solution sol)
         {
@@ -176,6 +186,21 @@ namespace taio.GUI
             }
             return maxY;
         }
+        private double calculateRatio(double factor)
+        {
+            if (factor == 0.0)
+                return (0.99 * minWidthOrHeight) / maxCoordinate;
+            else
+                return factor;
+        }
+
+        private int calculateMinWidthOrHeight(Rectangle r)
+        {
+            if (r.Width > r.Height)
+                return r.Height;
+            else
+                return r.Width;
+        }
         private void panel_Click(Object sender, EventArgs e)
         {
             Panel p = (Panel)sender;
@@ -184,7 +209,13 @@ namespace taio.GUI
             this.splitContainer1.Panel2.Update();
       
         }
-
+        private void label_Click(Object sender, EventArgs e)
+        {
+            Label l = (Label)sender;
+            this.clikedIndex = Int32.Parse(l.Name);
+            this.splitContainer1.Panel2.Invalidate();
+            this.splitContainer1.Panel2.Update();
+        }
         private void splitContainer1_Panel1_Click(object sender, EventArgs e)
         {
             this.clikedIndex = -1;

@@ -57,6 +57,7 @@ namespace taio.GUI
         internal void CreateTabs()
         {
             tabSolutons.TabPages.Clear();
+            GUI.tab.flag = true;
 
             foreach (Data.Solution sol in this.mainFrm.Engine.Solutions)
             {
@@ -67,6 +68,30 @@ namespace taio.GUI
                 tabPage.Controls.Add(tab);
                 this.tabSolutons.TabPages.Add(tabPage);
             }
+        }
+
+        private void trFactor_Scroll(object sender, EventArgs e)
+        {
+            if (trFactor.Value > 0)
+            {
+                chAuto.Checked = false;
+                GUI.tab.factor = ((double)trFactor.Value) / 100.0;
+                tabSolutons.Refresh();
+                tabSolutons.Invalidate();
+                tabSolutons.Update();
+            }
+        }
+
+        private void chAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chAuto.Checked)
+                GUI.tab.factor = 0.0;
+            else
+                GUI.tab.factor = ((double)trFactor.Value) / 100.0;
+
+            tabSolutons.Refresh();
+            tabSolutons.Invalidate();
+            tabSolutons.Update();
         }
     }
 }

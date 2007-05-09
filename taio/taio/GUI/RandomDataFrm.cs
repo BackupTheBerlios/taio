@@ -29,6 +29,7 @@ namespace taio.GUI
         private void RandomData_FormClosed(object sender, FormClosedEventArgs e)
         {
             counter--;
+            GUI.tab.flag = true;
         }
 
         private void btnDraw_Click(object sender, EventArgs e)

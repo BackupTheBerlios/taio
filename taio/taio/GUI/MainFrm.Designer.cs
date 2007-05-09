@@ -32,6 +32,7 @@ namespace taio
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wczytajDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zapiszDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.edytujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.losujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.algorytmyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BrutalAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +42,6 @@ namespace taio
             this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.edytujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -72,21 +72,28 @@ namespace taio
             // wczytajDaneToolStripMenuItem
             // 
             this.wczytajDaneToolStripMenuItem.Name = "wczytajDaneToolStripMenuItem";
-            this.wczytajDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wczytajDaneToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.wczytajDaneToolStripMenuItem.Text = "Wczytaj dane";
             this.wczytajDaneToolStripMenuItem.Click += new System.EventHandler(this.wczytajDaneToolStripMenuItem_Click);
             // 
             // zapiszDaneToolStripMenuItem
             // 
             this.zapiszDaneToolStripMenuItem.Name = "zapiszDaneToolStripMenuItem";
-            this.zapiszDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zapiszDaneToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.zapiszDaneToolStripMenuItem.Text = "Zapisz dane";
             this.zapiszDaneToolStripMenuItem.Click += new System.EventHandler(this.zapiszDaneToolStripMenuItem_Click);
+            // 
+            // edytujDaneToolStripMenuItem
+            // 
+            this.edytujDaneToolStripMenuItem.Name = "edytujDaneToolStripMenuItem";
+            this.edytujDaneToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.edytujDaneToolStripMenuItem.Text = "Edytuj dane";
+            this.edytujDaneToolStripMenuItem.Click += new System.EventHandler(this.edytujDaneToolStripMenuItem_Click);
             // 
             // losujDaneToolStripMenuItem
             // 
             this.losujDaneToolStripMenuItem.Name = "losujDaneToolStripMenuItem";
-            this.losujDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.losujDaneToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.losujDaneToolStripMenuItem.Text = "Losuj dane";
             this.losujDaneToolStripMenuItem.Click += new System.EventHandler(this.losujDaneToolStripMenuItem_Click);
             // 
@@ -145,20 +152,12 @@ namespace taio
             this.statusStrip1.Size = new System.Drawing.Size(472, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
-      
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
             this.toolStripStatusLabel1.Text = "Bezczynny";
-            // 
-            // edytujDaneToolStripMenuItem
-            // 
-            this.edytujDaneToolStripMenuItem.Name = "edytujDaneToolStripMenuItem";
-            this.edytujDaneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.edytujDaneToolStripMenuItem.Text = "Edytuj dane";
-            this.edytujDaneToolStripMenuItem.Click += new System.EventHandler(this.edytujDaneToolStripMenuItem_Click);
             // 
             // MainFrm
             // 
