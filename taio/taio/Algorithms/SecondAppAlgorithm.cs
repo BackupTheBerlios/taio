@@ -8,11 +8,11 @@ namespace taio.Algorithms
     class SecondAppAlgorithm : Algorithm
     {
         /**finds the solution*/
-        private int LU = 0,
+        private int LU = 0, //oznaczenia rogow pokrywanego prostokata
                     LD = 2,
                     RU = 1,
                     RD = 3;
-        private int areaSolution;
+        private int areaOfSolution; 
         private List<Data.Rectangle> listOfPossibleSolutions;
         private List<Data.Rectangle> myRectangles; //robocza lista prostokatow
         public override void StartAlgorithm()
@@ -29,10 +29,10 @@ namespace taio.Algorithms
                 Console.Out.WriteLine(ex.ToString());
             }
             //this.printListOfRectangles(this.myRectangles);
-            this.areaSolution = this.sumOfAreas();
-            Console.Out.WriteLine("Max possible area: " + areaSolution);
+            this.areaOfSolution = this.sumOfAreas();
+            Console.Out.WriteLine("Max possible area: " + areaOfSolution);
             this.listOfPossibleSolutions = new List<Data.Rectangle>();
-            while (this.areaSolution > 0)
+            while (this.areaOfSolution > 0)
             {
                 this.listOfPossibleSolutions.Clear();
                 this.fillListOfPossibleSolutions();
@@ -40,7 +40,7 @@ namespace taio.Algorithms
                 while (e.MoveNext())
                 {
                     this.Solution.PartsOfSolution.Clear();
-                    //Console.Out.WriteLine("Aktualnie probuje pokryc: " + e.Current.Width + "x" + e.Current.Height);
+                    Console.Out.WriteLine("Aktualnie probuje pokryc: " + e.Current.Width + "x" + e.Current.Height);
                     if (this.coverSolution(e.Current))
                     {
                         DateTime t2 = DateTime.Now;
@@ -48,12 +48,17 @@ namespace taio.Algorithms
                         Console.Out.WriteLine("Czas dzialania:" + t);
                         this.convertSolution();
                         Console.Out.WriteLine("Success!");
-                        Console.Out.WriteLine("Found area:" + this.areaSolution);
+                        Console.Out.WriteLine("Found area:" + this.areaOfSolution);
                         Console.Out.WriteLine("Wymiary: " + e.Current.Width + "\t" + e.Current.Height);
                         return;
                     }
                 }
-                this.areaSolution--;
+                this.areaOfSolution--;
+            }
+            if (this.Solution.PartsOfSolution.Count==0)
+            {
+                Console.Out.WriteLine("Failure");
+                return;
             }
         }
 
@@ -70,14 +75,14 @@ namespace taio.Algorithms
         private void fillListOfPossibleSolutions()
         {
             int n, m;  
-            n=(int)Math.Ceiling(Math.Sqrt(this.areaSolution));
+            n=(int)Math.Ceiling(Math.Sqrt(this.areaOfSolution));
             
             /*szukamy mozliwych rozwiazan w postaci prostokatow n x m spelniajacych ograniczenie*/
-            while ((0.5*this.areaSolution <= n * n) && (n * n  <= 2 * this.areaSolution))
+            while ((0.5*this.areaOfSolution <= n * n) && (n * n  <= 2 * this.areaOfSolution))
             {
-                if (this.areaSolution % n == 0)
+                if (this.areaOfSolution % n == 0)
                 {
-                    m = this.areaSolution / n;
+                    m = this.areaOfSolution / n;
                     this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(m, n));
                 }
                 n++;
@@ -89,7 +94,7 @@ namespace taio.Algorithms
             Data.PartOfSolution part;
             /*nowa lista aby moc 4 pierwsze prostokaty umiescic w rogach,
              * pozniej je usunac i probowac ukladac kolejne*/
-            List<Data.Rectangle> rect = new List<Data.Rectangle>(this.myRectangles);
+            List<Data.Rectangle> rect = new List<Data.Rectangle>(this.myRectangles);//rect will be modified in each loop
             int k = 0;
             //pierwsze 4 prostokaty do rogow
             for (k = 0; k < rect.Count && k < 4; k++)
@@ -117,7 +122,7 @@ namespace taio.Algorithms
             while (e.MoveNext())
             {
                 
-                /*find the coordinates*/
+                /*find the coordinates for the remainder*/
                 part=this.insertRectangle(e.Current, r, usage);
                 if (part != null)
                 {
@@ -132,7 +137,6 @@ namespace taio.Algorithms
                     }
                     if (this.isCovered(usage))
                     {
-                        //this.printPartsOfSolution();
                         return true;
                     } 
                 }
@@ -192,7 +196,6 @@ namespace taio.Algorithms
                 }
             }
             return this.findBestPlacement(x, r, t);
-            
         }
         private bool canBeInserted (int a, int b, int width, int height, bool [,]t)
         {
@@ -213,13 +216,14 @@ namespace taio.Algorithms
             Data.PartOfSolution part = new Data.PartOfSolution();
             int m = t.GetLength(0);  //liczba wierszy
             int n = t.GetLength(1);  //liczba kolumn
-            int max = 0, tmp;
+            int max = 0, tmp=0;
             int a=0, b=0;
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
                     tmp = this.countFreeSquares(x.Width, x.Height, i, j, t);
+                    
                     if (max < tmp)
                     { 
                         max = tmp;
@@ -228,6 +232,7 @@ namespace taio.Algorithms
                     }
                 }
             }
+            
             part.Ylu = a;
             part.Xlu = b;
             part.Yrd = a + x.Width - 1;

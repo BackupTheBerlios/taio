@@ -87,7 +87,8 @@ namespace taio
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
             algorithm.Solution.Tag = "Algorytm brutalny";
-            engine.Solutions.Add(algorithm.Solution);
+            if (algorithm.Solution.PartsOfSolution.Count > 0)
+                engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
 
@@ -104,7 +105,8 @@ namespace taio
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
             algorithm.Solution.Tag = "Algorytm drugi";
-            engine.Solutions.Add(algorithm.Solution);
+            if (algorithm.Solution.PartsOfSolution.Count > 0)
+                engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
 
@@ -120,7 +122,8 @@ namespace taio
             algorithm.Rectangles = engine.Rectangles;
             algorithm.StartAlgorithm();
             algorithm.Solution.Tag = "Algorytm pierwszy";
-            engine.Solutions.Add(algorithm.Solution);
+            if (algorithm.Solution.PartsOfSolution.Count > 0)
+                engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
         }
 
@@ -141,7 +144,7 @@ namespace taio
         {
             // jezeli s¹ rozwiazania
             //MessageBox.Show(engine.Solutions[0].PartsOfSolution.Count.ToString());
-            if (this.engine.Solutions.Count > 0 && engine.Solutions[0].PartsOfSolution != null)
+            if (this.engine.Solutions.Count > 0 )
             {
                 // jezeli okno rozwiazan nie jest uz otwarte
                 if (GUI.SolutionsFrm.counter == 0)
