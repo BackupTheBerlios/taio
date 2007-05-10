@@ -75,7 +75,7 @@ namespace taio.GUI
             if (trFactor.Value > 0)
             {
                 chAuto.Checked = false;
-                GUI.tab.factor = ((double)trFactor.Value) / 100.0;
+                GUI.tab.factor = ((double)trFactor.Value) / 1000.0;
                 tabSolutons.Refresh();
                 tabSolutons.Invalidate();
                 tabSolutons.Update();
@@ -87,7 +87,7 @@ namespace taio.GUI
             if (chAuto.Checked)
                 GUI.tab.factor = 0.0;
             else
-                GUI.tab.factor = ((double)trFactor.Value) / 100.0;
+                GUI.tab.factor = ((double)trFactor.Value) / 1000.0;
 
             tabSolutons.Refresh();
             tabSolutons.Invalidate();

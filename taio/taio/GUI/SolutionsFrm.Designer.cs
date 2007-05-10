@@ -40,6 +40,7 @@ namespace taio.GUI
             this.tabSolutons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabSolutons.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabSolutons.Location = new System.Drawing.Point(12, 55);
             this.tabSolutons.Name = "tabSolutons";
             this.tabSolutons.SelectedIndex = 0;
@@ -52,10 +53,10 @@ namespace taio.GUI
             // trFactor
             // 
             this.trFactor.Location = new System.Drawing.Point(83, 4);
-            this.trFactor.Maximum = 10000;
+            this.trFactor.Maximum = 100000;
             this.trFactor.Minimum = 1;
             this.trFactor.Name = "trFactor";
-            this.trFactor.Size = new System.Drawing.Size(123, 45);
+            this.trFactor.Size = new System.Drawing.Size(214, 45);
             this.trFactor.TabIndex = 1;
             this.trFactor.Value = 1;
             this.trFactor.Scroll += new System.EventHandler(this.trFactor_Scroll);
@@ -65,7 +66,7 @@ namespace taio.GUI
             this.chAuto.AutoSize = true;
             this.chAuto.Checked = true;
             this.chAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chAuto.Location = new System.Drawing.Point(212, 8);
+            this.chAuto.Location = new System.Drawing.Point(303, 12);
             this.chAuto.Name = "chAuto";
             this.chAuto.Size = new System.Drawing.Size(48, 17);
             this.chAuto.TabIndex = 2;

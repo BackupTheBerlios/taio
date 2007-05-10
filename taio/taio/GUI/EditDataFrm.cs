@@ -41,6 +41,10 @@ namespace taio.GUI
                 }
 
                 MessageBox.Show("Stworzono " + Convert.ToString(datRectangles.Rows.Count-1) + " nowych prostok¹tów", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (mainFrm.randomDataFrm != null && mainFrm.randomDataFrm.Visible)
+                    mainFrm.randomDataFrm.Close();
+                if (mainFrm.solutionsFrm != null && mainFrm.solutionsFrm.Visible)
+                   mainFrm.solutionsFrm.Close();
             }
             catch (Exception ex)
             {
@@ -58,6 +62,7 @@ namespace taio.GUI
 
             try
             {
+                datRectangles.Rows.Clear();
                 for (int i = 0; i < mainFrm.Engine.Rectangles.Count; i++)
                 {
                     row[0] = Convert.ToString(i + 1);

@@ -83,7 +83,10 @@ namespace taio.GUI
                     }
                     
                     MessageBox.Show("Stworzono "+datRectangles.Rows.Count.ToString()+" nowych prostok¹tów", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-               
+                    if (mainFrm.editDataFrm != null && mainFrm.editDataFrm.Visible)
+                        mainFrm.editDataFrm.Close();
+                    if (mainFrm.solutionsFrm != null && mainFrm.solutionsFrm.Visible)
+                        mainFrm.solutionsFrm.Close();
             }
             catch (Exception ex)
             {

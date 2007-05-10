@@ -19,9 +19,9 @@ namespace taio
         }
 
     
-        private GUI.SolutionsFrm solutionsFrm;
-        private GUI.RandomDataFrm randomDataFrm;
-        private GUI.EditDataFrm editDataFrm;
+        internal GUI.SolutionsFrm solutionsFrm;
+        internal GUI.RandomDataFrm randomDataFrm;
+        internal GUI.EditDataFrm editDataFrm;
 
         public MainFrm()
         {
@@ -42,14 +42,16 @@ namespace taio
            
             try
             {
-                
+               if (Engine.Rectangles != null)
+                if (Engine.Rectangles.Count > 0 || Engine.Solutions.Count > 0)
+                    if (MessageBox.Show("Istniej¹ce w pamiêci prostok¹ty zostan¹ nadpisane,\na rozwi¹zania skasowane !\nKontynuowaæ?", "Ostrze¿enie", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                        return;
                 // pobiera nazwe pliku z danymi     
-                openFileDialog.Filter = "data files (*.data)|*.data|All files (*.*)|*.*";
+                openFileDialog.Filter = "data files (*.data)|*.data|txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.Title = "Wybierz plik z danymi.";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
-                    MessageBox.Show("Dane wczytano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                     return;
@@ -61,10 +63,18 @@ namespace taio
                 this.engine.Rectangles.Clear();
                 this.engine.Solutions.Clear();
                 this.engine.loadData(filePath);
+                if (editDataFrm != null && editDataFrm.Visible)
+                    editDataFrm.Close();
+                if (randomDataFrm != null && randomDataFrm.Visible)
+                    randomDataFrm.Close();
+                if (solutionsFrm != null && solutionsFrm.Visible)
+                    solutionsFrm.Close();
                 editRectangles();
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";
                 this.statusStrip1.Refresh();
+                MessageBox.Show("Dane wczytano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (Exception ex)
             {
@@ -85,8 +95,19 @@ namespace taio
                 return;
             }
             algorithm.Rectangles = engine.Rectangles;
+            this.statusStrip1.Items[0].Text = "Oblicza - algorytm brutalny...";
+            this.statusStrip1.Refresh();
+            Cursor.Current = Cursors.WaitCursor;
+            DateTime t1 = DateTime.Now;
+            
             algorithm.StartAlgorithm();
-            algorithm.Solution.Tag = "Algorytm brutalny";
+          
+            DateTime t2 = DateTime.Now;
+            TimeSpan t = t2 - t1;
+            Cursor.Current = Cursors.Default;
+            this.statusStrip1.Items[0].Text = "Bezczynny";
+            this.statusStrip1.Refresh();
+            algorithm.Solution.Tag = "Algorytm brutalny " + t.ToString();
             if (algorithm.Solution.PartsOfSolution.Count > 0)
                 engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
@@ -103,8 +124,19 @@ namespace taio
                 return;
             }
             algorithm.Rectangles = engine.Rectangles;
+            this.statusStrip1.Items[0].Text = "Oblicza - algorytm drugi...";
+            this.statusStrip1.Refresh();
+            Cursor.Current = Cursors.WaitCursor;
+            DateTime t1 = DateTime.Now;
+          
             algorithm.StartAlgorithm();
-            algorithm.Solution.Tag = "Algorytm drugi";
+            
+            DateTime t2 = DateTime.Now;
+            TimeSpan t = t2 - t1;
+            Cursor.Current = Cursors.Default;
+            this.statusStrip1.Items[0].Text = "Bezczynny";
+            this.statusStrip1.Refresh();
+            algorithm.Solution.Tag = "Algorytm drugi "+ t.ToString();
             if (algorithm.Solution.PartsOfSolution.Count > 0)
                 engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
@@ -120,8 +152,30 @@ namespace taio
             }
             Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
             algorithm.Rectangles = engine.Rectangles;
+            this.statusStrip1.Items[0].Text = "Oblicza - algorytm pierwszy...";
+            this.statusStrip1.Refresh();
+            Cursor.Current = Cursors.WaitCursor;
+            DateTime t1 = DateTime.Now;
+            //TESTY
+            String s = null;
+            s = "Rectangles przed alg:\n";
+            foreach (Data.Rectangle r in engine.Rectangles)
+                s += r.Width.ToString() + " " + r.Height.ToString()+"\n";
+            s += "\n\n";
+            //END
             algorithm.StartAlgorithm();
-            algorithm.Solution.Tag = "Algorytm pierwszy";
+            //TESTY
+            s += "Rectangles po alg:\n";
+            foreach (Data.Rectangle r in engine.Rectangles)
+                s += r.Width.ToString() + " " + r.Height.ToString()+"\n";
+            MessageBox.Show(s);
+            //END
+            DateTime t2 = DateTime.Now;
+            TimeSpan t = t2 - t1;
+            Cursor.Current = Cursors.Default;
+            this.statusStrip1.Items[0].Text = "Bezczynny";
+            this.statusStrip1.Refresh();
+            algorithm.Solution.Tag = "Algorytm pierwszy "+ t.ToString();
             if (algorithm.Solution.PartsOfSolution.Count > 0)
                 engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
@@ -146,6 +200,9 @@ namespace taio
             //MessageBox.Show(engine.Solutions[0].PartsOfSolution.Count.ToString());
             if (this.engine.Solutions.Count > 0 )
             {
+                this.statusStrip1.Items[0].Text = "Generuje rozwi¹zania...";
+                this.statusStrip1.Refresh();
+                Cursor.Current = Cursors.WaitCursor;
                 // jezeli okno rozwiazan nie jest uz otwarte
                 if (GUI.SolutionsFrm.counter == 0)
                 {
@@ -160,6 +217,9 @@ namespace taio
                     solutionsFrm.Invalidate();
                     solutionsFrm.Update();
                 }
+                Cursor.Current = Cursors.Default;
+                this.statusStrip1.Items[0].Text = "Bezczynny";
+                this.statusStrip1.Refresh();
             }
             else
                 MessageBox.Show("Brak rozwi¹zañ", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -179,7 +239,7 @@ namespace taio
                     if (!engine.IsFromFile)
                     {
                         SaveFileDialog save = new SaveFileDialog();
-                        save.Filter = "data files (*.data)|*.data|All files (*.*)|*.*";
+                        save.Filter = "data files (*.data)|*.data|txt files (*.txt)|*.txt|All files (*.*)|*.*";
                         save.Title = "Wybierz nazwe pliku.";
                         if (save.ShowDialog() == DialogResult.OK)
                         {

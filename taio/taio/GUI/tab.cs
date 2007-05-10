@@ -11,7 +11,7 @@ namespace taio.GUI
     public partial class tab : UserControl
     {
 
-        private Data.Solution solution;
+        internal Data.Solution solution;
         private GUI.SolutionsFrm solutionFrm;
         private int index, clikedIndex = -1;
         private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
@@ -73,7 +73,7 @@ namespace taio.GUI
                     lab.Height = 60;
                     lab.Width = 100; 
 
-                    uly += SQR_SIZE-15;
+                    uly += SQR_SIZE+2;
                     index2++;
                    
                     p.Click +=new EventHandler(panel_Click);
@@ -102,17 +102,17 @@ namespace taio.GUI
 
             lab = new Label();
             lab.Location = new System.Drawing.Point(p.Width + 20, uly+30);
-            lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nUtylizacja:" + Convert.ToString(Math.Round(((double)(maxX*maxY)/square)*100.0)) + "%";
+            lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nUtylizacja pokrycia:" + Convert.ToString(Math.Round(((double)(maxX*maxY)/square)*100.0)) + "%\nNiewykorzystane\nprostok¹ty: "+Convert.ToString (solutionFrm.MainFrm.Engine.Rectangles.Count-solution.PartsOfSolution.Count);
             lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-            lab.Height = 60;
-            lab.Width = 100;
+            lab.Height = 80;
+            lab.Width = 150;
             this.splitContainer1.Panel1.Controls.Add(lab);
 
             lab = new Label();
-            lab.Location = new System.Drawing.Point(p.Width + 20, uly + 30);
+            lab.Location = new System.Drawing.Point(0,p.Location.Y+p.Height+5);
             lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-            lab.Text = "  ";
-            lab.Height = 60;
+            lab.Text = " ";
+            lab.Height = 10;
             lab.Width = 100;
             this.splitContainer1.Panel1.Controls.Add(lab);
         }

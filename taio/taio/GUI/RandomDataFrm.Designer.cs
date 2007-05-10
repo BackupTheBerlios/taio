@@ -134,6 +134,8 @@ namespace taio.GUI
             this.datRectangles.AllowUserToDeleteRows = false;
             this.datRectangles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
+            this.datRectangles.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.datRectangles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.datRectangles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datRectangles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNr,

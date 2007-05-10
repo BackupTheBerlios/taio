@@ -28,7 +28,7 @@ namespace taio.GUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.datRectangles = new System.Windows.Forms.DataGridView();
             this.colNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colWidth = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +43,8 @@ namespace taio.GUI
             // 
             this.datRectangles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
+            this.datRectangles.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.datRectangles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.datRectangles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datRectangles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNr,
@@ -77,10 +79,10 @@ namespace taio.GUI
             // 
             // colDelete
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.colDelete.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.colDelete.DefaultCellStyle = dataGridViewCellStyle2;
             this.colDelete.HeaderText = "Usuñ";
             this.colDelete.Name = "colDelete";
             this.colDelete.Text = "Usuñ";
