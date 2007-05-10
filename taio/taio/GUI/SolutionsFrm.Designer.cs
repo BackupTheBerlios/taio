@@ -32,6 +32,7 @@ namespace taio.GUI
             this.trFactor = new System.Windows.Forms.TrackBar();
             this.chAuto = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.chColor = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trFactor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,11 +84,24 @@ namespace taio.GUI
             this.label1.TabIndex = 3;
             this.label1.Text = "Skalowanie:";
             // 
+            // chColor
+            // 
+            this.chColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chColor.AutoSize = true;
+            this.chColor.Location = new System.Drawing.Point(530, 12);
+            this.chColor.Name = "chColor";
+            this.chColor.Size = new System.Drawing.Size(50, 17);
+            this.chColor.TabIndex = 4;
+            this.chColor.Text = "Kolor";
+            this.chColor.UseVisualStyleBackColor = true;
+            this.chColor.CheckedChanged += new System.EventHandler(this.chColor_CheckedChanged);
+            // 
             // SolutionsFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 566);
+            this.Controls.Add(this.chColor);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chAuto);
             this.Controls.Add(this.trFactor);
@@ -108,5 +122,12 @@ namespace taio.GUI
         private System.Windows.Forms.TrackBar trFactor;
         private System.Windows.Forms.CheckBox chAuto;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chColor;
+
+        public System.Windows.Forms.CheckBox ChColor
+        {
+            get { return chColor; }
+            set { chColor = value; }
+        }
     }
 }

@@ -122,6 +122,8 @@ namespace taio.GUI
             Graphics g = e.Graphics;
             Data.PartOfSolution part;
             Rectangle r, selected;
+            List<Rectangle> rectangles = new List<Rectangle>();
+            //List<Rectangle> intersection = new List<Rectangle>();
 
             minWidthOrHeight = calculateMinWidthOrHeight(e.ClipRectangle);
             ratio = calculateRatio(factor);
@@ -131,24 +133,24 @@ namespace taio.GUI
             g.DrawRectangle(Pens.Yellow, r);
 
             selected = new Rectangle();
-
+           
             for (int i = 0; i < this.solution.PartsOfSolution.Count; i++)
             {
                 part = this.solution.PartsOfSolution[i];
                 double width = (double)(part.Xrd - part.Xlu);
                 double height = (double)(part.Yrd - part.Ylu);
 
-               r = new Rectangle(Convert.ToInt32(part.Xlu * ratio),Convert.ToInt32(part.Ylu*ratio),Convert.ToInt32(width*ratio),Convert.ToInt32(height*ratio));
                
                if (i == this.clikedIndex)
                {
-                   selected = r = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
+                   selected = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
                }
                else
                {
                    r = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
-                   g.FillRectangle(Brushes.Green, r);
-                   g.DrawRectangle(Pens.Yellow, r);
+                   Brush b = drawBrush(solutionFrm.ChColor.Checked);
+                   g.FillRectangle(b, r);
+                   rectangles.Add(r);
                }
             }
             if (clikedIndex > -1)
@@ -156,9 +158,44 @@ namespace taio.GUI
                 g.FillRectangle(Brushes.Red, selected);
                 g.DrawRectangle(Pens.Red, selected);
             }
-
+            foreach(Rectangle r2 in rectangles)
+                g.DrawRectangle(Pens.Yellow, r2);
+            //paintIntersection(g, rectangles, intersection);
         }
+        private Brush drawBrush(bool color)
+        {
+            Brush b;
 
+            if (color)
+            {
+                Random r = new Random(DateTime.UtcNow.Millisecond);
+                Color c = Color.FromArgb(r.Next(0,255),r.Next(0,255),r.Next(0,255));
+
+                while((c.R ==255) && (c.G==255) && (c.B==0))
+                    c = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
+
+                b = new SolidBrush(c);
+                System.Threading.Thread.Sleep(20);
+            }
+            else
+            {
+                b = Brushes.Green;
+            }
+            return b;
+        }
+        //private void paintIntersection(Graphics g, List<Rectangle> rectangles, List<Rectangle> intersection)
+        //{
+        //    for (int i = 0; i< rectangles.Count;i++)
+        //        for (int j = i; j < rectangles.Count; j++)
+        //            if (rectangles[i].IntersectsWith(rectangles[j]))
+        //            {
+        //                Rectangle r = new Rectangle(rectangles[i].Location,rectangles[i].Size);
+        //                r.Intersect(rectangles[j]);
+        //                Pen p = new Pen(Color.Yellow);
+        //                p.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+        //                g.DrawRectangle(p, r);
+        //            }
+        //}
         private int getMaxCoordinate()
         {
             if (maxX > maxY)
