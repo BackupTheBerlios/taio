@@ -41,7 +41,7 @@ namespace taio.GUI
             this.tabSolutons.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabSolutons.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.tabSolutons.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabSolutons.Location = new System.Drawing.Point(12, 55);
             this.tabSolutons.Name = "tabSolutons";
             this.tabSolutons.SelectedIndex = 0;

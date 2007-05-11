@@ -156,20 +156,7 @@ namespace taio
             this.statusStrip1.Refresh();
             Cursor.Current = Cursors.WaitCursor;
             DateTime t1 = DateTime.Now;
-            //TESTY
-            String s = null;
-            s = "Rectangles przed alg:\n";
-            foreach (Data.Rectangle r in engine.Rectangles)
-                s += r.Width.ToString() + " " + r.Height.ToString()+"\n";
-            s += "\n\n";
-            //END
             algorithm.StartAlgorithm();
-            //TESTY
-            s += "Rectangles po alg:\n";
-            foreach (Data.Rectangle r in engine.Rectangles)
-                s += r.Width.ToString() + " " + r.Height.ToString()+"\n";
-            MessageBox.Show(s);
-            //END
             DateTime t2 = DateTime.Now;
             TimeSpan t = t2 - t1;
             Cursor.Current = Cursors.Default;
