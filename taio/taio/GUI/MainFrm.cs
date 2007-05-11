@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace taio
 {
@@ -22,6 +23,7 @@ namespace taio
         internal GUI.SolutionsFrm solutionsFrm;
         internal GUI.RandomDataFrm randomDataFrm;
         internal GUI.EditDataFrm editDataFrm;
+
 
         public MainFrm()
         {
@@ -74,6 +76,9 @@ namespace taio
                 this.statusStrip1.Items[0].Text = "Bezczynny";
                 this.statusStrip1.Refresh();
                 MessageBox.Show("Dane wczytano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                statusStrip1.Items["lab2"].Text = "Dane: "+filePath;
+                lab2.Visible = true;
+                this.statusStrip1.Refresh();
 
             }
             catch (Exception ex)
@@ -119,7 +124,7 @@ namespace taio
 
             if (engine.Rectangles == null)
             {
-                
+
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
                 return;
             }
@@ -128,15 +133,15 @@ namespace taio
             this.statusStrip1.Refresh();
             Cursor.Current = Cursors.WaitCursor;
             DateTime t1 = DateTime.Now;
-          
+           
             algorithm.StartAlgorithm();
-            
+         
             DateTime t2 = DateTime.Now;
             TimeSpan t = t2 - t1;
             Cursor.Current = Cursors.Default;
             this.statusStrip1.Items[0].Text = "Bezczynny";
             this.statusStrip1.Refresh();
-            algorithm.Solution.Tag = "Algorytm drugi "+ t.ToString();
+            algorithm.Solution.Tag = "Algorytm drugi " + t.ToString();
             if (algorithm.Solution.PartsOfSolution.Count > 0)
                 engine.Solutions.Add(algorithm.Solution);
             this.showSolutions();
@@ -233,6 +238,9 @@ namespace taio
                             this.engine.FileName = save.FileName;
                             this.engine.WriteData();
                             MessageBox.Show("Dane zapisano w pliku:\n" + engine.FileName, "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            statusStrip1.Items["lab2"].Text = "Dane: " + save.FileName;
+                            lab2.Visible = true;
+                            this.statusStrip1.Refresh();
                         }
                     }
                 }
@@ -277,5 +285,6 @@ namespace taio
                 MessageBox.Show("Brak prostok¹tów wejœciowych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
         
         }
+
     }
 }

@@ -42,6 +42,7 @@ namespace taio
             this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lab2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -146,7 +147,8 @@ namespace taio
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.toolStripStatusLabel1,
+            this.lab2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 334);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(472, 22);
@@ -158,6 +160,12 @@ namespace taio
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
             this.toolStripStatusLabel1.Text = "Bezczynny";
+            // 
+            // lab2
+            // 
+            this.lab2.Name = "lab2";
+            this.lab2.Size = new System.Drawing.Size(0, 17);
+            this.lab2.Visible = false;
             // 
             // MainFrm
             // 
@@ -204,6 +212,15 @@ namespace taio
         private System.Windows.Forms.ToolStripMenuItem zapiszDaneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem losujDaneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem edytujDaneToolStripMenuItem;
+
+
+        private System.Windows.Forms.ToolStripStatusLabel lab2;
+
+        public System.Windows.Forms.ToolStripStatusLabel Lab2
+        {
+            get { return lab2; }
+            set { lab2 = value; }
+        }
     }
 }
 
