@@ -100,5 +100,12 @@ namespace taio.GUI
             tabSolutons.Invalidate();
             tabSolutons.Update();
         }
+
+        private void chNumbers_CheckedChanged(object sender, EventArgs e)
+        {
+            tabSolutons.Refresh();
+            tabSolutons.Invalidate();
+            tabSolutons.Update();
+        }
     }
 }

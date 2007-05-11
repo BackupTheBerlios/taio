@@ -123,6 +123,7 @@ namespace taio.GUI
             Data.PartOfSolution part;
             Rectangle r, selected;
             List<Rectangle> rectangles = new List<Rectangle>();
+            short index = 1;
             //List<Rectangle> intersection = new List<Rectangle>();
 
             minWidthOrHeight = calculateMinWidthOrHeight(e.ClipRectangle);
@@ -142,25 +143,43 @@ namespace taio.GUI
 
                
                if (i == this.clikedIndex)
-               {
                    selected = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
-               }
-               else
-               {
-                   r = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
-                   Brush b = drawBrush(solutionFrm.ChColor.Checked);
-                   g.FillRectangle(b, r);
-                   rectangles.Add(r);
-               }
+             
+               r = new Rectangle(Convert.ToInt32(part.Xlu * ratio), Convert.ToInt32(part.Ylu * ratio), Convert.ToInt32(width * ratio), Convert.ToInt32(height * ratio));
+               Brush b = drawBrush(solutionFrm.ChColor.Checked);
+               g.FillRectangle(b, r);
+               rectangles.Add(r);
+               
             }
             if (clikedIndex > -1)
             {
                 g.FillRectangle(Brushes.Red, selected);
                 g.DrawRectangle(Pens.Red, selected);
             }
-            foreach(Rectangle r2 in rectangles)
+            foreach (Rectangle r2 in rectangles)
+            {
                 g.DrawRectangle(Pens.Yellow, r2);
-            //paintIntersection(g, rectangles, intersection);
+                paintNumbers(solutionFrm.ChNumbers.Checked, g, r2, ref index);
+            }//paintIntersection(g, rectangles, intersection);
+        }
+        private void paintNumbers(bool numbers, Graphics g, Rectangle r, ref short index)
+        {
+            if (numbers)
+            {
+                int min = r.Height;
+                if (r.Height > r.Width)
+                    min = r.Width;
+                float em = (float)(0.5f * min);
+
+                if (em > 10f)
+                    em = 10f;
+                if (em < 0.1f)
+                    em = 0.1f;
+
+                Font f = new Font(FontFamily.GenericSansSerif, em);
+                g.DrawString(index.ToString(), f, Brushes.Black, (float)(r.X + (r.Width / 2)), (float)(r.Y + (r.Height / 2)));
+                index++;
+            }
         }
         private Brush drawBrush(bool color)
         {

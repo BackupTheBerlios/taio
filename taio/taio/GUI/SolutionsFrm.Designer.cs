@@ -33,6 +33,7 @@ namespace taio.GUI
             this.chAuto = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chColor = new System.Windows.Forms.CheckBox();
+            this.chNumbers = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trFactor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,19 +89,34 @@ namespace taio.GUI
             // 
             this.chColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chColor.AutoSize = true;
-            this.chColor.Location = new System.Drawing.Point(530, 12);
+            this.chColor.Location = new System.Drawing.Point(525, 12);
             this.chColor.Name = "chColor";
-            this.chColor.Size = new System.Drawing.Size(50, 17);
+            this.chColor.Size = new System.Drawing.Size(55, 17);
             this.chColor.TabIndex = 4;
-            this.chColor.Text = "Kolor";
+            this.chColor.Text = "Kolory";
             this.chColor.UseVisualStyleBackColor = true;
             this.chColor.CheckedChanged += new System.EventHandler(this.chColor_CheckedChanged);
+            // 
+            // chNumbers
+            // 
+            this.chNumbers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chNumbers.AutoSize = true;
+            this.chNumbers.Checked = true;
+            this.chNumbers.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chNumbers.Location = new System.Drawing.Point(457, 12);
+            this.chNumbers.Name = "chNumbers";
+            this.chNumbers.Size = new System.Drawing.Size(62, 17);
+            this.chNumbers.TabIndex = 5;
+            this.chNumbers.Text = "Numery";
+            this.chNumbers.UseVisualStyleBackColor = true;
+            this.chNumbers.CheckedChanged += new System.EventHandler(this.chNumbers_CheckedChanged);
             // 
             // SolutionsFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 566);
+            this.Controls.Add(this.chNumbers);
             this.Controls.Add(this.chColor);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chAuto);
@@ -123,6 +139,13 @@ namespace taio.GUI
         private System.Windows.Forms.CheckBox chAuto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chColor;
+        private System.Windows.Forms.CheckBox chNumbers;
+
+        public System.Windows.Forms.CheckBox ChNumbers
+        {
+            get { return chNumbers; }
+            set { chNumbers = value; }
+        }
 
         public System.Windows.Forms.CheckBox ChColor
         {
