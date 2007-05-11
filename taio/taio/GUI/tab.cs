@@ -30,7 +30,7 @@ namespace taio.GUI
         {
             this.solution = this.solutionFrm.MainFrm.Engine.getSolution(this.index);
             double square = 0.0;
-            splitContainer1.SplitterDistance = 40;
+            splitContainer1.SplitterDistance =45;
 
             if (flag)
             {
@@ -278,8 +278,6 @@ namespace taio.GUI
             this.splitContainer1.Panel2.Invalidate();
             this.splitContainer1.Panel2.Update();
         }
-
-
 
     }
 }
