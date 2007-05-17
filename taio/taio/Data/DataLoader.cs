@@ -40,7 +40,7 @@ namespace taio.Data
                 content = reader.ReadToEnd();
                 reader.Close();
 
-                patern = new Regex("##\r\n(?<info>(.|\r|\n)*?)\r\n##\r\n(?<input>(([0-9]*,[0-9]*)\r\n)*)##\r\n(?<result>(#((.){0,4}\r\n([0-9]*,[0-9]*,[0-9]*,[0-9]*(\r\n)?)*))*)");
+                patern = new Regex("##\r\n(?<info>(.|\r|\n)*?)\r\n##\r\n(?<input>(([0-9]*,[0-9]*)\r\n)*)##\r\n(?<result>(#((.)*\r\n([0-9]*,[0-9]*,[0-9]*,[0-9]*(\r\n)?)*))*)");
                 m = patern.Match(content);
 
                 if (m.Success)
@@ -129,9 +129,9 @@ namespace taio.Data
                                 // y1
                                 partOfSolution.Ylu = int.Parse(coordinates[1]);
                                 // x2
-                                partOfSolution.Xrd = int.Parse(coordinates[2]);
+                                partOfSolution.Xrd = partOfSolution.Xlu + int.Parse(coordinates[2]);
                                 // y2
-                                partOfSolution.Yrd = int.Parse(coordinates[3]);
+                                partOfSolution.Yrd = partOfSolution.Ylu + int.Parse(coordinates[3]);
 
                                 solution.PartsOfSolution.Add(partOfSolution);
                             }
@@ -173,9 +173,9 @@ namespace taio.Data
                     height = part.Yrd - part.Ylu;
                     line += part.Xlu + "," + part.Ylu + ",";
                     //wersja 1
-                    line += part.Xrd + "," + part.Yrd;
+                    //line += part.Xrd + "," + part.Yrd;
                     //wersja 2
-                    //line += width + "," + height;
+                    line += width + "," + height;
                     wr.WriteLine(line);
                 }
             }
