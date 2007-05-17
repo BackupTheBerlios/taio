@@ -8,7 +8,20 @@ namespace taio.Algorithms
     {
         
         /**found solution*/
-        Data.Solution solution;
+        protected Data.Solution solution;
+        protected GUI.tab tab;
+
+        protected void refreshTab()
+        {
+           
+            tab.Solution = this.Solution;
+            tab.refreshTab();
+        }
+        public GUI.tab Tab
+        {
+            get { return tab; }
+            set { tab = value; }
+        }
 
         List<Data.Rectangle> rectangles;
 
@@ -29,6 +42,7 @@ namespace taio.Algorithms
         public Algorithm()
         {
             solution = new Data.Solution();
+            rectangles = new List<taio.Data.Rectangle>();
         }
 
         /**finds the solution*/

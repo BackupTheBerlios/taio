@@ -53,7 +53,7 @@ namespace taio.Algorithms
             System.Console.WriteLine("koniec startAlgorithm");
 
             this.MainFrm.Engine.Solutions.Add(this.Solution);
-            //this.MainFrm.showSolutions();
+            this.refreshTab();
         }
         //liczy sume pol prostokatow:
         private int sumAreaOfRectangles()
@@ -299,5 +299,6 @@ namespace taio.Algorithms
             }
             System.Console.WriteLine("koniec generatePermutations");
         }
+        
     }
 }

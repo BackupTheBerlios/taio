@@ -10,13 +10,19 @@ namespace taio.Algorithms
                         FIRST_APP_ALGORITHM = 1, 
                         SECOND_APP_ALGORITHM = 2; 
 
-        private Data.Solution[] solutions;
+        //private Data.Solution[] solutions;
         private Algorithm[] algorithms;
+
+        internal Algorithm[] getAlgorithms
+        {
+            get { return algorithms; }
+            set { algorithms = value; }
+        }
 
         /**initializes fields of class*/
         public Algorithms()
         {
-            solutions = new Data.Solution[SECOND_APP_ALGORITHM + 1];
+            //solutions = new Data.Solution[SECOND_APP_ALGORITHM + 1];
 
             algorithms = new Algorithm[SECOND_APP_ALGORITHM + 1];
 
@@ -29,10 +35,10 @@ namespace taio.Algorithms
          * rectangles - list of rectangles
          * algorithmType - which algorithm is to be called*/
 
-        public void FindSolution( List<Data.Rectangle> rectangles, int algorthimType)
-        {
-            algorithms[algorthimType].StartAlgorithm();
-            solutions[algorthimType] = algorithms[algorthimType].Solution;
-        }
+        //public void FindSolution( List<Data.Rectangle> rectangles, int algorthimType)
+        //{
+        //    algorithms[algorthimType].StartAlgorithm();
+        //    solutions[algorthimType] = algorithms[algorthimType].Solution;
+        //}
     }
 }

@@ -14,6 +14,25 @@ namespace taio.GUI
 
         public static int counter = 0;
         private MainFrm mainFrm;
+        private GUI.tab tabBrutal, tabFirst, tabSecond;
+
+        public GUI.tab TabSecond
+        {
+            get { return tabSecond; }
+            set { tabSecond = value; }
+        }
+
+        public GUI.tab TabFirst
+        {
+            get { return tabFirst; }
+            set { tabFirst = value; }
+        }
+
+        public GUI.tab TabBrutal
+        {
+            get { return tabBrutal; }
+            set { tabBrutal = value; }
+        }
 
         public MainFrm MainFrm
         {
@@ -58,15 +77,55 @@ namespace taio.GUI
         {
             tabSolutons.TabPages.Clear();
 
-            foreach (Data.Solution sol in this.mainFrm.Engine.Solutions)
-            {
-                GUI.tab tab = new tab(this, this.mainFrm.Engine.Solutions.IndexOf(sol));
-                TabPage tabPage = new TabPage(sol.Tag);
-                tab.Dock = DockStyle.Fill;
+            
+                tabBrutal = new tab(this,0);
+                MainFrm.Engine.getAlgorithm(0).Tab = TabBrutal; 
+                TabPage tabPage1 = new TabPage("Algorytm brutalny");
+                tabBrutal.Dock = DockStyle.Fill;
                 //tab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom));
-                tabPage.Controls.Add(tab);
-                this.tabSolutons.TabPages.Add(tabPage);
-            }
+                tabPage1.Controls.Add(tabBrutal);
+                this.tabSolutons.TabPages.Add(tabPage1);
+
+                tabFirst = new tab(this, 1);
+                MainFrm.Engine.getAlgorithm(1).Tab = TabFirst;
+                TabPage tabPage2 = new TabPage("Algorytm pierwszy");
+                tabFirst.Dock = DockStyle.Fill;
+                //tab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom));
+                tabPage2.Controls.Add(tabFirst);
+                this.tabSolutons.TabPages.Add(tabPage2);
+
+
+                tabSecond = new tab(this, 2);
+                MainFrm.Engine.getAlgorithm(2).Tab = TabSecond;
+                TabPage tabPage3 = new TabPage("Algorytm drugi");
+                tabSecond.Dock = DockStyle.Fill;
+                //tab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom));
+                tabPage3.Controls.Add(tabSecond);
+                this.tabSolutons.TabPages.Add(tabPage3);
+
+                foreach(Data.Solution sol in MainFrm.Engine.Solutions)
+                    if (sol.IsFromFile)
+                    {
+                        GUI.tab tab = new tab(this, 55);
+                        tab.Solution = sol;
+                        
+                        tab.LabAlgorytm.Visible = false;
+                        tab.LabTime.Visible = false;
+                        tab.BtnStart.Visible = false;
+                        tab.BtnStop.Visible = false;
+
+                        TabPage tabPage = new TabPage(sol.Tag);
+                        tab.Dock = DockStyle.Fill;
+                        //tab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom));
+                        tabPage.Controls.Add(tab);
+                        this.tabSolutons.TabPages.Add(tabPage);
+
+                        tab.uly = 25;
+                        tab.refreshTab();
+                       
+                    }
+
+  
         }
 
         private void trFactor_Scroll(object sender, EventArgs e)
@@ -105,6 +164,11 @@ namespace taio.GUI
             tabSolutons.Refresh();
             tabSolutons.Invalidate();
             tabSolutons.Update();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MainFrm.Engine.getAlgorithm(0).StartAlgorithm();
         }
     }
 }
