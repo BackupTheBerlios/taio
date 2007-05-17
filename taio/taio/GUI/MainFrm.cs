@@ -70,12 +70,12 @@ namespace taio
                 if (randomDataFrm != null && randomDataFrm.Visible)
                     randomDataFrm.Close();
                 if (solutionsFrm != null && solutionsFrm.Visible)
-                    solutionsFrm.Close();
+                    solutionsFrm.CreateTabs();
                 editRectangles();
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";
                 this.statusStrip1.Refresh();
-                MessageBox.Show("Dane wczytano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 statusStrip1.Items["lab2"].Text = "Dane: "+filePath;
                 lab2.Visible = true;
                 this.statusStrip1.Refresh();
@@ -93,84 +93,84 @@ namespace taio
         private void BrutalAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
-            Algorithms.Algorithm algorithm = new Algorithms.BrutalAlgorithm();
-            if (engine.Rectangles == null)
-            {
-                MessageBox.Show("Brak prostok¹tów wejsciowych");
-                return;
-            }
-            algorithm.Rectangles = engine.Rectangles;
-            this.statusStrip1.Items[0].Text = "Oblicza - algorytm brutalny...";
-            this.statusStrip1.Refresh();
-            Cursor.Current = Cursors.WaitCursor;
-            DateTime t1 = DateTime.Now;
-            algorithm.MainFrm = this;
-            algorithm.StartAlgorithm();
+            //Algorithms.Algorithm algorithm = new Algorithms.BrutalAlgorithm();
+            //if (engine.Rectangles == null)
+            //{
+            //    MessageBox.Show("Brak prostok¹tów wejsciowych");
+            //    return;
+            //}
+            //algorithm.Rectangles = engine.Rectangles;
+            //this.statusStrip1.Items[0].Text = "Oblicza - algorytm brutalny...";
+            //this.statusStrip1.Refresh();
+            //Cursor.Current = Cursors.WaitCursor;
+            //DateTime t1 = DateTime.Now;
+            //algorithm.MainFrm = this;
+            //algorithm.StartAlgorithm();
           
-            DateTime t2 = DateTime.Now;
-            TimeSpan t = t2 - t1;
-            Cursor.Current = Cursors.Default;
-            this.statusStrip1.Items[0].Text = "Bezczynny";
-            this.statusStrip1.Refresh();
-            algorithm.Solution.Tag = "Algorytm brutalny " + t.ToString();
-            //if (algorithm.Solution.PartsOfSolution.Count > 0)
-            //   engine.Solutions.Add(algorithm.Solution);
-            //this.showSolutions();
+            //DateTime t2 = DateTime.Now;
+            //TimeSpan t = t2 - t1;
+            //Cursor.Current = Cursors.Default;
+            //this.statusStrip1.Items[0].Text = "Bezczynny";
+            //this.statusStrip1.Refresh();
+            //algorithm.Solution.Tag = "Algorytm brutalny " + t.ToString();
+            ////if (algorithm.Solution.PartsOfSolution.Count > 0)
+            ////   engine.Solutions.Add(algorithm.Solution);
+            ////this.showSolutions();
         }
 
         private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
+            //Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
 
-            if (engine.Rectangles == null)
-            {
+            //if (engine.Rectangles == null)
+            //{
 
-                MessageBox.Show("Brak prostok¹tów wejsciowych");
-                return;
-            }
-            algorithm.Rectangles = engine.Rectangles;
-            this.statusStrip1.Items[0].Text = "Oblicza - algorytm drugi...";
-            this.statusStrip1.Refresh();
-            Cursor.Current = Cursors.WaitCursor;
-            DateTime t1 = DateTime.Now;
+            //    MessageBox.Show("Brak prostok¹tów wejsciowych");
+            //    return;
+            //}
+            //algorithm.Rectangles = engine.Rectangles;
+            //this.statusStrip1.Items[0].Text = "Oblicza - algorytm drugi...";
+            //this.statusStrip1.Refresh();
+            //Cursor.Current = Cursors.WaitCursor;
+            //DateTime t1 = DateTime.Now;
            
-            algorithm.StartAlgorithm();
+            //algorithm.StartAlgorithm();
          
-            DateTime t2 = DateTime.Now;
-            TimeSpan t = t2 - t1;
-            Cursor.Current = Cursors.Default;
-            this.statusStrip1.Items[0].Text = "Bezczynny";
-            this.statusStrip1.Refresh();
-            algorithm.Solution.Tag = "Algorytm drugi " + t.ToString();
-            if (algorithm.Solution.PartsOfSolution.Count > 0)
-                engine.Solutions.Add(algorithm.Solution);
-            this.showSolutions();
+            //DateTime t2 = DateTime.Now;
+            //TimeSpan t = t2 - t1;
+            //Cursor.Current = Cursors.Default;
+            //this.statusStrip1.Items[0].Text = "Bezczynny";
+            //this.statusStrip1.Refresh();
+            //algorithm.Solution.Tag = "Algorytm drugi " + t.ToString();
+            //if (algorithm.Solution.PartsOfSolution.Count > 0)
+            //    engine.Solutions.Add(algorithm.Solution);
+            //this.showSolutions();
         }
 
         private void FirstAppAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //this.engine.loadData("daneTaio.data");//("C:\\Documents and Settings\\ula\\Pulpit\\TAIO\\taio\\taio\\bin\\Debug\\daneTaio.txt");
-            if (engine.Rectangles == null)
-            {
-                MessageBox.Show("Brak prostok¹tów wejsciowych");
-                return;
-            }
-            Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
-            algorithm.Rectangles = engine.Rectangles;
-            this.statusStrip1.Items[0].Text = "Oblicza - algorytm pierwszy...";
-            this.statusStrip1.Refresh();
-            Cursor.Current = Cursors.WaitCursor;
-            DateTime t1 = DateTime.Now;
-            algorithm.StartAlgorithm();
-            DateTime t2 = DateTime.Now;
-            TimeSpan t = t2 - t1;
-            Cursor.Current = Cursors.Default;
-            this.statusStrip1.Items[0].Text = "Bezczynny";
-            this.statusStrip1.Refresh();
-            algorithm.Solution.Tag = "Algorytm pierwszy "+ t.ToString();
-            if (algorithm.Solution.PartsOfSolution.Count > 0)
-                engine.Solutions.Add(algorithm.Solution);
-            this.showSolutions();
+            
+            //if (engine.Rectangles == null)
+            //{
+            //    MessageBox.Show("Brak prostok¹tów wejsciowych");
+            //    return;
+            //}
+            //Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
+            //algorithm.Rectangles = engine.Rectangles;
+            //this.statusStrip1.Items[0].Text = "Oblicza - algorytm pierwszy...";
+            //this.statusStrip1.Refresh();
+            //Cursor.Current = Cursors.WaitCursor;
+            //DateTime t1 = DateTime.Now;
+            //algorithm.StartAlgorithm();
+            //DateTime t2 = DateTime.Now;
+            //TimeSpan t = t2 - t1;
+            //Cursor.Current = Cursors.Default;
+            //this.statusStrip1.Items[0].Text = "Bezczynny";
+            //this.statusStrip1.Refresh();
+            //algorithm.Solution.Tag = "Algorytm pierwszy "+ t.ToString();
+            //if (algorithm.Solution.PartsOfSolution.Count > 0)
+            //    engine.Solutions.Add(algorithm.Solution);
+            //this.showSolutions();
         }
 
         private void poka¿Rozwi¹zaniaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -190,14 +190,14 @@ namespace taio
         {
             // jezeli s¹ rozwiazania
             //MessageBox.Show(engine.Solutions[0].PartsOfSolution.Count.ToString());
-            if (this.engine.Solutions.Count > 0 )
-            {
+            //if (this.engine.Solutions.Count > 0 )
+            //{
                 //this.statusStrip1.Items[0].Text = "Generuje rozwi¹zania...";
                 //this.statusStrip1.Refresh();
                 //Cursor.Current = Cursors.WaitCursor;
                 // jezeli okno rozwiazan nie jest uz otwarte
-                if (GUI.SolutionsFrm.counter == 0)
-                {
+            if (GUI.SolutionsFrm.counter == 0)
+            {
 
                     this.solutionsFrm = new taio.GUI.SolutionsFrm(this);
                     this.solutionsFrm.MdiParent = this;
@@ -214,9 +214,9 @@ namespace taio
                 //Cursor.Current = Cursors.Default;
                 //this.statusStrip1.Items[0].Text = "Bezczynny";
                 //this.statusStrip1.Refresh();
-            }
-            else
-                MessageBox.Show("Brak rozwi¹zañ", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //    MessageBox.Show("Brak rozwi¹zañ", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void zapiszDaneToolStripMenuItem_Click(object sender, EventArgs e)
@@ -234,7 +234,7 @@ namespace taio
                     {
                         SaveFileDialog save = new SaveFileDialog();
                         save.Filter = "data files (*.data)|*.data|txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                        save.Title = "Wybierz nazwe pliku.";
+                        save.Title = "Wybierz nazwe pliku...";
                         if (save.ShowDialog() == DialogResult.OK)
                         {
                             this.engine.FileName = save.FileName;
@@ -261,7 +261,7 @@ namespace taio
             {
 
                 this.randomDataFrm = new taio.GUI.RandomDataFrm(this);
-                this.randomDataFrm.MdiParent = this;
+                //this.randomDataFrm.MdiParent = this;
                 this.randomDataFrm.Show();
             }
             this.randomDataFrm.Focus();
@@ -280,7 +280,7 @@ namespace taio
                 {
 
                     this.editDataFrm = new taio.GUI.EditDataFrm(this);
-                    this.editDataFrm.MdiParent = this;
+                    //this.editDataFrm.MdiParent = this;
                     this.editDataFrm.Show();
                 }
                 this.editDataFrm.Focus(); 
@@ -288,6 +288,11 @@ namespace taio
             else
                 MessageBox.Show("Brak prostok¹tów wejœciowych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
         
+        }
+
+        private void MainFrm_Load(object sender, EventArgs e)
+        {
+            this.showSolutions();
         }
 
     }

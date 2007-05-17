@@ -34,10 +34,6 @@ namespace taio
             this.zapiszDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edytujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.losujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.algorytmyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BrutalAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FirstAppAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SecondAppAlgorithmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -51,7 +47,6 @@ namespace taio
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plikToolStripMenuItem,
-            this.algorytmyToolStripMenuItem,
             this.¹zaniaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -97,37 +92,6 @@ namespace taio
             this.losujDaneToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.losujDaneToolStripMenuItem.Text = "Losuj dane";
             this.losujDaneToolStripMenuItem.Click += new System.EventHandler(this.losujDaneToolStripMenuItem_Click);
-            // 
-            // algorytmyToolStripMenuItem
-            // 
-            this.algorytmyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.BrutalAlgorithmToolStripMenuItem,
-            this.FirstAppAlgorithmToolStripMenuItem,
-            this.SecondAppAlgorithmToolStripMenuItem});
-            this.algorytmyToolStripMenuItem.Name = "algorytmyToolStripMenuItem";
-            this.algorytmyToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this.algorytmyToolStripMenuItem.Text = "Algorytmy";
-            // 
-            // BrutalAlgorithmToolStripMenuItem
-            // 
-            this.BrutalAlgorithmToolStripMenuItem.Name = "BrutalAlgorithmToolStripMenuItem";
-            this.BrutalAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.BrutalAlgorithmToolStripMenuItem.Text = "Algorytm brutalny";
-            this.BrutalAlgorithmToolStripMenuItem.Click += new System.EventHandler(this.BrutalAlgorithmToolStripMenuItem_Click);
-            // 
-            // FirstAppAlgorithmToolStripMenuItem
-            // 
-            this.FirstAppAlgorithmToolStripMenuItem.Name = "FirstAppAlgorithmToolStripMenuItem";
-            this.FirstAppAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.FirstAppAlgorithmToolStripMenuItem.Text = "Pierwszy";
-            this.FirstAppAlgorithmToolStripMenuItem.Click += new System.EventHandler(this.FirstAppAlgorithmToolStripMenuItem_Click);
-            // 
-            // SecondAppAlgorithmToolStripMenuItem
-            // 
-            this.SecondAppAlgorithmToolStripMenuItem.Name = "SecondAppAlgorithmToolStripMenuItem";
-            this.SecondAppAlgorithmToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.SecondAppAlgorithmToolStripMenuItem.Text = "Drugi";
-            this.SecondAppAlgorithmToolStripMenuItem.Click += new System.EventHandler(this.SecondAppAlgorithmToolStripMenuItem_Click_1);
             // 
             // ¹zaniaToolStripMenuItem
             // 
@@ -181,6 +145,7 @@ namespace taio
             this.Text = "TAIO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFrm_FormClosed);
+            this.Load += new System.EventHandler(this.MainFrm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -203,10 +168,6 @@ namespace taio
             set { statusStrip1 = value; }
         }
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripMenuItem algorytmyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem BrutalAlgorithmToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem FirstAppAlgorithmToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem SecondAppAlgorithmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ¹zaniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem poka¿Rozwi¹zaniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapiszDaneToolStripMenuItem;

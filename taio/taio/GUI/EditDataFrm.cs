@@ -39,12 +39,13 @@ namespace taio.GUI
                     Data.Rectangle rect = new taio.Data.Rectangle(Convert.ToInt32(datRectangles.Rows[i].Cells[1].Value), Convert.ToInt32(datRectangles.Rows[i].Cells[2].Value));
                     this.mainFrm.Engine.Rectangles.Add(rect);
                 }
-
+                mainFrm.Engine.assignRectangles();
+                
                 MessageBox.Show("Stworzono " + Convert.ToString(datRectangles.Rows.Count-1) + " nowych prostok¹tów", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (mainFrm.randomDataFrm != null && mainFrm.randomDataFrm.Visible)
                     mainFrm.randomDataFrm.Close();
                 if (mainFrm.solutionsFrm != null && mainFrm.solutionsFrm.Visible)
-                   mainFrm.solutionsFrm.Close();
+                    mainFrm.solutionsFrm.CreateTabs();
 
                mainFrm.Lab2.Text = null;
                mainFrm.Lab2.Visible = false;

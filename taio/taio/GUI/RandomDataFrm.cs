@@ -80,12 +80,12 @@ namespace taio.GUI
                         Data.Rectangle rect = new taio.Data.Rectangle(Convert.ToInt32( row.Cells[1].Value),Convert.ToInt32( row.Cells[2].Value));
                         this.mainFrm.Engine.Rectangles.Add(rect);
                     }
-                    
+                    mainFrm.Engine.assignRectangles();
                     MessageBox.Show("Stworzono "+datRectangles.Rows.Count.ToString()+" nowych prostok¹tów", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (mainFrm.editDataFrm != null && mainFrm.editDataFrm.Visible)
                         mainFrm.editDataFrm.Close();
                     if (mainFrm.solutionsFrm != null && mainFrm.solutionsFrm.Visible)
-                        mainFrm.solutionsFrm.Close();
+                        mainFrm.solutionsFrm.CreateTabs();
                     mainFrm.Lab2.Text = null;
                     mainFrm.Lab2.Visible = false;
                     mainFrm.StatusStrip1.Refresh();

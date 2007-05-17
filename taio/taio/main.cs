@@ -10,6 +10,13 @@ namespace taio
         private Data.DataLoader dataLoader; // obiekt wczytujacy i trzymajacy dane z pliku
         private List<Data.Rectangle> rectangles; //prostokaty na ktorych dzialaja algorytmy, moze to byc inny zbior niz wczytany z pliku np zedytowany
         private List<Data.Solution> solutions; // litsta z gotowymi rozwiazaniami 
+        private Algorithms.Algorithms algoritms;
+
+        public Algorithms.Algorithm getAlgorithm(int index)
+        {
+            return algoritms.getAlgorithms[index];
+        }
+        
 
         private String fileName;
 
@@ -58,6 +65,10 @@ namespace taio
         {
             this.dataLoader = new taio.Data.DataLoader(this);
             this.solutions = new List<Data.Solution>();
+            this.algoritms = new taio.Algorithms.Algorithms();
+            getAlgorithm(0).MainFrm = mainFrm;
+            getAlgorithm(1).MainFrm = mainFrm;
+            getAlgorithm(2).MainFrm = mainFrm;
         }
 
 
@@ -70,6 +81,22 @@ namespace taio
             fileName = path;
             this.dataLoader.loadData(path);
             this.isFromFile = true;
+            assignRectangles();
+            
+        }
+        internal void assignRectangles()
+        {
+            getAlgorithm(0).Solution.PartsOfSolution.Clear();
+            getAlgorithm(1).Solution.PartsOfSolution.Clear();
+            getAlgorithm(2).Solution.PartsOfSolution.Clear();
+            
+            getAlgorithm(0).Rectangles.Clear();
+            getAlgorithm(1).Rectangles.Clear();
+            getAlgorithm(2).Rectangles.Clear();
+
+            getAlgorithm(0).Rectangles = this.Rectangles;
+            getAlgorithm(1).Rectangles = this.Rectangles;
+            getAlgorithm(2).Rectangles = this.Rectangles;
         }
 
         public void WriteData()
