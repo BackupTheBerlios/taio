@@ -104,7 +104,7 @@ namespace taio
             this.statusStrip1.Refresh();
             Cursor.Current = Cursors.WaitCursor;
             DateTime t1 = DateTime.Now;
-            
+            algorithm.MainFrm = this;
             algorithm.StartAlgorithm();
           
             DateTime t2 = DateTime.Now;
@@ -113,9 +113,9 @@ namespace taio
             this.statusStrip1.Items[0].Text = "Bezczynny";
             this.statusStrip1.Refresh();
             algorithm.Solution.Tag = "Algorytm brutalny " + t.ToString();
-            if (algorithm.Solution.PartsOfSolution.Count > 0)
-                engine.Solutions.Add(algorithm.Solution);
-            this.showSolutions();
+            //if (algorithm.Solution.PartsOfSolution.Count > 0)
+            //   engine.Solutions.Add(algorithm.Solution);
+            //this.showSolutions();
         }
 
         private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -186,15 +186,15 @@ namespace taio
             }
             
         }
-        private void showSolutions()
+        internal void showSolutions()
         {
             // jezeli s¹ rozwiazania
             //MessageBox.Show(engine.Solutions[0].PartsOfSolution.Count.ToString());
             if (this.engine.Solutions.Count > 0 )
             {
-                this.statusStrip1.Items[0].Text = "Generuje rozwi¹zania...";
-                this.statusStrip1.Refresh();
-                Cursor.Current = Cursors.WaitCursor;
+                //this.statusStrip1.Items[0].Text = "Generuje rozwi¹zania...";
+                //this.statusStrip1.Refresh();
+                //Cursor.Current = Cursors.WaitCursor;
                 // jezeli okno rozwiazan nie jest uz otwarte
                 if (GUI.SolutionsFrm.counter == 0)
                 {
@@ -211,9 +211,9 @@ namespace taio
                     solutionsFrm.Update();
                     this.solutionsFrm.Focus();
                 }
-                Cursor.Current = Cursors.Default;
-                this.statusStrip1.Items[0].Text = "Bezczynny";
-                this.statusStrip1.Refresh();
+                //Cursor.Current = Cursors.Default;
+                //this.statusStrip1.Items[0].Text = "Bezczynny";
+                //this.statusStrip1.Refresh();
             }
             else
                 MessageBox.Show("Brak rozwi¹zañ", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);

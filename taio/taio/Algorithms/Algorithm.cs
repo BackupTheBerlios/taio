@@ -12,6 +12,14 @@ namespace taio.Algorithms
 
         List<Data.Rectangle> rectangles;
 
+        private MainFrm mainFrm;
+
+        public MainFrm MainFrm
+        {
+            get { return mainFrm; }
+            set { mainFrm = value; }
+        }
+
         public List<Data.Rectangle> Rectangles
         {
             get { return rectangles; }

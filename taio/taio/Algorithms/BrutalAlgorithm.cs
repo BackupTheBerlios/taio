@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace taio.Algorithms
 {
     class BrutalAlgorithm : Algorithm
     {
+        private Thread brutalThread;
+        private bool endthread;
+        int liczSolution = 0;
         private bool[,] use; //wspolrzedne [y,x], informuje czy dany fragment prostokata
         //(y-1,x-1) na (y,x) jest pokryty przez ktorys z PartOfSolution
 
@@ -24,7 +28,11 @@ namespace taio.Algorithms
         /**finds the solution*/
         public override void StartAlgorithm()
         {
-
+            brutalThread = new Thread(new ThreadStart(startAlgorithm));
+            brutalThread.Start();
+        }
+        private void startAlgorithm()
+        {
             this.lastAddToUse = new List<bool[,]>();
             lastAddToUseXY = new List<int[]>();
 
@@ -42,6 +50,10 @@ namespace taio.Algorithms
             this.generatePermutations<int>(list, this.Rectangles.Count);
             this.Solution = new Data.Solution();
             this.Solution.PartsOfSolution = this.bestPartOfSolution;
+            System.Console.WriteLine("koniec startAlgorithm");
+
+            this.MainFrm.Engine.Solutions.Add(this.Solution);
+            //this.MainFrm.showSolutions();
         }
         //liczy sume pol prostokatow:
         private int sumAreaOfRectangles()
@@ -178,6 +190,11 @@ namespace taio.Algorithms
             {
                 for (int j = 0; j <= hMax; ++j) //posY
                 {
+                    if (endthread)
+                    {
+                        System.Console.WriteLine("przerywam Addrect");
+                        return;
+                    }
                     Data.PartOfSolution part = new taio.Data.PartOfSolution();
 
                     //Console.Out.WriteLine("Probuje dodac prostokat nr " + nrRect + " na pozycji " + i + " : " + j);
@@ -257,6 +274,8 @@ namespace taio.Algorithms
             this.bestArea = area;
             Console.WriteLine("!!!!!!!!!!NOWE SOLUTION!!!!!!!!!!!");
             this.printPart(listPart);
+            liczSolution++;
+            if (liczSolution == 3) endthread = true;
             return;
         }
         //wywoluje addNextRect dla kazdej wygenerowanej permutacji prostokatow
@@ -274,9 +293,11 @@ namespace taio.Algorithms
                     permutationTab[k] = i;
                     ++k;
                 }
-                //Console.WriteLine();                  
+                //Console.WriteLine();        
                 addNextRect(permutationTab, listPartOfSolution, 0, 0, 0);
+                if (endthread) return;
             }
+            System.Console.WriteLine("koniec generatePermutations");
         }
     }
 }
