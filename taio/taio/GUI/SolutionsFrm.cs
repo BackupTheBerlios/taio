@@ -57,7 +57,6 @@ namespace taio.GUI
         internal void CreateTabs()
         {
             tabSolutons.TabPages.Clear();
-            GUI.tab.flag = true;
 
             foreach (Data.Solution sol in this.mainFrm.Engine.Solutions)
             {

@@ -15,9 +15,8 @@ namespace taio.GUI
         private GUI.SolutionsFrm solutionFrm;
         private int index, clikedIndex = -1;
         private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
-        private static int maxX=0, maxY=0, maxCoordinate=0, minWidthOrHeight=0;
+        private int maxX, maxY, maxCoordinate, minWidthOrHeight;
         internal static double ratio,factor=0.0;
-        internal static bool flag = true;
 
         public tab(GUI.SolutionsFrm solutionFrm, int index)
         {
@@ -32,13 +31,10 @@ namespace taio.GUI
             double square = 0.0;
             splitContainer1.SplitterDistance =45;
 
-            if (flag)
-            {
                 maxX = getMaxX(this.solution);
                 maxY = getMaxY(this.solution);
                 maxCoordinate = getMaxCoordinate();
-            }
-            flag = false;
+            
 
             double hRatio = ((double)SQR_SIZE *1.0)/ (double)maxCoordinate;
             double vRatio = ((double)SQR_SIZE *1.0)/ (double)maxCoordinate;

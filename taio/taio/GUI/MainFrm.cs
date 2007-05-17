@@ -202,12 +202,14 @@ namespace taio
                     this.solutionsFrm = new taio.GUI.SolutionsFrm(this);
                     this.solutionsFrm.MdiParent = this;
                     this.solutionsFrm.Show();
+                    this.solutionsFrm.Focus();
                 }
                 else
                 {
                     solutionsFrm.CreateTabs();
                     solutionsFrm.Invalidate();
                     solutionsFrm.Update();
+                    this.solutionsFrm.Focus();
                 }
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";
@@ -262,6 +264,7 @@ namespace taio
                 this.randomDataFrm.MdiParent = this;
                 this.randomDataFrm.Show();
             }
+            this.randomDataFrm.Focus();
         }
 
         private void edytujDaneToolStripMenuItem_Click(object sender, EventArgs e)
@@ -280,7 +283,8 @@ namespace taio
                     this.editDataFrm.MdiParent = this;
                     this.editDataFrm.Show();
                 }
-            }
+                this.editDataFrm.Focus(); 
+           }
             else
                 MessageBox.Show("Brak prostok¹tów wejœciowych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
         
