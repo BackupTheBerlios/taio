@@ -29,7 +29,20 @@ namespace taio
         {
             InitializeComponent();
             this.engine = new main(this);
-            
+
+            //TEST PIERWSZY:
+            this.engine.loadData("daneTaio.data");//("C:\\Documents and Settings\\ula\\Pulpit\\TAIO\\taio\\taio\\bin\\Debug\\daneTaio.txt");
+           /* Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
+            if (engine.Rectangles == null)
+            {
+                MessageBox.Show("Brak prostok¹tów wejsciowych");
+                return;
+            }
+            algorithm.Rectangles = engine.Rectangles;
+            algorithm.StartAlgorithm();
+            engine.Solutions = new List<taio.Data.Solution>();
+            engine.Solutions.Add(algorithm.Solution);
+           */
         }
 
         private void MainFrm_FormClosed(object sender, FormClosedEventArgs e)

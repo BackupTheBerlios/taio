@@ -31,10 +31,17 @@ namespace taio.Algorithms
             brutalThread = new Thread(new ThreadStart(startAlgorithm));
             brutalThread.Start();
         }
+        public override void StopAlgorithm()
+        {
+            this.endthread = true;
+            System.Console.WriteLine("stopAlgorithm brutal");
+        }
         private void startAlgorithm()
         {
+            this.endthread = false;
             this.lastAddToUse = new List<bool[,]>();
             lastAddToUseXY = new List<int[]>();
+            this.Solution = new Data.Solution();
 
             sumOfArea = this.sumAreaOfRectangles();
             int sizeUse = this.sumLenghtOfRectangles() + 1;
@@ -48,12 +55,14 @@ namespace taio.Algorithms
                 ++i;
             }
             this.generatePermutations<int>(list, this.Rectangles.Count);
-            this.Solution = new Data.Solution();
-            this.Solution.PartsOfSolution = this.bestPartOfSolution;
+            
+            //this.Solution.PartsOfSolution = this.bestPartOfSolution;
             System.Console.WriteLine("koniec startAlgorithm");
 
             this.MainFrm.Engine.Solutions.Add(this.Solution);
             this.refreshTab();
+            this.brutalThread.Abort();
+            return;
         }
         //liczy sume pol prostokatow:
         private int sumAreaOfRectangles()
@@ -275,7 +284,12 @@ namespace taio.Algorithms
             Console.WriteLine("!!!!!!!!!!NOWE SOLUTION!!!!!!!!!!!");
             this.printPart(listPart);
             liczSolution++;
-            if (liczSolution == 3) endthread = true;
+            this.Solution = new Data.Solution();
+            this.Solution.PartsOfSolution = this.bestPartOfSolution;
+            //this.MainFrm.Engine.Solutions.Add(this.Solution);
+            this.refreshTab();
+            
+            //if (liczSolution == 3) endthread = true;
             return;
         }
         //wywoluje addNextRect dla kazdej wygenerowanej permutacji prostokatow

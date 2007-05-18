@@ -161,6 +161,8 @@ namespace taio.GUI
              if (solution != null)
                 if (solution.PartsOfSolution.Count > 0)
                 {
+                    //this.splitContainer1.Panel1.Controls.Clear();
+                    //uly = 80;
                     double square = 0.0;
                     splitContainer1.SplitterDistance = 250;
 
@@ -320,7 +322,7 @@ namespace taio.GUI
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-
+            solutionFrm.MainFrm.Engine.getAlgorithm(index).StopAlgorithm();
         }
         public void setTime(DateTime time)
         {

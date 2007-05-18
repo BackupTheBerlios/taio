@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Threading;
 namespace taio.Algorithms
 {
     /*algorytm Agnieszki*/
@@ -15,6 +15,10 @@ namespace taio.Algorithms
         private int areaOfSolution; 
         private List<Data.Rectangle> listOfPossibleSolutions;
         private List<Data.Rectangle> myRectangles; //working rectangle list
+        public override void StopAlgorithm()
+        {
+            //this.endthread = true;
+        }
         public override void StartAlgorithm()
         {
             

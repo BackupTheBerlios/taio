@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Threading;
 namespace taio.Algorithms
 {
     /**algorytm Uli*/
     class FirstAppAlgorithm : Algorithm
     {
+        private Thread firstThread;
+        private bool endthread;
+
         private Data.Rectangle startRectangle;  //albo pierwsza warstwa moze byc startowyProstokat 
         private List<FirstAppAlgorithm1.Layer> listLayer;
         FirstAppAlgorithm1.Layer lastHorizontal, lastVertical;
@@ -20,12 +23,21 @@ namespace taio.Algorithms
         {
             this.listLayer = new List<FirstAppAlgorithm1.Layer>();
         }
-
-
-        /**finds the solution*/
         public override void StartAlgorithm()
         {
+            firstThread = new Thread(new ThreadStart(startAlgorithm));
+            firstThread.Start();
 
+        }
+        public override void StopAlgorithm()
+        {
+            firstThread.Abort();
+            System.Console.WriteLine("stopAlgorithm first");
+            this.MainFrm.Engine.Solutions.Add(this.Solution);
+            this.refreshTab();
+        }
+        private void startAlgorithm()
+        {
             this.rectangles1 = this.Rectangles;
             this.rectangles = new List<taio.Data.Rectangle>(rectangles1);  //kopiuje bo bede ja niszczyla
             setStartRectangle();
@@ -38,8 +50,8 @@ namespace taio.Algorithms
             //this.test();
             //this.printSolutution();
             
-            //for (int i = 0; i < this.listLayer.Count; ++i)
-            //   this.listLayer[i].moveBack(w, h);
+            for (int i = 0; i < this.listLayer.Count; ++i)
+               this.listLayer[i].moveBack(w, h);
 
             this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
 
@@ -47,8 +59,9 @@ namespace taio.Algorithms
             this.printSolutution();
             this.test();
             Console.Out.WriteLine("ROZW :" + w + " na " + h);
+            this.MainFrm.Engine.Solutions.Add(this.Solution);
+            this.refreshTab();
         }
-
         private void test()
         {
             Console.WriteLine();

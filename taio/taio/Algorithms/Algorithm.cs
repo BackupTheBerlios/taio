@@ -49,6 +49,8 @@ namespace taio.Algorithms
 
         public abstract void StartAlgorithm();
 
+
+        public abstract void StopAlgorithm();
         /**returns Solution which algorithm has found*/
 
         public Data.Solution Solution
