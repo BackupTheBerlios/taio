@@ -13,7 +13,8 @@ namespace taio.Algorithms
 
         protected void refreshTab()
         {
-           
+            //if(tab.Solution != null)
+            //tab.Solution.PartsOfSolution.Clear();
             tab.Solution = this.Solution;
             tab.refreshTab();
         }

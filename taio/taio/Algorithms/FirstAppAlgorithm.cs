@@ -8,6 +8,12 @@ namespace taio.Algorithms
     class FirstAppAlgorithm : Algorithm
     {
         private Thread firstThread;
+
+        public Thread FirstThread
+        {
+            get { return firstThread; }
+            set { firstThread = value; }
+        }
         private bool endthread;
 
         private Data.Rectangle startRectangle;  //albo pierwsza warstwa moze byc startowyProstokat 

@@ -161,8 +161,7 @@ namespace taio.GUI
              if (solution != null)
                 if (solution.PartsOfSolution.Count > 0)
                 {
-                    //this.splitContainer1.Panel1.Controls.Clear();
-                    //uly = 80;
+                
                     double square = 0.0;
                     splitContainer1.SplitterDistance = 250;
 
@@ -302,22 +301,32 @@ namespace taio.GUI
         {
             if (this.InvokeRequired)
             {
+               
                 refreshTabCallback d = new refreshTabCallback(refreshTab);
                 this.Invoke(d);
             }
             else
             {
+               // sleepThread();
+                clearTabs();
                 paintLeftSplit();
+                createControls();
                 this.Invalidate();
                 this.Update();
                 this.Refresh();
+               // resumeThread();
             }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if(solutionFrm.MainFrm.Engine.Rectangles !=null)
-                 solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
+            if (solutionFrm.MainFrm.Engine.Rectangles != null)
+            {
+                if(solution != null)
+                solution.PartsOfSolution.Clear();
+                solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
+                //clearTabs();
+            }
             else
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
         }
@@ -329,6 +338,98 @@ namespace taio.GUI
         public void setTime(DateTime time)
         {
             this.labTime.Text = "Czas: " + time.ToShortTimeString();
+        }
+
+        private void clearTabs()
+        {
+            this.uly = 80;
+            foreach (Control c in splitContainer1.Panel1.Controls)
+            {
+                if (c.GetType() == typeof(Label))
+                {
+                    
+                    c.Hide();
+                    splitContainer1.Panel1.Controls.Remove(c);
+                    c.Dispose();
+                }
+                if (c.GetType() == typeof(Panel))
+                {
+                   
+                    c.Hide();
+                   splitContainer1.Panel1.Controls.Remove(c);
+                   c.Dispose();
+                }
+                //if (c.GetType() == typeof(Button))
+                //{
+                    
+                //    c.Hide();
+                //    splitContainer1.Panel1.Controls.Remove(c);
+                //    c.Dispose();
+                //}
+
+            
+            }
+        }
+        private void createControls()
+        {
+            Label labAlgorytm = new Label();
+            labAlgorytm.AutoSize = true;
+            labAlgorytm.Location = new System.Drawing.Point(3, 5);
+            labAlgorytm.Name = "labAlgorytm";
+            labAlgorytm.Size = new System.Drawing.Size(50, 13);
+            labAlgorytm.TabIndex = 0;
+            labAlgorytm.Text = "Algorytm:";
+            splitContainer1.Panel1.Controls.Add(labAlgorytm);
+
+            //Button btnStart = new Button();
+            //btnStart.Location = new System.Drawing.Point(59, 0);
+            //btnStart.Name = "btnStart";
+            //btnStart.Size = new System.Drawing.Size(75, 23);
+            //btnStart.TabIndex = 0;
+            //btnStart.Text = "Start";
+            //btnStart.UseVisualStyleBackColor = true;
+            //btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            splitContainer1.Panel1.Controls.Add(btnStart);
+
+            Label label1 = new Label();
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(3, 62);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(118, 13);
+            label1.TabIndex = 0;
+            label1.Text = "Prostok¹ty rozwi¹zania:";
+            splitContainer1.Panel1.Controls.Add(label1);
+
+            Label labTime = new Label();
+            labTime.AutoSize = true;
+            labTime.Location = new System.Drawing.Point(3, 30);
+            labTime.Name = "labTime";
+            labTime.Size = new System.Drawing.Size(33, 13);
+            labTime.TabIndex = 0;
+            labTime.Text = "Czas:";
+            splitContainer1.Panel1.Controls.Add(labTime);
+
+            //Button bntStop = new Button();
+            //btnStop.Location = new System.Drawing.Point(140, 0);
+            //btnStop.Name = "btnStop";
+            //btnStop.Size = new System.Drawing.Size(75, 23);
+            //btnStop.TabIndex = 0;
+            //btnStop.Text = "Stop";
+            //btnStop.UseVisualStyleBackColor = true;
+            //btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            //splitContainer1.Panel1.Controls.Add(bntStop);
+        }
+        private void sleepThread()
+        {
+            if(solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread != null)
+            if (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.IsAlive)
+                solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.Suspend();
+        }
+        private void resumeThread()
+        {
+            if (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread != null)
+            if (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.ThreadState == System.Threading.ThreadState.Suspended)
+                solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.Resume();
         }
     }
 }

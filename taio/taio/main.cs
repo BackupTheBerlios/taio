@@ -12,6 +12,13 @@ namespace taio
         private List<Data.Solution> solutions; // litsta z gotowymi rozwiazaniami 
         private Algorithms.Algorithms algoritms;
 
+        internal Algorithms.Algorithms Algoritms
+        {
+            get { return algoritms; }
+            set { algoritms = value; }
+        }
+        private MainFrm mainFrm;
+
         public Algorithms.Algorithm getAlgorithm(int index)
         {
             return algoritms.getAlgorithms[index];
@@ -63,6 +70,7 @@ namespace taio
 
         public main(taio.MainFrm mainFrm)
         {
+            this.mainFrm = mainFrm;
             this.dataLoader = new taio.Data.DataLoader(this);
             this.solutions = new List<Data.Solution>();
             this.algoritms = new taio.Algorithms.Algorithms();

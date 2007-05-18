@@ -18,7 +18,18 @@ namespace taio.Algorithms
             get { return algorithms; }
             set { algorithms = value; }
         }
-
+        public BrutalAlgorithm getBrutal()
+        {
+            return (BrutalAlgorithm)algorithms[BRUTAL_ALGORTIHM];
+        }
+        public FirstAppAlgorithm getFirst()
+        {
+          return (FirstAppAlgorithm)algorithms[FIRST_APP_ALGORITHM]; 
+        }
+        public SecondAppAlgorithm getSecond()
+        {
+            return (SecondAppAlgorithm) algorithms[SECOND_APP_ALGORITHM];
+        }
         /**initializes fields of class*/
         public Algorithms()
         {

@@ -8,6 +8,15 @@ namespace taio.Algorithms
     class BrutalAlgorithm : Algorithm
     {
         private Thread brutalThread;
+        // maciek
+        public Thread BrutalThread
+        {
+            get { return brutalThread; }
+            set { brutalThread = value; }
+        }
+
+        // end maciek
+        
         private bool endthread;
         int liczSolution = 0;
         private bool[,] use; //wspolrzedne [y,x], informuje czy dany fragment prostokata
@@ -315,5 +324,6 @@ namespace taio.Algorithms
             System.Console.WriteLine("koniec generatePermutations");
         }
         
+    
     }
 }

@@ -104,7 +104,7 @@ namespace taio.Data
             foreach (String res in this.result)
                 if (res != "")
                 {
-                    solution = new Solution( true );
+                    solution = new Solution(true);
                     resRows = res.Split('\n');
 
                     // dla kazdego wiersza w danym rozwiazaniu

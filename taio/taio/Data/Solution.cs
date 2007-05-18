@@ -10,7 +10,7 @@ namespace taio.Data
         List<PartOfSolution> partsOfSolution;
         private String tag; // tag identyfikujacy dane rozw.
 
-        private bool fromFile;
+        private bool fromFile = false;
 
         #region getters and setters
         public String Tag
