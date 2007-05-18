@@ -317,7 +317,9 @@ namespace taio.GUI
         private void btnStart_Click(object sender, EventArgs e)
         {
             if(solutionFrm.MainFrm.Engine.Rectangles !=null)
-            solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
+                 solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
+            else
+                MessageBox.Show("Brak prostok¹tów wejsciowych");
         }
 
         private void btnStop_Click(object sender, EventArgs e)

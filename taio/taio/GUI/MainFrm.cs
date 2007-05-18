@@ -31,7 +31,7 @@ namespace taio
             this.engine = new main(this);
 
             //TEST PIERWSZY:
-            this.engine.loadData("daneTaio.data");//("C:\\Documents and Settings\\ula\\Pulpit\\TAIO\\taio\\taio\\bin\\Debug\\daneTaio.txt");
+            //this.engine.loadData("daneTaio.data");//("C:\\Documents and Settings\\ula\\Pulpit\\TAIO\\taio\\taio\\bin\\Debug\\daneTaio.txt");
            /* Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
             if (engine.Rectangles == null)
             {
