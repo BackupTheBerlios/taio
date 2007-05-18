@@ -28,6 +28,7 @@ namespace taio.Algorithms
         /**finds the solution*/
         public override void StartAlgorithm()
         {
+            this.endthread = false;
             brutalThread = new Thread(new ThreadStart(startAlgorithm));
             brutalThread.Start();
         }

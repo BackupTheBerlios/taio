@@ -27,7 +27,6 @@ namespace taio.Algorithms
         {
             firstThread = new Thread(new ThreadStart(startAlgorithm));
             firstThread.Start();
-
         }
         public override void StopAlgorithm()
         {
