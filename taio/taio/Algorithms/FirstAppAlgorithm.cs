@@ -19,7 +19,7 @@ namespace taio.Algorithms
         FirstAppAlgorithm1.Layer lastHorizontal, lastVertical;
         int w, h; //szerokosc i wysokosc biezacej konstrukcji (najglebsze wciecia zewnetrznych warstw)
         private List<Data.Rectangle> rectangles;
-        //private List<Data.Rectangle> rectangles1;///
+        private List<Data.Rectangle> rectanglesByArea;
 
         public FirstAppAlgorithm()
         {
@@ -43,31 +43,34 @@ namespace taio.Algorithms
 
         private void startAlgorithm()
         {
+            bool noLayerToDelate = true;
+            
             copyRectangles(this.Rectangles);
             setStartRectangle();
             this.sortRectangle();
+            this.rectanglesByArea.Sort(this.sortBySquare);
+            this.rectangles = this.rectanglesByArea;
             while (!endthread && this.buildNextLayer())
             {
             }
-            this.checkProportion();
-            bool noLayerToDelate = true;
+            this.checkProportion();            
             while (true)
             {
                 noLayerToDelate = true;
                 for (int i = 0; i < this.listLayer.Count; ++i)
                 {
                     FirstAppAlgorithm1.Layer layer = listLayer[i];
-                    if (!layer.moveBack(w, h))
+                    if (!layer.moveBack(w, h))//nie dalo sie cofnac warstwy
                     {
                         this.listLayer.RemoveAt(i);
-                        for (int j = i; j < this.listLayer.Count; ++j)
+                        for (int j = i; j < this.listLayer.Count; ++j)//cofnaac wszystkie kolejne 
                         {
-                            if (this.listLayer[j].isHorizontal() == layer.isHorizontal())
+                            if (this.listLayer[j].isHorizontal() == layer.isHorizontal())//ktore sa tego samego typu
                             {
-                                this.listLayer[j].printInfo();
+                                //this.listLayer[j].printInfo();
                                 this.listLayer[j].moveStart(layer.End - layer.Start, layer.isHorizontal());
-                                Console.Out.WriteLine("PO:");
-                                this.listLayer[j].printInfo();
+                                //Console.Out.WriteLine("PO:");
+                                //this.listLayer[j].printInfo();
                             }
                         }
                         noLayerToDelate = false;
@@ -118,19 +121,28 @@ namespace taio.Algorithms
         private void copyRectangles(List<Data.Rectangle> l)
         {
             this.rectangles = new List<Data.Rectangle>();
+            this.rectanglesByArea = new List<taio.Data.Rectangle>();
             IEnumerator<Data.Rectangle> e = l.GetEnumerator();
             while (e.MoveNext())
             {
-                this.rectangles.Add(new Data.Rectangle(e.Current.Width, e.Current.Height));
+                int g = e.Current.Width;
+                int k = e.Current.Height;
+                if (k > g)
+                {
+                    g = k;
+                    k = e.Current.Width;
+                }
+                this.rectangles.Add(new Data.Rectangle(g, k));
+                this.rectanglesByArea.Add(new Data.Rectangle(g, k));
             }
         }
-        /*private int sortBySquare(Data.Rectangle x, Data.Rectangle y)
+        private int sortBySquare(Data.Rectangle x, Data.Rectangle y)
         {
             if (x.Height * x.Width == y.Height * y.Width) return 0;
             else if (x.Height * x.Width > y.Height * y.Width) return -1;
             else if (x.Height * x.Width < y.Height * y.Width) return 1;
             else throw new Exception("Comparing failed");
-        }*/
+        }
         private int sortByLength(Data.Rectangle x, Data.Rectangle y)
         {
             int lx = x.Width, ly = y.Width;
