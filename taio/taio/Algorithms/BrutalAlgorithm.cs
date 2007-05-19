@@ -319,7 +319,7 @@ namespace taio.Algorithms
                 }
                 //Console.WriteLine();        
                 addNextRect(permutationTab, listPartOfSolution, 0, 0, 0);
-                if (endthread) return;
+                if (endthread) break;
             }
             System.Console.WriteLine("koniec generatePermutations");
         }

@@ -162,6 +162,35 @@ namespace taio.Algorithms.FirstAppAlgorithm1
             //Console.Out.WriteLine("COFNIJ WARSTWE OK");
             return true;             
         }
+        public void moveStart(int a, bool isHorizontal)
+        {
+            Console.WriteLine("movestart");
+            if (isHorizontal == this.isHorizontal())
+            {
+                if (this.isHorizontal())
+                {
+                    Console.WriteLine("COFAM: elem" + this.listPartOfSolution.Count);
+                    for (int i = 0; i < this.listPartOfSolution.Count; ++i)
+                    {
+                        Data.PartOfSolution part = this.listPartOfSolution[i];
+                        part.Ylu -= a;
+                        part.Yrd -= a;                       
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < this.listPartOfSolution.Count; ++i)
+                    {
+                        Data.PartOfSolution part = this.listPartOfSolution[i];
+                        part.Xlu -= a;
+                        part.Xrd -= a;
+                    }
+                }
+                this.start -= a;
+                this.end -= a;
+                this.end2 -= a;
+            }
+        }
         public bool moveBackVertical(int w,int h)
         {           
             if(!moveBackLastLayer(w))

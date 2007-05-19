@@ -53,26 +53,48 @@ namespace taio.Algorithms
             bool noLayerToDelate = true;
             while (true)
             {
+                noLayerToDelate = true;
                 for (int i = 0; i < this.listLayer.Count; ++i)
                 {
                     FirstAppAlgorithm1.Layer layer = listLayer[i];
                     if (!layer.moveBack(w, h))
                     {
                         this.listLayer.RemoveAt(i);
+                        for (int j = i; j < this.listLayer.Count; ++j)
+                        {
+                            if (this.listLayer[j].isHorizontal() == layer.isHorizontal())
+                            {
+                                this.listLayer[j].printInfo();
+                                this.listLayer[j].moveStart(layer.End - layer.Start, layer.isHorizontal());
+                                Console.Out.WriteLine("PO:");
+                                this.listLayer[j].printInfo();
+                            }
+                        }
                         noLayerToDelate = false;
-                        if(layer.isHorizontal())
-                            w -= (layer.End - layer.Start);  
-                        else
+                        if (layer.isHorizontal())
+                        {
                             h -= (layer.End - layer.Start);
+                            Console.Out.WriteLine("ZM o: " + (layer.End - layer.Start)+
+                                "na "+ h);
+                        }
+                        else
+                        {
+                            Console.Out.WriteLine("w: " +w);
+                            w -= (layer.End - layer.Start);
+                            Console.Out.WriteLine("ZM o: " + (layer.End - layer.Start)+
+                                "na "+w);
+                           
+                        }
                         checkProportion();
                         break;
+                         
                     }
-                    layer.test();
-                    layer.printInfo();
+                    //layer.test();
+                    //layer.printInfo();
                 }
                 if (noLayerToDelate)
-                    break;
-                Console.Out.WriteLine("!!PETLA NOLAYERTODELATE");
+                   break;
+                //Console.Out.WriteLine("!!PETLA NOLAYERTODELATE");
             }
             this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
             Console.Out.WriteLine("ROZW :" + w + " na " + h);
