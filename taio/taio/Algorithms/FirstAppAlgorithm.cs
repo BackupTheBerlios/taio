@@ -4,11 +4,9 @@ using System.Text;
 using System.Threading;
 namespace taio.Algorithms
 {
-    /**algorytm Uli*/
     class FirstAppAlgorithm : Algorithm
     {
         private Thread firstThread;
-
         public Thread FirstThread
         {
             get { return firstThread; }
@@ -20,10 +18,8 @@ namespace taio.Algorithms
         private List<FirstAppAlgorithm1.Layer> listLayer;
         FirstAppAlgorithm1.Layer lastHorizontal, lastVertical;
         int w, h; //szerokosc i wysokosc biezacej konstrukcji (najglebsze wciecia zewnetrznych warstw)
-
-
-        private List<Data.Rectangle> rectangles;////
-        private List<Data.Rectangle> rectangles1;///
+        private List<Data.Rectangle> rectangles;
+        //private List<Data.Rectangle> rectangles1;///
 
         public FirstAppAlgorithm()
         {
@@ -31,41 +27,98 @@ namespace taio.Algorithms
         }
         public override void StartAlgorithm()
         {
+            this.endthread = false;
             firstThread = new Thread(new ThreadStart(startAlgorithm));
             firstThread.Start();
         }
         public override void StopAlgorithm()
         {
+            this.endthread = true;
             firstThread.Abort();
             System.Console.WriteLine("stopAlgorithm first");
-            this.MainFrm.Engine.Solutions.Add(this.Solution);
-            this.refreshTab();
+            //this.MainFrm.Engine.Solutions.Add(this.Solution);
+            //this.refreshTab();
         }
+
+
         private void startAlgorithm()
         {
-            this.rectangles1 = this.Rectangles;
-            this.rectangles = new List<taio.Data.Rectangle>(rectangles1);  //kopiuje bo bede ja niszczyla
+            copyRectangles(this.Rectangles);
             setStartRectangle();
             this.sortRectangle();
-            while (this.buildNextLayer())
+            while (!endthread && this.buildNextLayer())
             {
             }
-            //Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION przed cofaniem warstw:");
-            //this.saveSolution();
-            //this.test();
-            //this.printSolutution();
-            
-            for (int i = 0; i < this.listLayer.Count; ++i)
-               this.listLayer[i].moveBack(w, h);
-
+            this.checkProportion();
+            bool noLayerToDelate = true;
+            while (true)
+            {
+                for (int i = 0; i < this.listLayer.Count; ++i)
+                {
+                    FirstAppAlgorithm1.Layer layer = listLayer[i];
+                    if (!layer.moveBack(w, h))
+                    {
+                        this.listLayer.RemoveAt(i);
+                        noLayerToDelate = false;
+                        if(layer.isHorizontal())
+                            w -= (layer.End - layer.Start);  
+                        else
+                            h -= (layer.End - layer.Start);
+                        checkProportion();
+                        break;
+                    }
+                    layer.test();
+                    layer.printInfo();
+                }
+                if (noLayerToDelate)
+                    break;
+                Console.Out.WriteLine("!!PETLA NOLAYERTODELATE");
+            }
             this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
-
-            Console.Out.WriteLine(); Console.Out.WriteLine("SOLUTION po cofaniu warstw:");
-            this.printSolutution();
-            this.test();
             Console.Out.WriteLine("ROZW :" + w + " na " + h);
             this.MainFrm.Engine.Solutions.Add(this.Solution);
             this.refreshTab();
+        }
+        private void checkProportion()//warunek stosunku wymiarow
+        {
+            if ((w / h) > 2)
+            {
+                w = 2 * h;
+                Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
+            }
+            if (((double)w / (double)h) < 0.5)
+            {
+                h = (int) 2*w;
+                Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
+            }
+            return;
+        }
+        private void copyRectangles(List<Data.Rectangle> l)
+        {
+            this.rectangles = new List<Data.Rectangle>();
+            IEnumerator<Data.Rectangle> e = l.GetEnumerator();
+            while (e.MoveNext())
+            {
+                this.rectangles.Add(new Data.Rectangle(e.Current.Width, e.Current.Height));
+            }
+        }
+        /*private int sortBySquare(Data.Rectangle x, Data.Rectangle y)
+        {
+            if (x.Height * x.Width == y.Height * y.Width) return 0;
+            else if (x.Height * x.Width > y.Height * y.Width) return -1;
+            else if (x.Height * x.Width < y.Height * y.Width) return 1;
+            else throw new Exception("Comparing failed");
+        }*/
+        private int sortByLength(Data.Rectangle x, Data.Rectangle y)
+        {
+            int lx = x.Width, ly = y.Width;
+            if (x.Height > lx) lx = x.Height;
+            if (y.Height > ly) ly = y.Height;
+
+            if (lx == ly) return 0;
+            else if (lx > ly) return -1;
+            else if (lx < ly) return 1;
+            else throw new Exception("Comparing failed");
         }
         private void test()
         {

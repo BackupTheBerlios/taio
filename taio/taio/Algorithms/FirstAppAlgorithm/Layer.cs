@@ -137,7 +137,7 @@ namespace taio.Algorithms.FirstAppAlgorithm1
                         int p = part.Yrd - pos;// this.end;
                         part.Ylu = part.Ylu - p;
                         part.Yrd = part.Yrd - p;
-
+                        this.end2 = pos;
                         if (part.Ylu < 0) return false;
                     }
                 }
@@ -154,7 +154,7 @@ namespace taio.Algorithms.FirstAppAlgorithm1
                         //Console.Out.WriteLine("i: " + i + " p " + p);
                         part.Xlu = part.Xlu - p;
                         part.Xrd = part.Xrd - p;
-
+                        this.end2 = pos;
                         if (part.Xlu < 0) return false;
                     }
                 }
@@ -164,12 +164,14 @@ namespace taio.Algorithms.FirstAppAlgorithm1
         }
         public bool moveBackVertical(int w,int h)
         {           
-            moveBackLastLayer(w);
+            if(!moveBackLastLayer(w))
+                return false;
             if (this.lastPartEnd <= h)
                 return true;            
             Data.PartOfSolution part = this.listPartOfSolution[this.listPartOfSolution.Count - 1];
             part.Ylu -= (this.lastPartEnd - h);
             part.Yrd -= (this.lastPartEnd - h);
+            this.lastPartEnd = h;
             if (part.Ylu < 0)
                 return false;
             //Console.WriteLine("COFback VER OK!!  o "+(this.lastPartEnd - h));          
@@ -178,30 +180,78 @@ namespace taio.Algorithms.FirstAppAlgorithm1
         }
         public bool moveBackHorizontal(int w,int h)
         {
-            moveBackLastLayer(h);
+            if(!moveBackLastLayer(h))
+                return false;
             if (this.lastPartEnd <= w)
                 return true;
             Data.PartOfSolution part = this.listPartOfSolution[this.listPartOfSolution.Count - 1];
             part.Xlu -= (this.lastPartEnd - w);
             part.Xrd -= (this.lastPartEnd - w);
+            this.lastPartEnd = w;
             if (part.Xlu < 0)
                 return false;
             //Console.WriteLine("COFback HOR OK!!  o " + (this.lastPartEnd - w));
            
             return true;
         }
-        public void moveBack(int w, int h)
+        public bool moveBack(int w, int h)
         {
             if (this.directionOfLayer == direction.Horizontal)
-                if (!this.moveBackHorizontal(w,h))
-                    Console.WriteLine("!!!!!!!!!!!!!!!!!!!!NIE DALO SIE COFNAC");
-            if (this.directionOfLayer == direction.Vertical)
-                if (!this.moveBackVertical(w,h))
-                    Console.WriteLine("!!!!!!!!!!!!!!!!!!!!NIE DALO SIE COFNAC");
+                return this.moveBackHorizontal(w, h);
+            else
+                return this.moveBackVertical(w, h);                 
         }
         public bool isHorizontal()
         {
             return (this.directionOfLayer == direction.Horizontal);
+        }
+        public void printInfo()
+        {
+            System.Console.WriteLine("horiz: "+isHorizontal()+
+                " start: "+start+" end: "+end+" end2: "+end2
+                +" lastPEnd: "+lastPartEnd);
+        }
+        public void test()
+        {
+            /*
+             * start, //poziom na którym ukladana jest warstwa
+               end; // "najglebsze wciecie" warstwy
+               lastPartEnd; //w horizontal: wysuniecie na prawo,
+                                 //w verical: wysuniecie do dolu
+               end2; //"najdalsze wysuniecie"    
+            */ 
+            if (isHorizontal())
+            {
+                for (int i = 0; i < this.listPartOfSolution.Count; ++i)
+                {
+                    Data.PartOfSolution p = this.listPartOfSolution[i];
+                    if (p.Yrd < end)
+                        System.Console.WriteLine("end");
+                    if (p.Yrd > end2)
+                        System.Console.WriteLine("end2");
+                    if(p.Xrd > lastPartEnd)         
+                        System.Console.WriteLine("lastPartEnd");
+                    if(p.Ylu < start)              
+                        System.Console.WriteLine("start");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < this.listPartOfSolution.Count; ++i)
+                {
+                    Data.PartOfSolution p = this.listPartOfSolution[i];
+                    if (p.Xrd < end)
+                        System.Console.WriteLine("end");
+                    if (p.Xrd > end2)
+                        System.Console.WriteLine("end2");
+                    if(p.Yrd > lastPartEnd)         
+                        System.Console.WriteLine("lastPartEnd");
+                    if(p.Xlu < start)              
+                        System.Console.WriteLine("start");
+                }
+
+
+            }
         }
     }
 }
