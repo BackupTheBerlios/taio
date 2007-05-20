@@ -7,6 +7,7 @@ namespace taio.Algorithms
     /*algorytm Agnieszki*/
     class SecondAppAlgorithm : Algorithm
     {
+        private Thread secondThread;
         /**finds the solution**/
         private int LU = 0, //corners representation of the rectangle being covered
                     LD = 2,
@@ -15,12 +16,22 @@ namespace taio.Algorithms
         private int areaOfSolution; 
         private List<Data.Rectangle> listOfPossibleSolutions;
         private List<Data.Rectangle> myRectangles; //working rectangle list
+        /*ula*/
+        public override void StartAlgorithm()
+        {            
+            secondThread = new Thread(new ThreadStart(startAlgorithm));
+            secondThread.Start();   
+            //this.MainFrm.Engine.Solutions.Add(this.Solution);
+            //this.refreshTab();
+        }
         public override void StopAlgorithm()
         {
             //this.endthread = true;
-        }
-        public override void StartAlgorithm()
-        {
+            if(secondThread != null)secondThread.Abort();
+            System.Console.WriteLine("stopAlgorithm second");
+        }        
+        public void startAlgorithm()
+        {//koniec ula
             
             this.copyRectangles(this.Rectangles);
             DateTime t1 = DateTime.Now;
@@ -59,6 +70,12 @@ namespace taio.Algorithms
                         Console.Out.WriteLine("Success!");
                         Console.Out.WriteLine("Found area:" + this.areaOfSolution);
                         Console.Out.WriteLine("Dimensions: " + e.Current.Width + "\t" + e.Current.Height);
+                        /*ula*/
+                        Console.Out.WriteLine("MAINAADD");
+                        this.MainFrm.Engine.Solutions.Add(this.Solution);
+                        this.refreshTab();
+                        //koniec ula
+                        
                         return;
                     }
                 }
@@ -68,6 +85,7 @@ namespace taio.Algorithms
                     this.areaOfSolution -= 10;
                 else
                     this.areaOfSolution--;
+
             }
             /*if (this.Solution.PartsOfSolution.Count==0)
             {

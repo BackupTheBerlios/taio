@@ -50,6 +50,7 @@ namespace taio.Algorithms
             this.sortRectangle();
             this.rectanglesByArea.Sort(this.sortBySquare);
             this.rectangles = this.rectanglesByArea;
+            this.rectanglesByArea.RemoveAt(0);
             while (!endthread && this.buildNextLayer())
             {
             }
