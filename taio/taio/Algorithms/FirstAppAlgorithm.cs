@@ -28,8 +28,6 @@ namespace taio.Algorithms
         public override void StartAlgorithm()
         {
             this.endthread = false;
-            this.listLayer.Clear();
-            w = h = 0;
             firstThread = new Thread(new ThreadStart(startAlgorithm));
             firstThread.Start();
         }
@@ -44,26 +42,70 @@ namespace taio.Algorithms
 
 
         private void startAlgorithm()
+        { 
+            this.rectanglesByArea = copyRectangles(this.Rectangles);            
+            this.rectanglesByArea.Sort(sortBySquare);
+            while (true)
+            {
+                if (rectanglesByArea.Count == 0)
+                {
+                    Console.WriteLine("BRAK ROZW FISRT APP ALG");
+                    break;
+                }
+                Console.WriteLine("B"+rectanglesByArea.Count);
+                this.tryForStartRectangle();
+                if (w >= startRectangle.Width && h >= startRectangle.Height)
+                {
+                    this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
+                    Console.Out.WriteLine("ROZW :" + w + " na " + h);
+                    Console.WriteLine("KONIEC TRYSTARTRECT");
+                    this.MainFrm.Engine.Solutions.Add(this.Solution);
+                    this.refreshTab();
+                    return;
+                }
+                Console.WriteLine("PETLA");
+            }
+        }
+
+        private void tryForStartRectangle()        
         {
-            bool noLayerToDelate = true;
-            
-            copyRectangles(this.Rectangles);
-            setStartRectangle();
-            this.sortRectangle();
-            this.rectanglesByArea.Sort(this.sortBySquare);
-            this.rectangles = this.rectanglesByArea;
+            int w1, h1;
+            Console.WriteLine("POCZ TRYSTARTRECT");
+            this.listLayer.Clear();            
+            startRectangle = this.rectanglesByArea[0];
             this.rectanglesByArea.RemoveAt(0);
+            w = w1 = startRectangle.Width;
+            h = h1 = startRectangle.Height;
+            this.rectangles = copyRectangles(this.Rectangles);            
+            this.rectangles.Sort(sortBySquare);
+            this.removeStartRect();
+            Console.WriteLine("B" + rectanglesByArea.Count+"R"+rectangles.Count);
+            //return;
+            bool noLayerToDelate = true;            
+
             while (!endthread && this.buildNextLayer())
             {
             }
-            this.checkProportion();            
+            //this.checkProportion();   
+            w1 = w;
+            h1 = h;
+            if ((w / h) > 2)
+            {
+                w1 = 2 * h;
+                Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
+            }
+            if (((double)w / (double)h) < 0.5)
+            {
+                h1 = (int)2 * w;
+                Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
+            }
             while (true)
             {
                 noLayerToDelate = true;
                 for (int i = 0; i < this.listLayer.Count; ++i)
                 {
                     FirstAppAlgorithm1.Layer layer = listLayer[i];
-                    if (!layer.moveBack(w, h))//nie dalo sie cofnac warstwy
+                    if (!layer.moveBack(w1, h1))//nie dalo sie cofnac warstwy
                     {
                         this.listLayer.RemoveAt(i);
                         for (int j = i; j < this.listLayer.Count; ++j)//cofnaac wszystkie kolejne 
@@ -79,19 +121,28 @@ namespace taio.Algorithms
                         noLayerToDelate = false;
                         if (layer.isHorizontal())
                         {
-                            h -= (layer.End - layer.Start);
+                            h1 = h -(layer.End - layer.Start);
                             Console.Out.WriteLine("ZM o: " + (layer.End - layer.Start)+
-                                "na "+ h);
+                                "na "+ h1);
                         }
                         else
                         {
                             Console.Out.WriteLine("w: " +w);
-                            w -= (layer.End - layer.Start);
+                            w1 = w - (layer.End - layer.Start);
                             Console.Out.WriteLine("ZM o: " + (layer.End - layer.Start)+
-                                "na "+w);
+                                "na "+w1);
                            
                         }
-                        checkProportion();
+                        if ((w1 / h1) > 2)
+                        {
+                            w1 = 2 * h1;
+                            Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
+                        }
+                        if (((double)w1 / (double)h1) < 0.5)
+                        {
+                            h1 = (int)2 * w1;
+                            Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
+                        }
                         break;
                          
                     }
@@ -100,31 +151,46 @@ namespace taio.Algorithms
                 }
                 if (noLayerToDelate)
                    break;
-                //Console.Out.WriteLine("!!PETLA NOLAYERTODELATE");
+                //Console.Out.WriteLine("!!PETLA NOLAYERTODELATE");  
+                w = w1;
+            h = h1;
             }
-            this.saveSolution(); //zbiera partOfSolution z warstw w jedna liste w Algoritm.Solution
-            Console.Out.WriteLine("ROZW :" + w + " na " + h);
-            this.MainFrm.Engine.Solutions.Add(this.Solution);
-            this.refreshTab();
+
+
         }
-        private void checkProportion()//warunek stosunku wymiarow
+        private void removeStartRect()
+        {
+            IEnumerator<Data.Rectangle> e = this.rectangles.GetEnumerator();
+            while (e.MoveNext())
+            {
+                if (this.startRectangle.Width == e.Current.Width &&
+                    this.startRectangle.Height == e.Current.Height)
+                {
+                    this.rectangles.Remove(e.Current);
+                    Console.Out.WriteLine("ZNALAZLEM< USUNALEM");
+                    break;
+                }
+            }
+        }
+        private void checkProportion(ref int w1, ref int h1)//warunek stosunku wymiarow
         {
             if ((w / h) > 2)
             {
-                w = 2 * h;
+                w1 = 2 * h;
                 Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
             }
             if (((double)w / (double)h) < 0.5)
             {
-                h = (int) 2*w;
+                h1 = (int) 2*w;
                 Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
             }
             return;
         }
-        private void copyRectangles(List<Data.Rectangle> l)
+        private List<Data.Rectangle> copyRectangles(List<Data.Rectangle> l)
         {
-            this.rectangles = new List<Data.Rectangle>();
-            this.rectanglesByArea = new List<taio.Data.Rectangle>();
+            List<Data.Rectangle> rectList = new List<Data.Rectangle>();
+            //this.rectangles = new List<Data.Rectangle>();
+            //this.rectanglesByArea = new List<taio.Data.Rectangle>();
             IEnumerator<Data.Rectangle> e = l.GetEnumerator();
             while (e.MoveNext())
             {
@@ -135,9 +201,11 @@ namespace taio.Algorithms
                     g = k;
                     k = e.Current.Width;
                 }
-                this.rectangles.Add(new Data.Rectangle(g, k));
-                this.rectanglesByArea.Add(new Data.Rectangle(g, k));
+                //this.rectangles.Add(new Data.Rectangle(g, k));
+                //this.rectanglesByArea.Add(new Data.Rectangle(g, k));
+                rectList.Add(new Data.Rectangle(g, k));
             }
+            return rectList;
         }
         private int sortBySquare(Data.Rectangle x, Data.Rectangle y)
         {
@@ -200,7 +268,7 @@ namespace taio.Algorithms
             //Console.Out.WriteLine("po budowaniu wartwy: " + rectangles.Count + " prostokatow");
             return res;
         }
-        private void setStartRectangle()
+          /*   private void setStartRectangle()
         {
 
             int area = 0, nr = 0;
@@ -221,7 +289,7 @@ namespace taio.Algorithms
             this.w = rectangle.Width;
             this.h = rectangle.Height;
         }
-        private void sortRectangle()
+   private void sortRectangle()
         {
             List<Data.Rectangle> listSorted = new List<taio.Data.Rectangle>();
             for (int i = 0; i < rectangles.Count; ++i)
@@ -252,12 +320,8 @@ namespace taio.Algorithms
                     listSorted.Add(rect);
             }
             rectangles = listSorted;
-            /*Console.Out.WriteLine("Sorted:");
-            for (int j = 0; j < listSorted.Count; ++j)
-            {
-                Console.Out.WriteLine(listSorted[j].Width + " " + listSorted[j].Height);
-            }*/
         }
+    */
         private void saveSolution()
         {
             this.Solution.PartsOfSolution = new List<taio.Data.PartOfSolution>();
