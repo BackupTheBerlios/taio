@@ -28,6 +28,8 @@ namespace taio.Algorithms
         public override void StartAlgorithm()
         {
             this.endthread = false;
+            this.listLayer.Clear();
+            w = h = 0;
             firstThread = new Thread(new ThreadStart(startAlgorithm));
             firstThread.Start();
         }
