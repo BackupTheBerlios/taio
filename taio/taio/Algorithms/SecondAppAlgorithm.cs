@@ -92,6 +92,9 @@ namespace taio.Algorithms
                 Console.Out.WriteLine("Failure");
                 return;
             }*/
+            //this.MainFrm.Engine.Solutions.Add(this.Solution);
+            //this.refreshTab();
+            //System.Windows.Forms.MessageBox.Show(tab.Index.ToString());
         }
 
         private int sumOfAreas()

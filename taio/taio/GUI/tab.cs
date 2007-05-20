@@ -23,6 +23,12 @@ namespace taio.GUI
        
         private GUI.SolutionsFrm solutionFrm;
         private int index, clikedIndex = -1;
+
+        public int Index
+        {
+            get { return index; }
+            set { index = value; }
+        }
         private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
         private int maxX, maxY, maxCoordinate, minWidthOrHeight;
         internal static double ratio,factor=0.0;
@@ -307,24 +313,36 @@ namespace taio.GUI
             }
             else
             {
-               // sleepThread();
+                Console.WriteLine("PARTS: " + solution.PartsOfSolution.Count.ToString() + "\n");  
+                // sleepThread();
                 clearTabs();
                 paintLeftSplit();
                 createControls();
-                this.Invalidate();
-                this.Update();
+                //this.Invalidate();
+                //this.Update();
                 this.Refresh();
-               // resumeThread();
+                //if (solution != null)
+                //    solution.PartsOfSolution.Clear();
+                // resumeThread();
             }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            if (index == 0 && solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread != null)
+            if (index == 0 && !(solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.ThreadState == System.Threading.ThreadState.Running))
+                return;
+            if (index == 0 && solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread!= null)
+            if (index == 1 && !(solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread.ThreadState == System.Threading.ThreadState.Running))
+                return;
+
             if (solutionFrm.MainFrm.Engine.Rectangles != null)
             {
-                if(solution != null)
-                solution.PartsOfSolution.Clear();
+                //if(solution != null)
+                //solution.PartsOfSolution.Clear();
+                clearTabs();
                 solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
+                //solutionFrm.MainFrm.Engine.assignRectangles();
                 //clearTabs();
             }
             else
@@ -348,14 +366,14 @@ namespace taio.GUI
                 if (c.GetType() == typeof(Label))
                 {
                     
-                    c.Hide();
+                    //c.Hide();
                     splitContainer1.Panel1.Controls.Remove(c);
                     c.Dispose();
                 }
                 if (c.GetType() == typeof(Panel))
                 {
                    
-                    c.Hide();
+                   // c.Hide();
                    splitContainer1.Panel1.Controls.Remove(c);
                    c.Dispose();
                 }

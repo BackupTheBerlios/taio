@@ -92,7 +92,7 @@ namespace taio
             assignRectangles();
             
         }
-        internal void assignRectangles()
+        public void assignRectangles()
         {
             getAlgorithm(0).Solution.PartsOfSolution.Clear();
             getAlgorithm(1).Solution.PartsOfSolution.Clear();
