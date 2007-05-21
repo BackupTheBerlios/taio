@@ -307,43 +307,45 @@ namespace taio.GUI
         {
             if (this.InvokeRequired)
             {
-               
+
                 refreshTabCallback d = new refreshTabCallback(refreshTab);
                 this.Invoke(d);
             }
             else
             {
-                Console.WriteLine("PARTS: " + solution.PartsOfSolution.Count.ToString() + "\n");  
-                // sleepThread();
                 clearTabs();
                 paintLeftSplit();
                 createControls();
-                //this.Invalidate();
-                //this.Update();
                 this.Refresh();
-                //if (solution != null)
-                //    solution.PartsOfSolution.Clear();
-                // resumeThread();
             }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (index == 0 && solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread != null)
-            if (index == 0 && !(solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.ThreadState == System.Threading.ThreadState.Running))
-                return;
-            if (index == 0 && solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread!= null)
-            if (index == 1 && !(solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread.ThreadState == System.Threading.ThreadState.Running))
-                return;
-
+                if (index == 0 && (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.ThreadState == System.Threading.ThreadState.Running))
+                {
+                    MessageBox.Show("Algortm jest ju¿ uruchomiony !");
+                    return;
+                }
+            if (index == 1 && solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread != null)
+                if (index == 1 && (solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread.ThreadState == System.Threading.ThreadState.Running))
+                {
+                    MessageBox.Show("Algortm jest ju¿ uruchomiony !");
+                    return;
+                }
+            //if (index == 2 && solutionFrm.MainFrm.Engine.Algoritms.getSecond().SecondThread != null)
+            //    if (index == 2 && (solutionFrm.MainFrm.Engine.Algoritms.getSecond().SecondThread.ThreadState == System.Threading.ThreadState.Running))
+            //    {
+            //        MessageBox.Show("Algortm jest ju¿ uruchomiony !");
+            //        return;
+            //    }
             if (solutionFrm.MainFrm.Engine.Rectangles != null)
             {
-                //if(solution != null)
-                //solution.PartsOfSolution.Clear();
+
                 clearTabs();
                 solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
-                //solutionFrm.MainFrm.Engine.assignRectangles();
-                //clearTabs();
+
             }
             else
                 MessageBox.Show("Brak prostok¹tów wejsciowych");
@@ -365,27 +367,15 @@ namespace taio.GUI
             {
                 if (c.GetType() == typeof(Label))
                 {
-                    
-                    //c.Hide();
                     splitContainer1.Panel1.Controls.Remove(c);
                     c.Dispose();
                 }
                 if (c.GetType() == typeof(Panel))
                 {
-                   
-                   // c.Hide();
+
                    splitContainer1.Panel1.Controls.Remove(c);
                    c.Dispose();
                 }
-                //if (c.GetType() == typeof(Button))
-                //{
-                    
-                //    c.Hide();
-                //    splitContainer1.Panel1.Controls.Remove(c);
-                //    c.Dispose();
-                //}
-
-            
             }
         }
         private void createControls()
@@ -398,16 +388,6 @@ namespace taio.GUI
             labAlgorytm.TabIndex = 0;
             labAlgorytm.Text = "Algorytm:";
             splitContainer1.Panel1.Controls.Add(labAlgorytm);
-
-            //Button btnStart = new Button();
-            //btnStart.Location = new System.Drawing.Point(59, 0);
-            //btnStart.Name = "btnStart";
-            //btnStart.Size = new System.Drawing.Size(75, 23);
-            //btnStart.TabIndex = 0;
-            //btnStart.Text = "Start";
-            //btnStart.UseVisualStyleBackColor = true;
-            //btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            splitContainer1.Panel1.Controls.Add(btnStart);
 
             Label label1 = new Label();
             label1.AutoSize = true;
@@ -427,27 +407,7 @@ namespace taio.GUI
             labTime.Text = "Czas:";
             splitContainer1.Panel1.Controls.Add(labTime);
 
-            //Button bntStop = new Button();
-            //btnStop.Location = new System.Drawing.Point(140, 0);
-            //btnStop.Name = "btnStop";
-            //btnStop.Size = new System.Drawing.Size(75, 23);
-            //btnStop.TabIndex = 0;
-            //btnStop.Text = "Stop";
-            //btnStop.UseVisualStyleBackColor = true;
-            //btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            //splitContainer1.Panel1.Controls.Add(bntStop);
         }
-        private void sleepThread()
-        {
-            if(solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread != null)
-            if (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.IsAlive)
-                solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.Suspend();
-        }
-        private void resumeThread()
-        {
-            if (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread != null)
-            if (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.ThreadState == System.Threading.ThreadState.Suspended)
-                solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.Resume();
-        }
+       
     }
 }

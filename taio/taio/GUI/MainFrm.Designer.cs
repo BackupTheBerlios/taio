@@ -36,10 +36,10 @@ namespace taio
             this.losujDaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.edycjaRozwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lab2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.edycjaRozwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -106,9 +106,16 @@ namespace taio
             // poka¿Rozwi¹zaniaToolStripMenuItem
             // 
             this.poka¿Rozwi¹zaniaToolStripMenuItem.Name = "poka¿Rozwi¹zaniaToolStripMenuItem";
-            this.poka¿Rozwi¹zaniaToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.poka¿Rozwi¹zaniaToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.poka¿Rozwi¹zaniaToolStripMenuItem.Text = "Poka¿ rozwi¹zania";
             this.poka¿Rozwi¹zaniaToolStripMenuItem.Click += new System.EventHandler(this.poka¿Rozwi¹zaniaToolStripMenuItem_Click);
+            // 
+            // edycjaRozwToolStripMenuItem
+            // 
+            this.edycjaRozwToolStripMenuItem.Name = "edycjaRozwToolStripMenuItem";
+            this.edycjaRozwToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.edycjaRozwToolStripMenuItem.Text = "Edycja rozwi¹zania";
+            this.edycjaRozwToolStripMenuItem.Click += new System.EventHandler(this.edycjaRozwToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -133,13 +140,6 @@ namespace taio
             this.lab2.Size = new System.Drawing.Size(0, 17);
             this.lab2.Visible = false;
             // 
-            // edycjaRozwToolStripMenuItem
-            // 
-            this.edycjaRozwToolStripMenuItem.Name = "edycjaRozwToolStripMenuItem";
-            this.edycjaRozwToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.edycjaRozwToolStripMenuItem.Text = "Edycja rozw.";
-            this.edycjaRozwToolStripMenuItem.Click += new System.EventHandler(this.edycjaRozwToolStripMenuItem_Click);
-            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,7 +154,6 @@ namespace taio
             this.Text = "TAIO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFrm_FormClosed);
-  
             this.Load += new System.EventHandler(this.MainFrm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
