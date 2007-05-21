@@ -23,6 +23,7 @@ namespace taio
         internal GUI.SolutionsFrm solutionsFrm;
         internal GUI.RandomDataFrm randomDataFrm;
         internal GUI.EditDataFrm editDataFrm;
+        internal GUI.EditSolution editSolution;
 
 
         public MainFrm()
@@ -307,6 +308,26 @@ namespace taio
         {
             this.showSolutions();
         }
+
+        private void edycjaRozwToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((this.engine.Rectangles != null) && (this.engine.Rectangles.Count > 0))
+            {
+
+                if (GUI.EditSolution.counter == 0)
+                {
+
+                    this.editSolution= new taio.GUI.EditSolution(this);
+                    this.editSolution.MdiParent = this; 
+                    this.editSolution.Show();
+                }
+                this.editSolution.Focus();
+            }
+            else
+                MessageBox.Show("Brak prostok¹tów wejœciowych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
 
     }
 }

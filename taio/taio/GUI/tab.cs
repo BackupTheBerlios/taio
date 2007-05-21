@@ -43,7 +43,7 @@ namespace taio.GUI
 
         private void tab_Load(object sender, EventArgs e)
         {
-     
+            splitContainer1.SplitterDistance = 45;
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
@@ -169,7 +169,7 @@ namespace taio.GUI
                 {
                 
                     double square = 0.0;
-                    splitContainer1.SplitterDistance = 250;
+                    splitContainer1.SplitterDistance = 270;
 
                     maxX = getMaxX(this.solution);
                     maxY = getMaxY(this.solution);
@@ -203,7 +203,7 @@ namespace taio.GUI
                         lab = new Label();
                         lab.Cursor = Cursors.Hand;
                         lab.Name = Convert.ToString(index2);
-                        lab.Location = new System.Drawing.Point(p.Width + 15, uly);
+                        lab.Location = new System.Drawing.Point(SQR_SIZE + 12, uly);
                         lab.Text = "Nr. " + ((index2) + 1) + "\nSzerokoœæ: " + width.ToString() + "\nWysokoœæ: " + height.ToString() + "\nPole: " + Convert.ToString(width * height);
                         lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                         lab.Height = 60;
@@ -237,7 +237,7 @@ namespace taio.GUI
                     this.splitContainer1.Panel1.Controls.Add(p);
 
                     lab = new Label();
-                    lab.Location = new System.Drawing.Point(p.Width + 20, uly + 30);
+                    lab.Location = new System.Drawing.Point(SQR_SIZE+12, uly + 30);
                     lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nUtylizacja pokrycia:" + Convert.ToString(Math.Round(((double)(maxX * maxY) / square) * 100.0)) + "%\nNiewykorzystane\nprostok¹ty: " + Convert.ToString(solutionFrm.MainFrm.Engine.Rectangles.Count - solution.PartsOfSolution.Count);
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 80;

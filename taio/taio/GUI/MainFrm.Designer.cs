@@ -39,6 +39,7 @@ namespace taio
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lab2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.edycjaRozwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -96,7 +97,8 @@ namespace taio
             // ¹zaniaToolStripMenuItem
             // 
             this.¹zaniaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.poka¿Rozwi¹zaniaToolStripMenuItem});
+            this.poka¿Rozwi¹zaniaToolStripMenuItem,
+            this.edycjaRozwToolStripMenuItem});
             this.¹zaniaToolStripMenuItem.Name = "¹zaniaToolStripMenuItem";
             this.¹zaniaToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.¹zaniaToolStripMenuItem.Text = "Rozwi¹zania";
@@ -131,6 +133,13 @@ namespace taio
             this.lab2.Size = new System.Drawing.Size(0, 17);
             this.lab2.Visible = false;
             // 
+            // edycjaRozwToolStripMenuItem
+            // 
+            this.edycjaRozwToolStripMenuItem.Name = "edycjaRozwToolStripMenuItem";
+            this.edycjaRozwToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.edycjaRozwToolStripMenuItem.Text = "Edycja rozw.";
+            this.edycjaRozwToolStripMenuItem.Click += new System.EventHandler(this.edycjaRozwToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,6 +154,7 @@ namespace taio
             this.Text = "TAIO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFrm_FormClosed);
+  
             this.Load += new System.EventHandler(this.MainFrm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -176,6 +186,7 @@ namespace taio
 
 
         private System.Windows.Forms.ToolStripStatusLabel lab2;
+        private System.Windows.Forms.ToolStripMenuItem edycjaRozwToolStripMenuItem;
 
         public System.Windows.Forms.ToolStripStatusLabel Lab2
         {

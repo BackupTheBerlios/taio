@@ -54,6 +54,12 @@
     <Compile Include="GUI\EditDataFrm.Designer.cs">
       <DependentUpon>EditDataFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\EditSolution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\EditSolution.Designer.cs">
+      <DependentUpon>EditSolution.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MainFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,12 @@
     </Compile>
     <Compile Include="GUI\RandomDataFrm.Designer.cs">
       <DependentUpon>RandomDataFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\rectangle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\rectangle.Designer.cs">
+      <DependentUpon>rectangle.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\SolutionsFrm.cs">
       <SubType>Form</SubType>
@@ -85,6 +97,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>EditDataFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\EditSolution.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EditSolution.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainFrm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainFrm.cs</DependentUpon>
@@ -92,6 +108,10 @@
     <EmbeddedResource Include="GUI\RandomDataFrm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>RandomDataFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\rectangle.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>rectangle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\SolutionsFrm.resx">
       <SubType>Designer</SubType>
