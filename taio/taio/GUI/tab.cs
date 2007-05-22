@@ -12,6 +12,8 @@ namespace taio.GUI
     {
 
         private Data.Solution solution;
+        DateTime start;
+
         delegate void paintLeftSplitCallback();
         delegate void refreshTabCallback();
 
@@ -32,7 +34,7 @@ namespace taio.GUI
         private const int SQR_SIZE = 100; // rozmiar boku podloza dla rysowanych prost. wejsciowych
         private int maxX, maxY, maxCoordinate, minWidthOrHeight;
         internal static double ratio,factor=0.0;
-        internal  int uly = 80;
+        internal  int uly = 60;
 
         public tab(GUI.SolutionsFrm solutionFrm,int index)
         {
@@ -184,43 +186,8 @@ namespace taio.GUI
                     Panel p;
                     Label lab;
 
-                    foreach (Data.PartOfSolution part in this.solution.PartsOfSolution)
-                    {
-
-                        double width = (double)(part.Xrd - part.Xlu);
-                        double height = (double)(part.Yrd - part.Ylu);
-                        square += width * height;
-
-                        p = new Panel();
-                        p.Width = Convert.ToInt32(width * hRatio);
-                        p.Height = Convert.ToInt32(height * vRatio);
-                        p.BackColor = Color.Green;
-                        p.Name = Convert.ToString(index2);
-                        p.Location = new System.Drawing.Point(10, uly);
-                        p.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-                        p.Cursor = Cursors.Hand;
-
-                        lab = new Label();
-                        lab.Cursor = Cursors.Hand;
-                        lab.Name = Convert.ToString(index2);
-                        lab.Location = new System.Drawing.Point(SQR_SIZE + 12, uly);
-                        lab.Text = "Nr. " + ((index2) + 1) + "\nSzerokoœæ: " + width.ToString() + "\nWysokoœæ: " + height.ToString() + "\nPole: " + Convert.ToString(width * height);
-                        lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-                        lab.Height = 60;
-                        lab.Width = 100;
-
-                        uly += SQR_SIZE + 2;
-                        index2++;
-
-                        p.Click += new EventHandler(panel_Click);
-                        lab.Click += new EventHandler(label_Click);
-                        this.splitContainer1.Panel1.Controls.Add(p);
-                        this.splitContainer1.Panel1.Controls.Add(lab);
-
-                    }
-
                     lab = new Label();
-                    lab.Location = new System.Drawing.Point(0, uly);
+                    lab.Location = new System.Drawing.Point(10, uly);
                     lab.Text = "Prostok¹t wype³niany:";
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 15;
@@ -237,12 +204,62 @@ namespace taio.GUI
                     this.splitContainer1.Panel1.Controls.Add(p);
 
                     lab = new Label();
-                    lab.Location = new System.Drawing.Point(SQR_SIZE+12, uly + 30);
-                    lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nUtylizacja pokrycia:" + Convert.ToString(Math.Round(((double)(maxX * maxY) / square) * 100.0)) + "%\nNiewykorzystane\nprostok¹ty: " + Convert.ToString(solutionFrm.MainFrm.Engine.Rectangles.Count - solution.PartsOfSolution.Count);
+                    lab.Location = new System.Drawing.Point(SQR_SIZE + 15, uly + 30);
+                    lab.Name = "labSolution";
+                    lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nNiewykorzystane\nprostok¹ty: " + Convert.ToString(solutionFrm.MainFrm.Engine.Rectangles.Count - solution.PartsOfSolution.Count);
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
                     lab.Height = 80;
                     lab.Width = 150;
                     this.splitContainer1.Panel1.Controls.Add(lab);
+
+                    
+
+                    lab = new Label();
+                    lab.Location = new System.Drawing.Point(10, uly+SQR_SIZE+30);
+                    lab.Name = "labRectangles";
+                    lab.Text = "Prostok¹ty rozwi¹zania:";
+                    lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+                    lab.Height = 15;
+                    lab.Width = 150;
+                    this.splitContainer1.Panel1.Controls.Add(lab);
+
+                    uly += SQR_SIZE + 50;
+                    foreach (Data.PartOfSolution part in this.solution.PartsOfSolution)
+                    {
+
+                        double width = (double)(part.Xrd - part.Xlu);
+                        double height = (double)(part.Yrd - part.Ylu);
+                        square += width * height;
+
+
+                        p = new Panel();
+                        p.Width = Convert.ToInt32(width * hRatio);
+                        p.Height = Convert.ToInt32(height * vRatio);
+                        p.BackColor = Color.Green;
+                        p.Name = Convert.ToString(index2);
+                        p.Location = new System.Drawing.Point(10, uly);
+                        p.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+                        p.Cursor = Cursors.Hand;
+
+                        lab = new Label();
+                        lab.Cursor = Cursors.Hand;
+                        lab.Name = Convert.ToString(index2);
+                        lab.Location = new System.Drawing.Point(SQR_SIZE + 15, uly);
+                        lab.Text = "Nr. " + ((index2) + 1) + "\nSzerokoœæ: " + width.ToString() + "\nWysokoœæ: " + height.ToString() + "\nPole: " + Convert.ToString(width * height);
+                        lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+                        lab.Height = 60;
+                        lab.Width = 100;
+
+                        index2++;
+                        uly += SQR_SIZE + 5;
+
+                        p.Click += new EventHandler(panel_Click);
+                        lab.Click += new EventHandler(label_Click);
+                        this.splitContainer1.Panel1.Controls.Add(p);
+                        this.splitContainer1.Panel1.Controls.Add(lab);
+
+                    }
+                    this.splitContainer1.Panel1.Controls["labSolution"].Text += "\nUtylizacja pokrycia:" + Convert.ToString(Math.Round(((double)(maxX * maxY) / square) * 100.0))+"%";
 
                     lab = new Label();
                     lab.Location = new System.Drawing.Point(0, p.Location.Y + p.Height + 5);
@@ -313,9 +330,12 @@ namespace taio.GUI
             }
             else
             {
+                timer.Stop();
+                Cursor.Current = Cursors.WaitCursor;
                 clearTabs();
                 paintLeftSplit();
-                createControls();
+                Cursor.Current = Cursors.Default;
+                this.btnStart.Enabled = true;
                 this.Refresh();
             }
         }
@@ -326,24 +346,33 @@ namespace taio.GUI
                 if (index == 0 && (solutionFrm.MainFrm.Engine.Algoritms.getBrutal().BrutalThread.ThreadState == System.Threading.ThreadState.Running))
                 {
                     MessageBox.Show("Algortm jest ju¿ uruchomiony !");
+                    this.Refresh();
                     return;
                 }
             if (index == 1 && solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread != null)
                 if (index == 1 && (solutionFrm.MainFrm.Engine.Algoritms.getFirst().FirstThread.ThreadState == System.Threading.ThreadState.Running))
                 {
                     MessageBox.Show("Algortm jest ju¿ uruchomiony !");
+                    this.Refresh();
                     return;
                 }
-            //if (index == 2 && solutionFrm.MainFrm.Engine.Algoritms.getSecond().SecondThread != null)
-            //    if (index == 2 && (solutionFrm.MainFrm.Engine.Algoritms.getSecond().SecondThread.ThreadState == System.Threading.ThreadState.Running))
-            //    {
-            //        MessageBox.Show("Algortm jest ju¿ uruchomiony !");
-            //        return;
-            //    }
+            if (index == 2 && solutionFrm.MainFrm.Engine.Algoritms.getSecond().SecondThread != null)
+                if (index == 2 && (solutionFrm.MainFrm.Engine.Algoritms.getSecond().SecondThread.ThreadState == System.Threading.ThreadState.Running))
+                {
+                    MessageBox.Show("Algortm jest ju¿ uruchomiony !");
+                    this.Refresh();
+                    return;
+                }
             if (solutionFrm.MainFrm.Engine.Rectangles != null)
             {
 
                 clearTabs();
+                if(solution != null)
+                solution.PartsOfSolution.Clear();
+                this.Refresh();
+                this.btnStart.Enabled = false;
+                start = DateTime.Now;
+                timer.Start();
                 solutionFrm.MainFrm.Engine.getAlgorithm(index).StartAlgorithm();
 
             }
@@ -354,59 +383,42 @@ namespace taio.GUI
         private void btnStop_Click(object sender, EventArgs e)
         {
             solutionFrm.MainFrm.Engine.getAlgorithm(index).StopAlgorithm();
+            timer.Stop();
+            this.btnStart.Enabled = true;
         }
-        public void setTime(DateTime time)
+        public void setTime(TimeSpan time)
         {
-            this.labTime.Text = "Czas: " + time.ToShortTimeString();
+            this.labTime.Text = "Czas: " + time.ToString();
         }
 
         private void clearTabs()
         {
-            this.uly = 80;
+            uly = 60;
+            Label l;
             foreach (Control c in splitContainer1.Panel1.Controls)
             {
-                if (c.GetType() == typeof(Label))
+                if (c.GetType() == typeof(Label) && !c.Name.Equals("labTime") && !c.Name.Equals("labAlgorytm"))
                 {
-                    splitContainer1.Panel1.Controls.Remove(c);
-                    c.Dispose();
+                    l = (Label)c;
+                    splitContainer1.Panel1.Controls.Remove(l);
+                    l.Dispose();
+                    
                 }
                 if (c.GetType() == typeof(Panel))
                 {
-
+                   //c.Hide();
                    splitContainer1.Panel1.Controls.Remove(c);
                    c.Dispose();
+                   
                 }
+                
             }
         }
-        private void createControls()
+
+        private void timer_Tick(object sender, EventArgs e)
         {
-            Label labAlgorytm = new Label();
-            labAlgorytm.AutoSize = true;
-            labAlgorytm.Location = new System.Drawing.Point(3, 5);
-            labAlgorytm.Name = "labAlgorytm";
-            labAlgorytm.Size = new System.Drawing.Size(50, 13);
-            labAlgorytm.TabIndex = 0;
-            labAlgorytm.Text = "Algorytm:";
-            splitContainer1.Panel1.Controls.Add(labAlgorytm);
-
-            Label label1 = new Label();
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(3, 62);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(118, 13);
-            label1.TabIndex = 0;
-            label1.Text = "Prostok¹ty rozwi¹zania:";
-            splitContainer1.Panel1.Controls.Add(label1);
-
-            Label labTime = new Label();
-            labTime.AutoSize = true;
-            labTime.Location = new System.Drawing.Point(3, 30);
-            labTime.Name = "labTime";
-            labTime.Size = new System.Drawing.Size(33, 13);
-            labTime.TabIndex = 0;
-            labTime.Text = "Czas:";
-            splitContainer1.Panel1.Controls.Add(labTime);
-
+            TimeSpan current = start - DateTime.Now;
+            setTime(current);
         }
        
     }

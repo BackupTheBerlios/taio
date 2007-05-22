@@ -8,6 +8,12 @@ namespace taio.Algorithms
     class SecondAppAlgorithm : Algorithm
     {
         private Thread secondThread;
+
+        public Thread SecondThread
+        {
+            get { return secondThread; }
+            set { secondThread = value; }
+        }
         /**finds the solution**/
         private int LU = 0, //corners representation of the rectangle being covered
                     LD = 2,
@@ -27,7 +33,8 @@ namespace taio.Algorithms
         public override void StopAlgorithm()
         {
             //this.endthread = true;
-            if(secondThread != null)secondThread.Abort();
+            if(secondThread != null)
+                secondThread.Abort();
             System.Console.WriteLine("stopAlgorithm second");
         }        
         public void startAlgorithm()
@@ -60,7 +67,7 @@ namespace taio.Algorithms
                 while (e.MoveNext())
                 {
                     this.Solution.PartsOfSolution.Clear();
-                    //Console.Out.WriteLine("Now trying to cover: " + e.Current.Width + "x" + e.Current.Height);
+                    Console.Out.WriteLine("Now trying to cover: " + e.Current.Width + "x" + e.Current.Height);
                     if (this.coverSolution(e.Current))
                     {
                         DateTime t2 = DateTime.Now;
@@ -74,7 +81,7 @@ namespace taio.Algorithms
                         Console.Out.WriteLine("MAINAADD");
                         this.MainFrm.Engine.Solutions.Add(this.Solution);
                         this.refreshTab();
-                        //koniec ula
+                      //koniec ula
                         
                         return;
                     }

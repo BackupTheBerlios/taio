@@ -31,19 +31,7 @@ namespace taio
             InitializeComponent();
             this.engine = new main(this);
 
-            //TEST PIERWSZY:
-            //this.engine.loadData("daneTaio.data");//("C:\\Documents and Settings\\ula\\Pulpit\\TAIO\\taio\\taio\\bin\\Debug\\daneTaio.txt");
-           /* Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
-            if (engine.Rectangles == null)
-            {
-                MessageBox.Show("Brak prostok¹tów wejsciowych");
-                return;
-            }
-            algorithm.Rectangles = engine.Rectangles;
-            algorithm.StartAlgorithm();
-            engine.Solutions = new List<taio.Data.Solution>();
-            engine.Solutions.Add(algorithm.Solution);
-           */
+
         }
 
         private void MainFrm_FormClosed(object sender, FormClosedEventArgs e)
@@ -104,88 +92,7 @@ namespace taio
             }
         }
 
-        private void BrutalAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            //Algorithms.Algorithm algorithm = new Algorithms.BrutalAlgorithm();
-            //if (engine.Rectangles == null)
-            //{
-            //    MessageBox.Show("Brak prostok¹tów wejsciowych");
-            //    return;
-            //}
-            //algorithm.Rectangles = engine.Rectangles;
-            //this.statusStrip1.Items[0].Text = "Oblicza - algorytm brutalny...";
-            //this.statusStrip1.Refresh();
-            //Cursor.Current = Cursors.WaitCursor;
-            //DateTime t1 = DateTime.Now;
-            //algorithm.MainFrm = this;
-            //algorithm.StartAlgorithm();
-          
-            //DateTime t2 = DateTime.Now;
-            //TimeSpan t = t2 - t1;
-            //Cursor.Current = Cursors.Default;
-            //this.statusStrip1.Items[0].Text = "Bezczynny";
-            //this.statusStrip1.Refresh();
-            //algorithm.Solution.Tag = "Algorytm brutalny " + t.ToString();
-            ////if (algorithm.Solution.PartsOfSolution.Count > 0)
-            ////   engine.Solutions.Add(algorithm.Solution);
-            ////this.showSolutions();
-        }
 
-        private void SecondAppAlgorithmToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            //Algorithms.Algorithm algorithm = new Algorithms.SecondAppAlgorithm();
-
-            //if (engine.Rectangles == null)
-            //{
-
-            //    MessageBox.Show("Brak prostok¹tów wejsciowych");
-            //    return;
-            //}
-            //algorithm.Rectangles = engine.Rectangles;
-            //this.statusStrip1.Items[0].Text = "Oblicza - algorytm drugi...";
-            //this.statusStrip1.Refresh();
-            //Cursor.Current = Cursors.WaitCursor;
-            //DateTime t1 = DateTime.Now;
-           
-            //algorithm.StartAlgorithm();
-         
-            //DateTime t2 = DateTime.Now;
-            //TimeSpan t = t2 - t1;
-            //Cursor.Current = Cursors.Default;
-            //this.statusStrip1.Items[0].Text = "Bezczynny";
-            //this.statusStrip1.Refresh();
-            //algorithm.Solution.Tag = "Algorytm drugi " + t.ToString();
-            //if (algorithm.Solution.PartsOfSolution.Count > 0)
-            //    engine.Solutions.Add(algorithm.Solution);
-            //this.showSolutions();
-        }
-
-        private void FirstAppAlgorithmToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            //if (engine.Rectangles == null)
-            //{
-            //    MessageBox.Show("Brak prostok¹tów wejsciowych");
-            //    return;
-            //}
-            //Algorithms.Algorithm algorithm = new Algorithms.FirstAppAlgorithm();
-            //algorithm.Rectangles = engine.Rectangles;
-            //this.statusStrip1.Items[0].Text = "Oblicza - algorytm pierwszy...";
-            //this.statusStrip1.Refresh();
-            //Cursor.Current = Cursors.WaitCursor;
-            //DateTime t1 = DateTime.Now;
-            //algorithm.StartAlgorithm();
-            //DateTime t2 = DateTime.Now;
-            //TimeSpan t = t2 - t1;
-            //Cursor.Current = Cursors.Default;
-            //this.statusStrip1.Items[0].Text = "Bezczynny";
-            //this.statusStrip1.Refresh();
-            //algorithm.Solution.Tag = "Algorytm pierwszy "+ t.ToString();
-            //if (algorithm.Solution.PartsOfSolution.Count > 0)
-            //    engine.Solutions.Add(algorithm.Solution);
-            //this.showSolutions();
-        }
 
         private void poka¿Rozwi¹zaniaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -217,13 +124,12 @@ namespace taio
                     this.solutionsFrm.MdiParent = this;
                     this.solutionsFrm.Show();
                     this.solutionsFrm.Focus();
+                    this.solutionsFrm.Refresh();
                 }
                 else
                 {
-                    solutionsFrm.CreateTabs();
-                    solutionsFrm.Invalidate();
-                    solutionsFrm.Update();
                     this.solutionsFrm.Focus();
+                    this.solutionsFrm.Refresh();
                 }
                 //Cursor.Current = Cursors.Default;
                 //this.statusStrip1.Items[0].Text = "Bezczynny";
@@ -325,6 +231,11 @@ namespace taio
             }
             else
                 MessageBox.Show("Brak prostok¹tów wejœciowych", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MainFrm_Activated(object sender, EventArgs e)
+        {
+            this.Refresh();
         }
 
 

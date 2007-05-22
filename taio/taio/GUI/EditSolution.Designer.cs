@@ -73,6 +73,7 @@ namespace taio.GUI
             this.Text = "Edycja rozwi¹zania";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EditSolution_FormClosed);
+
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.EditSolution_KeyUp);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditSolution_KeyDown);
             this.Load += new System.EventHandler(this.EditSolution_Load);

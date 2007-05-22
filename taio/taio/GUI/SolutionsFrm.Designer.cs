@@ -125,6 +125,7 @@ namespace taio.GUI
             this.Name = "SolutionsFrm";
             this.Text = "Rozwi¹zania";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SolutionsFrm_FormClosed);
+            this.Activated += new System.EventHandler(this.SolutionsFrm_Activated);
             this.Load += new System.EventHandler(this.SolutionsFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trFactor)).EndInit();
             this.ResumeLayout(false);

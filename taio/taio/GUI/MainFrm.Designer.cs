@@ -38,7 +38,6 @@ namespace taio
             this.poka¿Rozwi¹zaniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edycjaRozwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lab2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -120,19 +119,12 @@ namespace taio
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
             this.lab2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 334);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(472, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(58, 17);
-            this.toolStripStatusLabel1.Text = "Bezczynny";
             // 
             // lab2
             // 
@@ -154,6 +146,7 @@ namespace taio
             this.Text = "TAIO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFrm_FormClosed);
+            this.Activated += new System.EventHandler(this.MainFrm_Activated);
             this.Load += new System.EventHandler(this.MainFrm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -176,7 +169,6 @@ namespace taio
             get { return statusStrip1; }
             set { statusStrip1 = value; }
         }
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem ¹zaniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem poka¿Rozwi¹zaniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zapiszDaneToolStripMenuItem;

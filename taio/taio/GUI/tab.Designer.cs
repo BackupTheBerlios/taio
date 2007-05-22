@@ -29,12 +29,13 @@ namespace taio.GUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.labTime = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.labAlgorytm = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labTime = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +53,6 @@ namespace taio.GUI
             this.splitContainer1.Panel1.Controls.Add(this.btnStop);
             this.splitContainer1.Panel1.Controls.Add(this.labAlgorytm);
             this.splitContainer1.Panel1.Controls.Add(this.btnStart);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Click += new System.EventHandler(this.splitContainer1_Panel1_Click);
             // 
             // splitContainer1.Panel2
@@ -62,6 +62,15 @@ namespace taio.GUI
             this.splitContainer1.Size = new System.Drawing.Size(457, 295);
             this.splitContainer1.SplitterDistance = 229;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // labTime
+            // 
+            this.labTime.AutoSize = true;
+            this.labTime.Location = new System.Drawing.Point(3, 30);
+            this.labTime.Name = "labTime";
+            this.labTime.Size = new System.Drawing.Size(33, 13);
+            this.labTime.TabIndex = 0;
+            this.labTime.Text = "Czas:";
             // 
             // btnStop
             // 
@@ -92,23 +101,10 @@ namespace taio.GUI
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // label1
+            // timer
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 62);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Prostok¹ty rozwi¹zania:";
-            // 
-            // labTime
-            // 
-            this.labTime.AutoSize = true;
-            this.labTime.Location = new System.Drawing.Point(3, 30);
-            this.labTime.Name = "labTime";
-            this.labTime.Size = new System.Drawing.Size(33, 13);
-            this.labTime.TabIndex = 0;
-            this.labTime.Text = "Czas:";
+            this.timer.Interval = 10;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // tab
             // 
@@ -128,7 +124,6 @@ namespace taio.GUI
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnStart;
 
         public System.Windows.Forms.Button BtnStart
@@ -151,6 +146,7 @@ namespace taio.GUI
             set { btnStop = value; }
         }
         private System.Windows.Forms.Label labTime;
+        private System.Windows.Forms.Timer timer;
 
         public System.Windows.Forms.Label LabTime
         {

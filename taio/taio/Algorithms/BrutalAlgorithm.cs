@@ -44,6 +44,8 @@ namespace taio.Algorithms
         public override void StopAlgorithm()
         {
             this.endthread = true;
+            //if (brutalThread != null)
+               // brutalThread.Abort();
             System.Console.WriteLine("stopAlgorithm brutal");
         }
         private void startAlgorithm()
@@ -56,7 +58,8 @@ namespace taio.Algorithms
             sumOfArea = this.sumAreaOfRectangles();
             int sizeUse = this.sumLenghtOfRectangles() + 1;
             use = new bool[sizeUse, sizeUse];
-
+            this.bestArea = 0;
+            this.liczSolution = 0;
             List<int> list = new List<int>();
             int i = 0;
             while (i < this.Rectangles.Count)
@@ -297,7 +300,7 @@ namespace taio.Algorithms
             this.Solution = new Data.Solution();
             this.Solution.PartsOfSolution = this.bestPartOfSolution;
             //this.MainFrm.Engine.Solutions.Add(this.Solution);
-            this.refreshTab();
+            //this.refreshTab();
             
             //if (liczSolution == 3) endthread = true;
             return;

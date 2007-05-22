@@ -120,7 +120,7 @@ namespace taio.GUI
                         tabPage.Controls.Add(tab);
                         this.tabSolutons.TabPages.Add(tabPage);
 
-                        tab.uly = 25;
+                        //tab.uly = 10;
                         tab.refreshTab();
                        
                     }
@@ -169,6 +169,11 @@ namespace taio.GUI
         private void button1_Click(object sender, EventArgs e)
         {
             MainFrm.Engine.getAlgorithm(0).StartAlgorithm();
+        }
+
+        private void SolutionsFrm_Activated(object sender, EventArgs e)
+        {
+            this.Refresh();
         }
     }
 }

@@ -81,6 +81,7 @@ namespace taio.GUI
                         this.mainFrm.Engine.Rectangles.Add(rect);
                     }
                     mainFrm.Engine.assignRectangles();
+                    mainFrm.Engine.IsFromFile = false;
                     MessageBox.Show("Stworzono "+datRectangles.Rows.Count.ToString()+" nowych prostok¹tów", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (mainFrm.editDataFrm != null && mainFrm.editDataFrm.Visible)
                         mainFrm.editDataFrm.Close();
@@ -139,7 +140,8 @@ namespace taio.GUI
             {
                 if (datRectangles.RowCount > 0)
                 {
-                    int temp;
+                    int temp=0;
+                    if(datRectangles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value!=null)
                     if (!Int32.TryParse(datRectangles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out temp))
                     {
                         MessageBox.Show("B³êdnie podana wartoœæ komórki", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

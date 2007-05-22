@@ -34,6 +34,7 @@ namespace taio.Algorithms
         public override void StopAlgorithm()
         {
             this.endthread = true;
+           if(firstThread != null)
             firstThread.Abort();
             System.Console.WriteLine("stopAlgorithm first");
             //this.MainFrm.Engine.Solutions.Add(this.Solution);

@@ -109,7 +109,8 @@ namespace taio.GUI
             btnSave.Enabled = true;
             if (datRectangles.RowCount > 0 && e.ColumnIndex != 3 && flag)
             {
-                int temp;
+                int temp=0;
+                if(datRectangles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value!=null)
                 if (!Int32.TryParse(datRectangles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), out temp))
                 {
                     MessageBox.Show("B³êdnie podana wartoœæ komórki", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -117,6 +118,7 @@ namespace taio.GUI
                 }
                 if (temp <= 0)
                     MessageBox.Show("Wartoœæ komórki musi byæ > 0", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                mainFrm.Engine.IsFromFile = false;
             }
         }
 

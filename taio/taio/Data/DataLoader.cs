@@ -147,6 +147,11 @@ namespace taio.Data
             int width, height;
             StreamWriter wr = new StreamWriter(File.Open(data.FileName, FileMode.Append));
             if (!data.IsFromFile)
+            {
+                wr.Close();
+                wr = new StreamWriter(File.Open(data.FileName, FileMode.Create));
+            }
+            if (!data.IsFromFile)
             //zapisz dane wejœciowe
             {
                 wr.WriteLine("##");
@@ -181,6 +186,7 @@ namespace taio.Data
             }
 
             wr.Close();
+            data.IsFromFile = true;
         }
 
     }
