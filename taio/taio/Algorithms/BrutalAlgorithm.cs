@@ -204,14 +204,18 @@ namespace taio.Algorithms
                 return; //ulozono juz wszystkie prostokaty w danej permutacji
 
             Data.Rectangle rect = Rectangles[permutation[countRect]];
-            int wMax1 = wMax, hMax1 = hMax, //nowe parametry wywolania addNextRect
-                wMax2 = wMax, hMax2 = hMax; //nowe parametry wywolania addNextRect dla obroconego o 90stopni  prostokata 
+            int wMax1, hMax1, //nowe parametry wywolania addNextRect
+                wMax2, hMax2; //nowe parametry wywolania addNextRect dla obroconego o 90stopni  prostokata 
 
 
             for (int i = 0; i <= wMax; ++i) //posX 
             {
                 for (int j = 0; j <= hMax; ++j) //posY
                 {
+                    wMax1 = wMax;
+                    hMax1 = hMax;
+                    wMax2 = wMax;
+                    hMax2 = hMax; 
                     if (endthread)
                     {
                         System.Console.WriteLine("przerywam Addrect");
@@ -230,20 +234,18 @@ namespace taio.Algorithms
                     if ((listPart.Count == 0 || this.ifIsNeighbour(part))
                         && this.addToUse(part))
                     {
-                        listPart.Add(part);
-                        //printPart(listPart);                        
+                        listPart.Add(part);                                           
                         if (wMax1 < part.Xrd)
                             wMax1 = part.Xrd;
                         if (hMax1 < part.Yrd)
                             hMax1 = part.Yrd;
 
+                        
                         isBestSolution(wMax1, hMax1, listPart); //jesli tak to zapamietuje
                         addNextRect(permutation, listPart, countRect + 1, wMax1, hMax1);
                         listPart.RemoveAt(countRect);
                         this.takeFromUse();
-                    }
-                    //else
-                    //    Console.Out.WriteLine("!!!!!!!!!!!!!!!!!!!NIE");                    
+                    }                        
 
 
                     //nizej obrocony o 90 stopni:
@@ -256,8 +258,7 @@ namespace taio.Algorithms
                         part.Xrd = i + rect.Height;
                         part.Yrd = j + rect.Width;
 
-                        listPart.Add(part);
-                        //printPart(listPart);                      
+                        listPart.Add(part);                   
 
                         if (wMax2 < part.Xrd)
                             wMax2 = part.Xrd;
@@ -267,9 +268,7 @@ namespace taio.Algorithms
                         addNextRect(permutation, listPart, countRect + 1, wMax2, hMax2);
                         listPart.RemoveAt(countRect);
                         this.takeFromUse();
-                    }
-                    //else
-                    //    Console.Out.WriteLine("!!!!!!!!!!!!NIE");
+                    }                
 
                 }
             }
@@ -280,10 +279,10 @@ namespace taio.Algorithms
             if (!(width / height <= 2) ||
                 !(((double)width / (double)height) >= 0.5))//warunek stosunku wymiarow
             {
-                //Console.WriteLine("NIE stosunek: "+((double)width / (double)height));
+               
                 return;
             }
-            int area = width * height;
+            int area = width * height; 
             if (area <= this.bestArea)
                 return;
             for (int i = 0; i < width; ++i)
@@ -303,6 +302,7 @@ namespace taio.Algorithms
             //this.refreshTab();
             
             //if (liczSolution == 3) endthread = true;
+           
             return;
         }
         //wywoluje addNextRect dla kazdej wygenerowanej permutacji prostokatow
@@ -315,12 +315,12 @@ namespace taio.Algorithms
                 int k = 0;
                 foreach (T ii in permutation)
                 {
-                    //Console.Write(" " + ii.ToString());
+                    Console.Write(" " + ii.ToString());
                     int i = int.Parse(ii.ToString());
                     permutationTab[k] = i;
                     ++k;
                 }
-                //Console.WriteLine();        
+                Console.WriteLine();        
                 addNextRect(permutationTab, listPartOfSolution, 0, 0, 0);
                 if (endthread) break;
             }
