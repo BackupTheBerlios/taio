@@ -70,12 +70,16 @@ namespace taio.Algorithms
                     Console.Out.WriteLine("Now trying to cover: " + e.Current.Width + "x" + e.Current.Height);
                     if (this.coverSolution(e.Current))
                     {
-                        DateTime t2 = DateTime.Now;
+                        this.convertSolution();
+                        /*DateTime t2 = DateTime.Now;
                         TimeSpan t = t2 - t1;
                         Console.Out.WriteLine("Working time:" + t);
                         this.convertSolution();
                         Console.Out.WriteLine("Success!");
                         Console.Out.WriteLine("Found area:" + this.areaOfSolution);
+
+                        Console.Out.WriteLine("Dimensions: " + e.Current.Width + "\t" + e.Current.Height);*/
+
                         Console.Out.WriteLine("Dimensions: " + e.Current.Width + "\t" + e.Current.Height);
                         /*ula*/
                         Console.Out.WriteLine("MAINAADD");
@@ -83,12 +87,13 @@ namespace taio.Algorithms
                         this.refreshTab();
                       //koniec ula
                         
+
                         return;
                     }
                 }
-                if (this.areaOfSolution > 10E5)
+                if (this.areaOfSolution > 1E5)
                     this.areaOfSolution-=1000;
-                else if (this.areaOfSolution > 10E4)
+                else if (this.areaOfSolution > 1E4)
                     this.areaOfSolution -= 10;
                 else
                     this.areaOfSolution--;
