@@ -90,7 +90,7 @@ namespace taio.Algorithms
                         return;
                     }
                     
-                    
+                  
                 }
                 if (this.areaOfSolution > 1E5)
                     this.areaOfSolution-=1000;
@@ -132,7 +132,10 @@ namespace taio.Algorithms
                 {
                     m = this.areaOfSolution / n;
                     this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(m, n));
-                    //this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(n, m));
+                    /*ponizsza instrukcja wydluza czas dzialania algorytmu o ok.100%
+                     * dlatego dodano warunek dotyczacy pola pokrywanego prostokata*/
+                    if (this.areaOfSolution <1E3) 
+                    this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(n, m));
                 }
                 n++;
             }
