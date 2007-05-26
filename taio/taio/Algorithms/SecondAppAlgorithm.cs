@@ -85,11 +85,12 @@ namespace taio.Algorithms
                         Console.Out.WriteLine("MAINAADD");
                         this.MainFrm.Engine.Solutions.Add(this.Solution);
                         this.refreshTab();
-                      //koniec ula
-                        
+                        //koniec ula
 
                         return;
                     }
+                    
+                    
                 }
                 if (this.areaOfSolution > 1E5)
                     this.areaOfSolution-=1000;
@@ -131,6 +132,7 @@ namespace taio.Algorithms
                 {
                     m = this.areaOfSolution / n;
                     this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(m, n));
+                    //this.listOfPossibleSolutions.Add(new taio.Data.Rectangle(n, m));
                 }
                 n++;
             }
@@ -147,6 +149,11 @@ namespace taio.Algorithms
             for (k = 0; k < rect.Count && k < 4; k++)
             {
                 part=this.fillCorners(rect[k], r, k);
+                if (part == null)
+                {
+                    this.rotateRectangle(rect[k]);
+                    part = this.fillCorners(rect[k], r, k);
+                }
                 if (part != null)
                 {
                     this.Solution.PartsOfSolution.Add(part);
@@ -242,7 +249,13 @@ namespace taio.Algorithms
                     }
                 }
             }
-            return this.findBestPlacement(x, r, t);
+            part = this.findBestPlacement(x, r, t);
+            if (part == null)
+            {
+                this.rotateRectangle(x);
+                part = this.findBestPlacement(x, r, t);
+            }
+            return part;
         }
         private bool canBeInserted (int a, int b, int width, int height, bool [,]t)
         {
@@ -383,6 +396,13 @@ namespace taio.Algorithms
                 }
             }
             return true;
+        }
+        private void rotateRectangle(Data.Rectangle x)
+        {
+            int tmp;
+            tmp = x.Height;
+            x.Height = x.Width;
+            x.Width = tmp;
         }
         private void printListOfRectangles(List<Data.Rectangle> l)
         {
