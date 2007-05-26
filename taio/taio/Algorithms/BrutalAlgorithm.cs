@@ -7,18 +7,14 @@ namespace taio.Algorithms
 {
     class BrutalAlgorithm : Algorithm
     {
-        private Thread brutalThread;
-        // maciek
+        private Thread brutalThread;      
         public Thread BrutalThread
         {
             get { return brutalThread; }
             set { brutalThread = value; }
-        }
-
-        // end maciek
-        
+        }   
         private bool endthread;
-        int liczSolution = 0;
+       
         private bool[,] use; //wspolrzedne [y,x], informuje czy dany fragment prostokata
         //(y-1,x-1) na (y,x) jest pokryty przez ktorys z PartOfSolution
 
@@ -58,8 +54,7 @@ namespace taio.Algorithms
             sumOfArea = this.sumAreaOfRectangles();
             int sizeUse = this.sumLenghtOfRectangles() + 1;
             use = new bool[sizeUse, sizeUse];
-            this.bestArea = 0;
-            this.liczSolution = 0;
+            this.bestArea = 0;         
             List<int> list = new List<int>();
             int i = 0;
             while (i < this.Rectangles.Count)
@@ -102,31 +97,7 @@ namespace taio.Algorithms
             return length;
         }
 
-        private void printPart(List<Data.PartOfSolution> listPart)
-        {
-            for (int j = 0; j < listPart.Count; ++j)
-            {
-                Data.PartOfSolution part = listPart[j];
-                Console.Out.Write(" Part[" + j + "]: ("
-                        + part.Xlu + "," + part.Ylu + ")  (" + part.Xrd + "," + part.Yrd + ")  ");
-            }
-            Console.Out.WriteLine();
 
-            //drukowanie tablicy use:
-            /*for (int i = 0; i < use.GetLength(0); ++i)
-            {
-                for (int j = 0; j < use.GetLength(1); ++j)
-                {
-                    if (use[i, j] == true)
-                        Console.Write("1,");
-                    else
-                        Console.Write("0,");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();*/
-
-        }
 
         //wywolywana kiedy usuwamy z listy PartOfSolution ostatnio dolozona PartOfSolution,
         //zmieniania w tablicy use z true na false te elementy, ktore byly pokryte przez te zdejmowana PartOfSolution   
@@ -195,8 +166,7 @@ namespace taio.Algorithms
         private void addNextRect(int[] permutation, List<Data.PartOfSolution> listPart, int countRect, int wMax, int hMax)
         {
             if (wMax * hMax > this.sumOfArea)
-            {
-                //Console.WriteLine("TNE!");
+            {                
                 return;//suma pol prostokatow jest mniejsza niz pole potencjalnego rozwiazania
                 //nie jest mozliwe pokrycie prostokata o wymiarach wMax na hMax danymi prostokatami 
             }
@@ -239,8 +209,6 @@ namespace taio.Algorithms
                             wMax1 = part.Xrd;
                         if (hMax1 < part.Yrd)
                             hMax1 = part.Yrd;
-
-                        
                         isBestSolution(wMax1, hMax1, listPart); //jesli tak to zapamietuje
                         addNextRect(permutation, listPart, countRect + 1, wMax1, hMax1);
                         listPart.RemoveAt(countRect);
@@ -249,17 +217,15 @@ namespace taio.Algorithms
 
 
                     //nizej obrocony o 90 stopni:
-                    if ((listPart.Count == 0 || this.ifIsNeighbour(part)) &&
-                       rect.Height != rect.Width && this.addToUse(part))
-                    {
                         part = new taio.Data.PartOfSolution();
                         part.Xlu = i;
                         part.Ylu = j;
                         part.Xrd = i + rect.Height;
                         part.Yrd = j + rect.Width;
-
-                        listPart.Add(part);                   
-
+                    if ((listPart.Count == 0 || this.ifIsNeighbour(part)) &&
+                       rect.Height != rect.Width && this.addToUse(part))
+                    {
+                        listPart.Add(part);              
                         if (wMax2 < part.Xrd)
                             wMax2 = part.Xrd;
                         if (hMax2 < part.Yrd)
@@ -274,12 +240,17 @@ namespace taio.Algorithms
             }
 
         }
+        /*
+         * sprawdza czy u³ozenie prostokatow w liscie listPart
+         * tworzy prostokat i jesli spelnia on warunek stosunku wymmiarow
+         * oraz zapamietane najlepsze dotad rozwiazanie ma mniejsze pole
+         * to zapamietuje on je jako najlepsze rozwiazanie
+         */ 
         private void isBestSolution(int width, int height, List<Data.PartOfSolution> listPart)
         {
-            if (!(width / height <= 2) ||
+            if (!((double)width / (double)height <= 2) ||
                 !(((double)width / (double)height) >= 0.5))//warunek stosunku wymiarow
-            {
-               
+            {               
                 return;
             }
             int area = width * height; 
@@ -292,41 +263,57 @@ namespace taio.Algorithms
                         return;
                 }
             this.bestPartOfSolution = new List<taio.Data.PartOfSolution>(listPart);
-            this.bestArea = area;
-            Console.WriteLine("!!!!!!!!!!NOWE SOLUTION!!!!!!!!!!!");
-            this.printPart(listPart);
-            liczSolution++;
-            this.Solution = new Data.Solution();
+            this.bestArea = area;     
             this.Solution.PartsOfSolution = this.bestPartOfSolution;
             //this.MainFrm.Engine.Solutions.Add(this.Solution);
-            //this.refreshTab();
-            
-            //if (liczSolution == 3) endthread = true;
-           
+            //this.refreshTab();          
             return;
         }
         //wywoluje addNextRect dla kazdej wygenerowanej permutacji prostokatow
         private void generatePermutations<T>(IEnumerable<T> input, int count)
         {
-            foreach (IEnumerable<T> permutation in FirstAppAlgorithm1.PermuteUtils.Permute<T>(input, count))
+            foreach (IEnumerable<int> permutation in FirstAppAlgorithm1.PermuteUtils.Permute<T>(input, count))
             {
                 List<Data.PartOfSolution> listPartOfSolution = new List<taio.Data.PartOfSolution>();
                 int[] permutationTab = new int[Rectangles.Count];
                 int k = 0;
-                foreach (T ii in permutation)
+                foreach (int ii in permutation)
                 {
-                    Console.Write(" " + ii.ToString());
-                    int i = int.Parse(ii.ToString());
-                    permutationTab[k] = i;
+                    //Console.Write(" " + ii);               
+                    permutationTab[k] = ii;
                     ++k;
                 }
-                Console.WriteLine();        
+                //Console.WriteLine();        
                 addNextRect(permutationTab, listPartOfSolution, 0, 0, 0);
                 if (endthread) break;
             }
             System.Console.WriteLine("koniec generatePermutations");
         }
-        
+        private void printPart(List<Data.PartOfSolution> listPart)
+        {
+            for (int j = 0; j < listPart.Count; ++j)
+            {
+                Data.PartOfSolution part = listPart[j];
+                Console.Out.Write(" Part[" + j + "]: ("
+                        + part.Xlu + "," + part.Ylu + ")  (" + part.Xrd + "," + part.Yrd + ")  ");
+            }
+            Console.Out.WriteLine();
+
+            //drukowanie tablicy use:
+            /*for (int i = 0; i < use.GetLength(0); ++i)
+            {
+                for (int j = 0; j < use.GetLength(1); ++j)
+                {
+                    if (use[i, j] == true)
+                        Console.Write("1,");
+                    else
+                        Console.Write("0,");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            */
+        }
     
     }
 }
