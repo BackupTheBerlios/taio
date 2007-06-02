@@ -15,7 +15,7 @@ namespace taio.Algorithms
             set { secondThread = value; }
         }
         /**finds the solution**/
-        private int LU = 0, //corners representation of the rectangle being covered
+        private const int LU = 0, //corners representation of the rectangle being covered
                     LD = 2,
                     RU = 1,
                     RD = 3;
@@ -67,7 +67,7 @@ namespace taio.Algorithms
                 while (e.MoveNext())
                 {
                     this.Solution.PartsOfSolution.Clear();
-                    Console.Out.WriteLine("Now trying to cover: " + e.Current.Width + "x" + e.Current.Height);
+                    //Console.Out.WriteLine("Now trying to cover: " + e.Current.Width + "x" + e.Current.Height);
                     if (this.coverSolution(e.Current))
                     {
                         this.convertSolution();
@@ -100,11 +100,9 @@ namespace taio.Algorithms
                     this.areaOfSolution--;
 
             }
-            /*if (this.Solution.PartsOfSolution.Count==0)
-            {
-                Console.Out.WriteLine("Failure");
-                return;
-            }*/
+            this.refreshTab();
+            Console.Out.WriteLine("Failure");
+                
             //this.MainFrm.Engine.Solutions.Add(this.Solution);
             //this.refreshTab();
             //System.Windows.Forms.MessageBox.Show(tab.Index.ToString());
@@ -112,7 +110,7 @@ namespace taio.Algorithms
 
         private int sumOfAreas()
         {
-            int sum=0;
+            int sum = 0;
             IEnumerator<Data.Rectangle> e = this.myRectangles.GetEnumerator();
             while (e.MoveNext())
             {
@@ -306,7 +304,7 @@ namespace taio.Algorithms
         {
             if ((x.Width > r.Width) || (x.Height > r.Height)) return null;
             Data.PartOfSolution part = new Data.PartOfSolution();
-            if (c==this.LU)  //lewy gorny
+            if (c==LU)  //lewy gorny
             {
                 part.Xlu = 0;
                 part.Ylu = 0;
@@ -314,7 +312,7 @@ namespace taio.Algorithms
                 part.Yrd = x.Height - 1;
                 return part;
             }
-            if (c==this.RU) //prawy gorny
+            if (c==RU) //prawy gorny
             {
                 part.Xlu = r.Width - x.Width;
                 part.Ylu = 0;
@@ -322,7 +320,7 @@ namespace taio.Algorithms
                 part.Yrd = x.Height - 1;
                 return part;
             }
-            if (c==this.LD) //lewy dolny
+            if (c==LD) //lewy dolny
             {
                 part.Xlu = 0;
                 part.Ylu = r.Height - x.Height;
@@ -330,7 +328,7 @@ namespace taio.Algorithms
                 part.Yrd = r.Height - 1;
                 return part;
             }
-            if (c == this.RD) //prawy dolny
+            if (c == RD) //prawy dolny
             {
                 part.Xlu = r.Width - x.Width;
                 part.Ylu = r.Height - x.Height;
@@ -367,12 +365,11 @@ namespace taio.Algorithms
             IEnumerator<Data.PartOfSolution> e = this.Solution.PartsOfSolution.GetEnumerator();
             while (e.MoveNext())
             {
-                
                 e.Current.Xrd++;
                 e.Current.Yrd++;
             }
         }
-        private void printUsage(bool[,] t)
+        /*private void printUsage(bool[,] t)
         {
             int m = t.GetLength(0);
             int n = t.GetLength(1);
@@ -385,7 +382,7 @@ namespace taio.Algorithms
                 }
                 Console.Out.WriteLine();
             }
-        }
+        }*/
         private bool isCovered(bool[,] t)
         {
             int m = t.GetLength(0);
