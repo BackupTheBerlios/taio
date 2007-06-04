@@ -46,6 +46,8 @@ namespace taio.GUI
                     mainFrm.randomDataFrm.Close();
                 if (mainFrm.solutionsFrm != null && mainFrm.solutionsFrm.Visible)
                     mainFrm.solutionsFrm.CreateTabs();
+                if (mainFrm.editSolution != null && mainFrm.editSolution.Visible)
+                    mainFrm.editSolution.Close();
 
                mainFrm.Lab2.Text = null;
                mainFrm.Lab2.Visible = false;
