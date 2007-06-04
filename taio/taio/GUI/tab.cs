@@ -208,7 +208,7 @@ namespace taio.GUI
                     lab.Name = "labSolution";
                     lab.Text = "Szerokoœæ: " + maxX.ToString() + "\nWysokoœæ: " + maxY.ToString() + "\nPole: " + Convert.ToString(maxX * maxY) + "\nNiewykorzystane\nprostok¹ty: " + Convert.ToString(solutionFrm.MainFrm.Engine.Rectangles.Count - solution.PartsOfSolution.Count);
                     lab.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-                    lab.Height = 80;
+                    lab.Height = 100;
                     lab.Width = 150;
                     this.splitContainer1.Panel1.Controls.Add(lab);
 
@@ -259,7 +259,7 @@ namespace taio.GUI
                         this.splitContainer1.Panel1.Controls.Add(lab);
 
                     }
-                    this.splitContainer1.Panel1.Controls["labSolution"].Text += "\nUtylizacja pokrycia:" + Convert.ToString(Math.Round(((double)(maxX * maxY) / square) * 100.0))+"%";
+                    this.splitContainer1.Panel1.Controls["labSolution"].Text += "\nProcent zachodzenia\nna siebie prostok¹tów: " + Convert.ToString(100-(Math.Round(((double)(maxX * maxY) / square) * 100.0)))+"%";
 
                     lab = new Label();
                     lab.Location = new System.Drawing.Point(0, p.Location.Y + p.Height + 5);

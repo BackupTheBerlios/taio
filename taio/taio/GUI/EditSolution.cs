@@ -217,7 +217,7 @@ namespace taio.GUI
              if (formats[0].Equals("taio.GUI.rectangle"))
              {
                  GUI.rectangle r2 = (GUI.rectangle)e.Data.GetData(formats[0]);
-                 r2.Location = new System.Drawing.Point(e.X - splitContainer1.SplitterDistance, e.Y - (this.Height - splitContainer1.Panel2.Height));
+                 r2.Location = new System.Drawing.Point(e.X - splitContainer1.SplitterDistance-20, e.Y - (this.Height - splitContainer1.Panel2.Height+20));
                  this.Refresh();
              }
         }
