@@ -104,7 +104,7 @@ namespace taio.GUI
                 this.tabSolutons.TabPages.Add(tabPage3);
 
                 foreach(Data.Solution sol in MainFrm.Engine.Solutions)
-                    if (sol.IsFromFile)
+                    //if (sol.IsFromFile)
                     {
                         GUI.tab tab = new tab(this, 55);
                         tab.Solution = sol;

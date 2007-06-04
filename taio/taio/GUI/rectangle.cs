@@ -82,7 +82,7 @@ namespace taio.GUI
 
             if (owner == 1)
             {
-                effect = this.DoDragDrop(this, DragDropEffects.All);
+                //effect = this.DoDragDrop(this, DragDropEffects.All);
             }
             else
             {
@@ -91,6 +91,42 @@ namespace taio.GUI
                 BackColor = Color.Red;
                 editSolution.updateColors();
             }
+        }
+
+        private void rectangle_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.owner == 1)
+            {
+                this.Hide();
+                GUI.rectangle r2 = new rectangle(this.Index, this.OriginalWidth, this.OriginalHeight, 2, this.editSolution);
+                r2.Location = new System.Drawing.Point(0, 0);
+                r2.Width = Convert.ToInt32(this.OriginalWidth * editSolution.factor);
+                r2.Height = Convert.ToInt32(this.OriginalHeight * editSolution.factor);
+                r2.Anchor = (AnchorStyles.None);
+                r2.Owner = 2;
+                r2.color = this.BackColor;
+                r2.BackColor = Color.Red;
+                editSolution.selectedRectangle = r2;
+                editSolution.splitContainer1.Panel2.Controls.Add(r2);
+                editSolution.rectangles.Add(r2);
+                editSolution.updateColors();
+            }
+    //else
+    //{
+    //    foreach (Control c in editSolution.splitContainer1.Panel1.Controls)
+    //       {
+    //           if (c.GetType() == typeof(GUI.rectangle))
+    //           {
+    //               GUI.rectangle r = (GUI.rectangle)c;
+    //               if (r.Index == this.Index)
+    //               {
+    //                   r.Show();
+    //                   editSolution.rectangles.Remove(r);
+    //                   editSolution.splitContainer1.Panel2.Controls.Remove(r);
+    //               } 
+    //           }
+    //      }
+    //}
         }
 
 

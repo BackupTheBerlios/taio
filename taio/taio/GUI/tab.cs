@@ -417,7 +417,7 @@ namespace taio.GUI
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan current = start - DateTime.Now;
+            TimeSpan current = DateTime.Now - start;
             setTime(current);
         }
        

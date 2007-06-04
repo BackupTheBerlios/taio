@@ -73,6 +73,8 @@ namespace taio
                     randomDataFrm.Close();
                 if (solutionsFrm != null && solutionsFrm.Visible)
                     solutionsFrm.CreateTabs();
+                if (editSolution != null && editSolution.Visible)
+                    editSolution.Close();
                 editRectangles();
                 Cursor.Current = Cursors.Default;
                 this.statusStrip1.Items[0].Text = "Bezczynny";

@@ -36,7 +36,7 @@ namespace taio.GUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.Name = "rectangle";
-
+            this.DoubleClick += new System.EventHandler(this.rectangle_DoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rectangle_MouseDown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.rectangle_Paint);
             this.ResumeLayout(false);

@@ -14,11 +14,12 @@ namespace taio.GUI
         private MainFrm mainFrm;
         public static int counter = 0;
         int uly = 10;
-        double ratio,factor;
+        internal double ratio,factor,ratio2;
         private const int SQR_SIZE = 100;
         internal GUI.rectangle selectedRectangle;
-        private List<GUI.rectangle> rectangles;
+        internal List<GUI.rectangle> rectangles;
         internal int x = 0, y = 0;
+        internal decimal square;
 
         public EditSolution(MainFrm mainFrm)
         {
@@ -58,6 +59,7 @@ namespace taio.GUI
                 r2 = new rectangle(index, r.Width, r.Height,1,this);
                 r2.Width = Convert.ToInt32(r2.OriginalWidth * ratio);
                 r2.Height = Convert.ToInt32(r2.OriginalHeight * ratio);
+              
                 c = drawBrush();
                 r2.BackColor = c;
                 r2.color = c;
@@ -75,6 +77,7 @@ namespace taio.GUI
                 lab.Width = 100;
 
                 splitContainer1.Panel1.Controls.Add(lab);
+                //rectangles.Add(r2)
                 index++;
                 uly += SQR_SIZE +2;
             }
@@ -104,28 +107,28 @@ namespace taio.GUI
 
         private void splitContainer1_Panel2_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.All;
-             string[] formats = e.Data.GetFormats();
+            //e.Effect = DragDropEffects.All;
+            // string[] formats = e.Data.GetFormats();
 
-             if (formats[0].Equals("taio.GUI.rectangle"))
-             {
+            // if (formats[0].Equals("taio.GUI.rectangle"))
+            // {
 
-                 GUI.rectangle r2 = (GUI.rectangle)e.Data.GetData(formats[0]);
-                 if (r2.Owner == 1)
-                 {
-                     r2.Location = new System.Drawing.Point(e.X - splitContainer1.SplitterDistance, e.Y - (this.Height - splitContainer1.Panel2.Height));
-                     r2.Width = Convert.ToInt32(r2.OriginalWidth * factor);
-                     r2.Height = Convert.ToInt32(r2.OriginalHeight * factor);
-                     r2.Anchor = (AnchorStyles.None);
-                     r2.Owner = 2;
-                     r2.BackColor = Color.Red;
-                     selectedRectangle = r2;
-                     splitContainer1.Panel2.Controls.Add(r2);
-                     rectangles.Add(r2);
-                     updateColors();
-                     this.Refresh();
-                 }
-             }
+            //     GUI.rectangle r2 = (GUI.rectangle)e.Data.GetData(formats[0]);
+            //     if (r2.Owner == 1)
+            //     {
+            //         //r2.Location = new System.Drawing.Point(e.X - splitContainer1.SplitterDistance, e.Y - (this.Height - splitContainer1.Panel2.Height));
+            //         //r2.Width = Convert.ToInt32(r2.OriginalWidth * factor);
+            //         //r2.Height = Convert.ToInt32(r2.OriginalHeight * factor);
+            //         //r2.Anchor = (AnchorStyles.None);
+            //         //r2.Owner = 2;
+            //         //r2.BackColor = Color.Red;
+            //         //selectedRectangle = r2;
+            //         //splitContainer1.Panel2.Controls.Add(r2);
+            //         //rectangles.Add(r2);
+            //         //updateColors();
+            ////         //this.Refresh();
+            //     }
+            // }
         }
 
         private void splitContainer1_Panel2_DragDrop(object sender, DragEventArgs e)
@@ -134,20 +137,20 @@ namespace taio.GUI
            
             if (formats[0].Equals("taio.GUI.rectangle"))
            {
-             GUI.rectangle r2 = (GUI.rectangle)e.Data.GetData(formats[0]);     
-             r2.Location = new System.Drawing.Point(e.X - splitContainer1.SplitterDistance, e.Y - (this.Height - splitContainer1.Panel2.Height));
-            // r2.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | AnchorStyles.Right| AnchorStyles.Bottom));
-             updateColors();
-             Label lab;
-             foreach (Control c in splitContainer1.Panel1.Controls)
-             {
-                 if (c.GetType() == typeof(Label))
-                 {
-                     lab = (Label)c;
-                     if (lab.Name.Equals(r2.Index.ToString()))
-                         lab.Hide();
-                 }
-             }
+            // GUI.rectangle r2 = (GUI.rectangle)e.Data.GetData(formats[0]);     
+            // r2.Location = new System.Drawing.Point(e.X - splitContainer1.SplitterDistance, e.Y - (this.Height - splitContainer1.Panel2.Height));
+            //// r2.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | AnchorStyles.Right| AnchorStyles.Bottom));
+            // updateColors();
+            // //Label lab;
+            // //foreach (Control c in splitContainer1.Panel1.Controls)
+            // //{
+            // //    if (c.GetType() == typeof(Label))
+            // //    {
+            // //        lab = (Label)c;
+            // //        if (lab.Name.Equals(r2.Index.ToString()))
+            // //            lab.Hide();
+            // //    }
+            // //}
             this.Refresh();
                    
            }
@@ -186,26 +189,23 @@ namespace taio.GUI
                 GUI.rectangle r2 = (GUI.rectangle)e.Data.GetData(formats[0]);
                 if (r2.Owner == 2)
                 {
-                    r2.Width = Convert.ToInt32(r2.OriginalWidth * ratio);
-                    r2.Height = Convert.ToInt32(r2.OriginalHeight * ratio); ;
-                    r2.BackColor = r2.color;
-                    r2.Location = new System.Drawing.Point(10, r2.OldUly);
-                    r2.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-                    r2.Owner = 1;
-                    //r2.Show();
-                    splitContainer1.Panel1.Controls.Add(r2);
-                    
-                }
-                Label lab;
-                foreach (Control c in splitContainer1.Panel1.Controls)
-                {
-                    if (c.GetType() == typeof(Label))
+                    foreach (Control c in splitContainer1.Panel1.Controls)
                     {
-                        lab = (Label)c;
-                        if (lab.Name.Equals(r2.Index.ToString()))
-                            lab.Show();
+                        if (c.GetType() == typeof(GUI.rectangle))
+                        {
+                            GUI.rectangle r = (GUI.rectangle)c;
+                            if (r.Index == r2.Index)
+                            {
+                                r.Show();
+                                rectangles.Remove(r2);
+                                splitContainer1.Panel2.Controls.Remove(r2);
+                            }
+                        }
                     }
+
                 }
+
+
                 this.Refresh();
             }
         }
@@ -275,9 +275,11 @@ namespace taio.GUI
             x = 0;
             y = 0;
             paintFilledRectangle(g);
+
         }
         private void paintFilledRectangle(Graphics g)
         {
+            double xtemp, ytemp;
             foreach (GUI.rectangle r in rectangles)
             {
                 if (r.Owner == 2)
@@ -290,7 +292,20 @@ namespace taio.GUI
             }
             Rectangle r2 = new Rectangle(0, 0, x, y);
             g.FillRectangle(Brushes.Yellow, r2);
-        }
+
+            if (rectangles.Count > 0)
+            {
+                square = Math.Round((decimal)((x / factor) * (y / factor)), 1);
+                labSquare.Text = "Pole: " + square;
+                xtemp = Math.Round( x /factor,1);
+                ytemp = Math.Round( y/factor,1);
+               
+                ratio2 = xtemp/ytemp;
+                labRatio.Text = "Szerokoœæ / Wysokoœæ: " + Math.Round(ratio2, 2);
+                labHeight.Text = "Wysokoœæ: " + Math.Round((y / factor), 1);
+                labWidth.Text = "Szerokoœæ: " + Math.Round((x / factor), 1);
+            }
+            }
 
         private void rotateRectangle()
         {
@@ -318,6 +333,67 @@ namespace taio.GUI
                 
             }
             
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            bool flag;
+
+            if (rectangles.Count == 0)
+                return;
+            if((ratio2<0.5)||(ratio2>2))
+            {
+                MessageBox.Show("Zbudowany prostok¹t ma niepoprawny stosunek szerokoœci do wysokoœci.\n Wartoœæ ta musi byæ sprzedzia³u [0.5, 2]");
+                return;
+            }
+
+            int xIndex, yIndex,x2,y2,x1,y1;
+            for (xIndex=0;xIndex<=x;xIndex++)
+                for (yIndex=0; yIndex <= y; yIndex++)
+                {
+                    flag = false;
+                    foreach (GUI.rectangle r in rectangles)
+                    {
+                        x1 = r.Location.X;
+                        y1 = r.Location.Y;
+                        x2 = r.Width + r.Location.X;
+                        y2 = r.Height + r.Location.Y;
+
+                        if (((x1 <= xIndex) && (xIndex <= x2)) && ((y1 <= yIndex) && (yIndex <= y2)))
+                        {
+                            flag = true;
+                            break;
+                        }
+
+                    }
+                    if (!flag)
+                    {
+                        MessageBox.Show("Proszê pokryæ dok³adnie ¿ó³ty prostok¹t !");
+                        return;
+                    }
+                }
+
+            Data.Solution sol = new taio.Data.Solution(false);
+            sol.Tag = txtName.Text;
+            foreach (GUI.rectangle r in rectangles)
+            {
+                x1 = (int)Math.Round((r.Location.X/factor),0);
+                y1 = (int)Math.Round((r.Location.Y / factor),0);
+                x2 = (int)Math.Round(((r.Width + r.Location.X) / factor),0);
+                y2 = (int)Math.Round(((r.Height + r.Location.Y) / factor),0);
+
+                Data.PartOfSolution part = new taio.Data.PartOfSolution();
+                part.Xlu = x1;
+                part.Ylu = y1;
+                part.Xrd = x2;
+                part.Yrd = y2;
+
+                sol.PartsOfSolution.Add(part);
+            }
+            mainFrm.Engine.Solutions.Add(sol);
+            MessageBox.Show("Stworzono nowe rozwi¹zanie.");
+            if (mainFrm.solutionsFrm != null && mainFrm.solutionsFrm.Visible)
+                mainFrm.solutionsFrm.CreateTabs();
         }
 
     }
