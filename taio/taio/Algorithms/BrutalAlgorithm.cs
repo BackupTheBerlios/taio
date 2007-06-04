@@ -279,11 +279,11 @@ namespace taio.Algorithms
                 int k = 0;
                 foreach (int ii in permutation)
                 {
-                    //Console.Write(" " + ii);               
+                    Console.Write(" " + ii);               
                     permutationTab[k] = ii;
                     ++k;
                 }
-                //Console.WriteLine();        
+                Console.WriteLine();        
                 addNextRect(permutationTab, listPartOfSolution, 0, 0, 0);
                 if (endthread) break;
             }

@@ -70,8 +70,7 @@ namespace taio.Algorithms
 
         private void tryForStartRectangle()        
         {
-            int w1, h1;
-            Console.WriteLine("POCZ TRYSTARTRECT");
+            int w1, h1;            
             this.listLayer.Clear();            
             startRectangle = this.rectanglesByArea[0];
             this.rectanglesByArea.RemoveAt(0);
@@ -80,26 +79,18 @@ namespace taio.Algorithms
             this.rectangles = copyRectangles(this.Rectangles);            
             this.rectangles.Sort(sortBySquare);
             this.removeStartRect();
-            Console.WriteLine("B" + rectanglesByArea.Count+"R"+rectangles.Count);
-            //return;
-            bool noLayerToDelate = true;            
-
+            bool noLayerToDelate = true;   
             while (!endthread && this.buildNextLayer())
             {
-            }
-            //this.checkProportion();   
+            }            
             w1 = w;
             h1 = h;
-            if ((w / h) > 2)
-            {
-                w1 = 2 * h;
-                Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
-            }
-            if (((double)w / (double)h) < 0.5)
-            {
-                h1 = (int)2 * w;
-                Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
-            }
+            if (((double)w / (double)h) > 2)            
+                w1 = 2 * h;            
+            
+            if (((double)w / (double)h) < 0.5)            
+                h1 = (int)2 * w;              
+            
             while (true)
             {
                 noLayerToDelate = true;
@@ -112,52 +103,25 @@ namespace taio.Algorithms
                         for (int j = i; j < this.listLayer.Count; ++j)//cofnaac wszystkie kolejne 
                         {
                             if (this.listLayer[j].isHorizontal() == layer.isHorizontal())//ktore sa tego samego typu
-                            {
-                                //this.listLayer[j].printInfo();
-                                this.listLayer[j].moveStart(layer.End - layer.Start, layer.isHorizontal());
-                                //Console.Out.WriteLine("PO:");
-                                //this.listLayer[j].printInfo();
-                            }
+                                 this.listLayer[j].moveStart(layer.End - layer.Start, layer.isHorizontal());
                         }
                         noLayerToDelate = false;
                         if (layer.isHorizontal())
-                        {
-                            h1 = h -(layer.End - layer.Start);
-                            Console.Out.WriteLine("ZM o: " + (layer.End - layer.Start)+
-                                "na "+ h1);
-                        }
-                        else
-                        {
-                            Console.Out.WriteLine("w: " +w);
-                            w1 = w - (layer.End - layer.Start);
-                            Console.Out.WriteLine("ZM o: " + (layer.End - layer.Start)+
-                                "na "+w1);
-                           
-                        }
-                        if ((w1 / h1) > 2)
-                        {
-                            w1 = 2 * h1;
-                            Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
-                        }
+                            h1 = h -(layer.End - layer.Start);                        
+                        else                     
+                            w1 = w - (layer.End - layer.Start);                       
+                        if (((double)w1 /(double) h1) > 2)                        
+                            w1 = 2 * h1;                            
                         if (((double)w1 / (double)h1) < 0.5)
-                        {
-                            h1 = (int)2 * w1;
-                            Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
-                        }
-                        break;
-                         
+                            h1 = (int)2 * w1;                       
+                        break;                         
                     }
-                    //layer.test();
-                    //layer.printInfo();
                 }
                 if (noLayerToDelate)
-                   break;
-                //Console.Out.WriteLine("!!PETLA NOLAYERTODELATE");  
-                w = w1;
+                   break;                
+            w = w1;
             h = h1;
             }
-
-
         }
         private void removeStartRect()
         {
@@ -167,26 +131,19 @@ namespace taio.Algorithms
                 if (this.startRectangle.Width == e.Current.Width &&
                     this.startRectangle.Height == e.Current.Height)
                 {
-                    this.rectangles.Remove(e.Current);
-                    Console.Out.WriteLine("ZNALAZLEM< USUNALEM");
+                    this.rectangles.Remove(e.Current);                    
                     break;
                 }
             }
         }
-        private void checkProportion(ref int w1, ref int h1)//warunek stosunku wymiarow
+        /*private void checkProportion(ref int w1, ref int h1)//warunek stosunku wymiarow
         {
-            if ((w / h) > 2)
-            {
+            if (((double)w / (double)h) > 2)
                 w1 = 2 * h;
-                Console.Out.WriteLine("Zmiana szerokosci!!!!!!!!!!!!!!");
-            }
             if (((double)w / (double)h) < 0.5)
-            {
-                h1 = (int) 2*w;
-                Console.Out.WriteLine("Zmiana wysokosci!!!!!!!!!!!!!!");
-            }
+                h1 = (int) 2*w;          
             return;
-        }
+        }*/
         private List<Data.Rectangle> copyRectangles(List<Data.Rectangle> l)
         {
             List<Data.Rectangle> rectList = new List<Data.Rectangle>();
@@ -226,7 +183,8 @@ namespace taio.Algorithms
             else if (lx < ly) return 1;
             else throw new Exception("Comparing failed");
         }
-        private void test()
+       
+        /*private void test()
         {
             Console.WriteLine();
             for (int i = 0; i < this.Solution.PartsOfSolution.Count; ++i)
@@ -236,7 +194,7 @@ namespace taio.Algorithms
                     p.Xlu + "," + p.Ylu + "," + (p.Xrd - p.Xlu) + "," + (p.Yrd - p.Ylu) +
                     "),");
             }
-        }
+        }*/
         //////////////////////////////////////////////////////////////////////
         private bool buildNextLayer()
         {
@@ -342,12 +300,10 @@ namespace taio.Algorithms
             }
 
         }
-        private void printSolutution()
+        /*private void printSolutution()
         {
             Console.Out.WriteLine("Startowy prostokat: " + this.startRectangle.Width + " : " + this.startRectangle.Height);
             Console.Out.WriteLine("Part[]: (0,0)  (" + this.startRectangle.Width + "," + this.startRectangle.Height + ")");
-
-
             for (int i = 0; i < this.listLayer.Count; ++i)
             {
                 String dir = " Vert ";
@@ -363,7 +319,7 @@ namespace taio.Algorithms
                 }
 
             }
-        }
+        }*/
 
 
     }
